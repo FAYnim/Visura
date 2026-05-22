@@ -431,14 +431,14 @@ function handleCopy() {
     copyBtn.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-check"></i></span> Copied!`;
 
     // Toast
-    showToast('✓ Prompt copied to clipboard!');
+    showToast(`<i class="fa-solid fa-check" style="color: var(--text-primary);"></i> Prompt copied to clipboard!`);
 
     setTimeout(() => {
       copyBtn.classList.remove('copied');
       copyBtn.innerHTML = originalContent;
     }, 2000);
   }).catch(() => {
-    showToast('⚠ Failed to copy. Please try again.');
+    showToast(`<i class="fa-solid fa-triangle-exclamation" style="color: #ff6b6b;"></i> Failed to copy. Please try again.`);
   });
 }
 
@@ -461,14 +461,14 @@ function handleClear() {
   });
 
   renderPreview();
-  showToast(`↺ Slide ${slide} cleared.`);
+  showToast(`<i class="fa-solid fa-rotate-left" style="color: var(--text-secondary);"></i> Slide ${slide} cleared.`);
 }
 
 // =========================================================
 // TOAST
 // =========================================================
 function showToast(message) {
-  toast.textContent = message;
+  toast.innerHTML = message;
   toast.classList.add('show');
   clearTimeout(toast._timeout);
   toast._timeout = setTimeout(() => {
