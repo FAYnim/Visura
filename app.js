@@ -428,7 +428,7 @@ function handleCopy() {
     // Button feedback
     const originalContent = copyBtn.innerHTML;
     copyBtn.classList.add('copied');
-    copyBtn.innerHTML = `<span class="btn-icon">✓</span> Copied!`;
+    copyBtn.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-check"></i></span> Copied!`;
 
     // Toast
     showToast('✓ Prompt copied to clipboard!');

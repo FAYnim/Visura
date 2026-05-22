@@ -10,6 +10,7 @@
   <meta property="og:description" content="Real-time prompt generator for cinematic Instagram portfolio carousels." />
   <meta property="og:type" content="website" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
@@ -18,7 +19,7 @@
        ===================================================== -->
   <header class="app-header" role="banner">
     <div class="header-brand">
-      <div class="brand-icon" aria-hidden="true">⚡</div>
+      <div class="brand-icon" aria-hidden="true"><i class="fa-solid fa-bolt-lightning"></i></div>
       <span class="brand-name">PromptFlex</span>
       <span class="brand-tag">MVP</span>
     </div>
@@ -85,7 +86,7 @@
            ----------------------------------------------- -->
       <div class="form-panel active" data-slide="1" role="tabpanel" aria-labelledby="tab-slide-1">
         <div class="form-section-header">
-          <div class="form-slide-badge">🎬 Cover Slide</div>
+          <div class="form-slide-badge"><i class="fa-solid fa-image" style="margin-right: 6px;"></i> Cover Slide</div>
           <h1 class="form-slide-title">Slide 1 — Cover</h1>
           <p class="form-slide-desc">The hero opener for your carousel. Defines the first visual impression of your digital product showcase.</p>
         </div>
@@ -142,7 +143,7 @@
            ----------------------------------------------- -->
       <div class="form-panel" data-slide="2" role="tabpanel" aria-labelledby="tab-slide-2">
         <div class="form-section-header">
-          <div class="form-slide-badge">📋 Case Study</div>
+          <div class="form-slide-badge"><i class="fa-solid fa-briefcase" style="margin-right: 6px;"></i> Case Study</div>
           <h2 class="form-slide-title">Slide 2 — Overview</h2>
           <p class="form-slide-desc">Project overview slide with description, quote, and 4 feature highlight cards.</p>
         </div>
@@ -244,7 +245,7 @@
            ----------------------------------------------- -->
       <div class="form-panel" data-slide="3" role="tabpanel" aria-labelledby="tab-slide-3">
         <div class="form-section-header">
-          <div class="form-slide-badge">✦ Features Grid</div>
+          <div class="form-slide-badge"><i class="fa-solid fa-cubes" style="margin-right: 6px;"></i> Features Grid</div>
           <h2 class="form-slide-title">Slide 3 — Features</h2>
           <p class="form-slide-desc">Modular feature grid with 6 cards, each containing a title, description, and mini UI component specification.</p>
         </div>
@@ -409,7 +410,7 @@
            ----------------------------------------------- -->
       <div class="form-panel" data-slide="4" role="tabpanel" aria-labelledby="tab-slide-4">
         <div class="form-section-header">
-          <div class="form-slide-badge">📋 Case Study</div>
+          <div class="form-slide-badge"><i class="fa-solid fa-briefcase" style="margin-right: 6px;"></i> Case Study</div>
           <h2 class="form-slide-title">Slide 4 — Deep Dive</h2>
           <p class="form-slide-desc">Second case study slide — ideal for highlighting technical detail, metrics, or product depth.</p>
         </div>
@@ -468,7 +469,7 @@
            ----------------------------------------------- -->
       <div class="form-panel" data-slide="5" role="tabpanel" aria-labelledby="tab-slide-5">
         <div class="form-section-header">
-          <div class="form-slide-badge">🎯 Final Slide</div>
+          <div class="form-slide-badge"><i class="fa-solid fa-bullseye" style="margin-right: 6px;"></i> Final Slide</div>
           <h2 class="form-slide-title">Slide 5 — Closing</h2>
           <p class="form-slide-desc">Closing carousel slide — perfect for final results, calls to action, or a closing statement.</p>
         </div>
@@ -551,11 +552,11 @@
       <!-- Action Buttons -->
       <div class="action-buttons" role="group" aria-label="Prompt actions">
         <button class="btn btn-primary" id="btn-copy" aria-label="Copy current slide prompt to clipboard">
-          <span class="btn-icon">⧉</span>
+          <span class="btn-icon"><i class="fa-regular fa-copy"></i></span>
           Copy Current Slide
         </button>
         <button class="btn btn-secondary" id="btn-clear" aria-label="Clear all inputs on the active slide">
-          <span class="btn-icon">↺</span>
+          <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span>
           Clear Slide
         </button>
       </div>
