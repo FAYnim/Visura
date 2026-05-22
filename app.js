@@ -352,11 +352,11 @@ function renderPreview() {
 
   // Update preview title
   const slideNames = {
-    1: 'Slide 1 — Cover',
-    2: 'Slide 2 — Case Study',
-    3: 'Slide 3 — Features',
-    4: 'Slide 4 — Case Study',
-    5: 'Slide 5 — Case Study'
+    1: 'Slide 1',
+    2: 'Slide 2',
+    3: 'Slide 3',
+    4: 'Slide 4',
+    5: 'Slide 5'
   };
   previewTitle.textContent = `${slideNames[STATE.activeSlide]} Prompt`;
 }

@@ -564,30 +564,6 @@ body {
   position: relative;
 }
 
-.preview-panel-titlebar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.01);
-  border-bottom: 1px solid var(--border-subtle);
-  flex-shrink: 0;
-}
-
-/* Pure gray dots instead of colored dots for minimalist design */
-.titlebar-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.titlebar-filename {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  color: var(--text-muted);
-  margin-left: 6px;
-}
 
 .preview-output {
   flex: 1;
