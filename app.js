@@ -733,18 +733,14 @@ function applyThemeAccent(accent) {
 
   STATE.global.THEME_ACCENT = accent;
 
-  // Update modal accent button active state
+  // Update accent selector buttons in view settings
   document.querySelectorAll('.accent-select-btn').forEach(btn => {
     const isActive = btn.dataset.accent === accent;
     btn.classList.toggle('active', isActive);
   });
 }
 
-function openSettingsModal() {
-  const modal = document.getElementById('settings-modal');
-  if (!modal) return;
-
-  // Load current global state into modal inputs
+function populateSettingsInputs() {
   const creatorNameInput = document.getElementById('setting-creator-name');
   const creatorRoleInput = document.getElementById('setting-creator-role');
   const promptSuffixInput = document.getElementById('setting-prompt-suffix');
@@ -754,13 +750,6 @@ function openSettingsModal() {
   if (promptSuffixInput) promptSuffixInput.value = STATE.global.PROMPT_SUFFIX || '';
 
   applyThemeAccent(STATE.global.THEME_ACCENT || 'green');
-
-  modal.classList.add('active');
-}
-
-function closeSettingsModal() {
-  const modal = document.getElementById('settings-modal');
-  if (modal) modal.classList.remove('active');
 }
 
 function saveGlobalSettings() {
@@ -775,7 +764,6 @@ function saveGlobalSettings() {
   saveSettings();
   updateProfileWidget();
   renderPreview();
-  closeSettingsModal();
   showToast(`<i class="fa-solid fa-check" style="color: var(--accent-primary);"></i> Pengaturan disimpan!`);
 }
 
@@ -800,7 +788,6 @@ function resetGlobalSettings() {
     saveSettings();
     updateProfileWidget();
     renderPreview();
-    closeSettingsModal();
     showToast(`<i class="fa-solid fa-rotate-left" style="color: var(--text-secondary);"></i> Pengaturan disetel ulang.`);
   }
 }
@@ -959,6 +946,12 @@ function switchView(viewName) {
     btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
   });
 
+  // Toggle active class on profile button (Settings tab)
+  const profileBtn = document.getElementById('btn-settings-profile');
+  if (profileBtn) {
+    profileBtn.classList.toggle('active', viewName === 'settings');
+  }
+
   // Toggle visible class on views
   document.querySelectorAll('.app-view').forEach(view => {
     const isActive = view.id === `view-${viewName}`;
@@ -970,6 +963,10 @@ function switchView(viewName) {
     const searchInput = document.getElementById('history-search');
     if (searchInput) searchInput.value = '';
     renderHistory();
+  }
+
+  if (viewName === 'settings') {
+    populateSettingsInputs();
   }
 
   // On mobile, auto-close the drawer when switching views
@@ -1331,7 +1328,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load settings from localStorage
   loadSettings();
   updateProfileWidget();
-  applyThemeAccent(STATE.global.THEME_ACCENT || 'green');
+  populateSettingsInputs();
 
   // Load history from localStorage
   loadHistory();
@@ -1401,25 +1398,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Bind Settings Profile Button in sidebar bottom
+  // Bind Settings Profile Button in sidebar bottom to switch to Settings view
   const profileSettingsBtn = document.getElementById('btn-settings-profile');
   if (profileSettingsBtn) {
-    profileSettingsBtn.addEventListener('click', openSettingsModal);
-  }
-
-  // Bind Settings Close button
-  const closeSettingsBtn = document.getElementById('btn-close-settings');
-  if (closeSettingsBtn) {
-    closeSettingsBtn.addEventListener('click', closeSettingsModal);
-  }
-
-  // Bind Settings Modal Backdrop Click to close
-  const settingsModal = document.getElementById('settings-modal');
-  if (settingsModal) {
-    settingsModal.addEventListener('click', e => {
-      if (e.target === settingsModal) {
-        closeSettingsModal();
-      }
+    profileSettingsBtn.addEventListener('click', () => {
+      switchView('settings');
     });
   }
 
