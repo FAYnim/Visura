@@ -18,6 +18,11 @@
        HEADER — Branding & Global Creator Name Input
        ===================================================== -->
   <header class="app-header" role="banner">
+    <!-- Hamburger button for mobile drawer toggle -->
+    <button id="sidebar-toggle-mobile" class="header-toggle-btn" aria-label="Buka menu navigasi" title="Buka menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
     <div class="header-brand">
       <div class="brand-icon" aria-hidden="true"><i class="fa-solid fa-bolt-lightning"></i></div>
       <span class="brand-name">PromptFlex</span>
@@ -40,9 +45,49 @@
     </div>
   </header>
 
-  <!-- =====================================================
-       SLIDE NAVIGATION TABS
-       ===================================================== -->
+  <div class="app-body">
+    <!-- =====================================================
+         SIDEBAR — Main App Navigation
+         ===================================================== -->
+    <aside class="app-sidebar" aria-label="Main navigation">
+      <div class="sidebar-top">
+        <nav class="sidebar-menu" role="tablist">
+          <button class="sidebar-btn active" role="tab" aria-selected="true" data-view="generator" id="tab-generator">
+            <span class="btn-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+            <span class="btn-text">Generator</span>
+          </button>
+          <button class="sidebar-btn" role="tab" aria-selected="false" data-view="riwayat" id="tab-riwayat">
+            <span class="btn-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
+            <span class="btn-text">Riwayat</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <!-- Desktop collapse toggle button -->
+        <div class="sidebar-header-row">
+          <button id="sidebar-toggle-desktop" class="sidebar-toggle-btn" aria-label="Sembunyikan sidebar" title="Sembunyikan sidebar">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+        </div>
+        <div class="sidebar-footer">
+          <span class="footer-text">PromptFlex v1.1</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =====================================================
+         CONTENT WORKSPACE
+         ===================================================== -->
+    <div class="app-content">
+      <!-- ---------------------------------------------------
+           GENERATOR VIEW
+           --------------------------------------------------- -->
+      <div id="view-generator" class="app-view active">
+
+        <!-- =====================================================
+             SLIDE NAVIGATION TABS
+             ===================================================== -->
   <nav class="slide-nav" role="tablist" aria-label="Slide selector">
     <button class="slide-tab active" role="tab" data-slide="1" aria-selected="true" tabindex="0" id="tab-slide-1">
       <span class="tab-dot" aria-hidden="true"></span>
@@ -558,6 +603,50 @@
     </aside><!-- /preview-column -->
 
   </main><!-- /app-main -->
+      </div><!-- /view-generator -->
+
+      <!-- ---------------------------------------------------
+           RIWAYAT (HISTORY) VIEW
+           --------------------------------------------------- -->
+      <div id="view-riwayat" class="app-view">
+        <div class="history-container">
+          <header class="history-header">
+            <div class="history-title-group">
+              <h2 class="history-title">Riwayat Prompt</h2>
+              <p class="history-desc">Daftar prompt yang telah Anda salin sebelumnya.</p>
+            </div>
+            <div class="history-actions">
+              <button class="btn btn-secondary" id="btn-clear-history" aria-label="Hapus semua riwayat prompt">
+                <span class="btn-icon"><i class="fa-regular fa-trash-can"></i></span>
+                Hapus Semua
+              </button>
+            </div>
+          </header>
+
+          <div class="history-search-bar">
+            <span class="search-icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input
+              type="text"
+              id="history-search"
+              placeholder="Cari riwayat berdasarkan judul slide, nama pembuat, atau teks prompt..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Cari riwayat prompt"
+            />
+          </div>
+
+          <!-- Dynamic history cards container -->
+          <div class="history-list" id="history-list">
+            <!-- Dynamic elements will be injected here by app.js -->
+          </div>
+        </div>
+      </div><!-- /view-riwayat -->
+
+    </div><!-- /app-content -->
+  </div><!-- /app-body -->
+
+  <!-- Glassmorphic overlay backdrop for mobile sidebar drawer -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <!-- =====================================================
        TOAST NOTIFICATION

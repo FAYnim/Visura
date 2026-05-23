@@ -245,6 +245,10 @@ function getTemplateForSlide(slide) {
 // =========================================================
 const STATE = {
   activeSlide: 1,
+  activeView: 'generator', // 'generator' or 'riwayat'
+  sidebarCollapsed: false, // Desktop collapse layout state
+  mobileMenuOpen: false, // Mobile overlay drawer open state
+  history: [], // List of prompt history entries
   global: {
     CREATOR_NAME: ''
   },
@@ -433,6 +437,9 @@ function handleCopy() {
     // Toast
     showToast(`<i class="fa-solid fa-check" style="color: var(--text-primary);"></i> Prompt copied to clipboard!`);
 
+    // Add to history list & persist
+    addToHistory(plain);
+
     setTimeout(() => {
       copyBtn.classList.remove('copied');
       copyBtn.innerHTML = originalContent;
@@ -477,6 +484,374 @@ function showToast(message) {
 }
 
 // =========================================================
+// VIEW & SIDEBAR TOGGLING
+// =========================================================
+function switchView(viewName) {
+  STATE.activeView = viewName;
+
+  // Toggle active class on sidebar buttons
+  document.querySelectorAll('.sidebar-btn').forEach(btn => {
+    const isActive = btn.dataset.view === viewName;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
+
+  // Toggle visible class on views
+  document.querySelectorAll('.app-view').forEach(view => {
+    const isActive = view.id === `view-${viewName}`;
+    view.classList.toggle('active', isActive);
+  });
+
+  if (viewName === 'riwayat') {
+    // Clear search query and render everything
+    const searchInput = document.getElementById('history-search');
+    if (searchInput) searchInput.value = '';
+    renderHistory();
+  }
+
+  // On mobile, auto-close the drawer when switching views
+  if (window.innerWidth <= 768) {
+    toggleMobileSidebar(false);
+  }
+}
+
+// =========================================================
+// HISTORY (RIWAYAT) ENGINE
+// =========================================================
+function addToHistory(promptText) {
+  const slideNames = {
+    1: 'Slide 1 — Cover',
+    2: 'Slide 2 — Overview',
+    3: 'Slide 3 — Features',
+    4: 'Slide 4 — Deep Dive',
+    5: 'Slide 5 — Closing'
+  };
+
+  const historyItem = {
+    id: 'hist_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+    timestamp: new Date().toISOString(),
+    slideNum: STATE.activeSlide,
+    slideName: slideNames[STATE.activeSlide] || `Slide ${STATE.activeSlide}`,
+    creator: STATE.global.CREATOR_NAME ? STATE.global.CREATOR_NAME.trim() : 'Anonymous',
+    promptText: promptText
+  };
+
+  // Add to start of history list
+  STATE.history.unshift(historyItem);
+
+  // Cap at 50 items
+  if (STATE.history.length > 50) {
+    STATE.history.pop();
+  }
+
+  saveHistory();
+}
+
+function saveHistory() {
+  try {
+    localStorage.setItem('promptflex_history', JSON.stringify(STATE.history));
+  } catch (e) {
+    console.error('Failed to save history to localStorage', e);
+  }
+}
+
+function loadHistory() {
+  try {
+    const stored = localStorage.getItem('promptflex_history');
+    if (stored) {
+      STATE.history = JSON.parse(stored);
+    } else {
+      STATE.history = [];
+    }
+  } catch (e) {
+    console.error('Failed to load history from localStorage', e);
+    STATE.history = [];
+  }
+}
+
+function renderHistory(searchQuery = '') {
+  const historyListContainer = document.getElementById('history-list');
+  if (!historyListContainer) return;
+
+  const query = searchQuery.trim().toLowerCase();
+  
+  // Filter history
+  const filtered = STATE.history.filter(item => {
+    if (!query) return true;
+    return item.slideName.toLowerCase().includes(query) ||
+           item.creator.toLowerCase().includes(query) ||
+           item.promptText.toLowerCase().includes(query);
+  });
+
+  if (filtered.length === 0) {
+    // Show empty state
+    if (STATE.history.length === 0) {
+      historyListContainer.innerHTML = `
+        <div class="history-empty-state">
+          <div class="empty-icon-wrap" aria-hidden="true">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+          <h3 class="empty-title">Belum ada riwayat prompt</h3>
+          <p class="empty-desc">Setiap kali Anda menyalin prompt di menu Generator, prompt tersebut akan otomatis terekam secara aman di sini.</p>
+          <button class="btn btn-primary btn-empty-cta" onclick="switchView('generator')">
+            <span class="btn-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+            Mulai Generator
+          </button>
+        </div>
+      `;
+    } else {
+      historyListContainer.innerHTML = `
+        <div class="history-empty-state">
+          <div class="empty-icon-wrap" aria-hidden="true">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <h3 class="empty-title">Tidak ada hasil pencarian</h3>
+          <p class="empty-desc">Tidak dapat menemukan riwayat dengan kata kunci "${escapeHtml(searchQuery)}". Silakan coba kata kunci lain.</p>
+          <button class="btn btn-secondary btn-empty-cta" onclick="clearHistorySearch()">
+            Bersihkan Pencarian
+          </button>
+        </div>
+      `;
+    }
+    return;
+  }
+
+  // Generate cards HTML
+  let cardsHtml = '';
+  filtered.forEach(item => {
+    const timeString = formatRelativeTime(new Date(item.timestamp));
+    
+    // Highlight matched text if query is active
+    let highlightedText = escapeHtml(item.promptText);
+    let highlightedTitle = escapeHtml(item.slideName);
+    let highlightedCreator = escapeHtml(item.creator);
+
+    if (query) {
+      const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+      highlightedText = highlightedText.replace(regex, '<span class="search-match-hl">$1</span>');
+      highlightedTitle = highlightedTitle.replace(regex, '<span class="search-match-hl">$1</span>');
+      highlightedCreator = highlightedCreator.replace(regex, '<span class="search-match-hl">$1</span>');
+    }
+
+    cardsHtml += `
+      <div class="history-card" data-id="${item.id}" id="card-${item.id}">
+        <div class="history-card-header">
+          <div class="history-card-meta">
+            <h3 class="history-card-title">${highlightedTitle}</h3>
+            <span class="history-card-time" title="${escapeHtml(new Date(item.timestamp).toLocaleString())}">
+              <i class="fa-regular fa-clock" style="margin-right: 4px;"></i>${timeString}
+            </span>
+          </div>
+          <button class="history-card-delete" data-id="${item.id}" aria-label="Hapus item riwayat" title="Hapus dari riwayat">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+
+        <div class="history-card-body">
+          <pre class="history-card-text">${highlightedText}</pre>
+        </div>
+
+        <div class="history-card-footer">
+          <div class="history-card-creator">
+            <i class="fa-regular fa-user"></i>
+            <span class="creator-name">${highlightedCreator}</span>
+          </div>
+          <button class="btn-history-copy" data-id="${item.id}" aria-label="Salin kembali prompt ini">
+            <span class="btn-icon"><i class="fa-regular fa-copy"></i></span>
+            Salin Kembali
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  historyListContainer.innerHTML = cardsHtml;
+
+  // Bind event listeners for card elements
+  // Delete buttons
+  historyListContainer.querySelectorAll('.history-card-delete').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const id = btn.dataset.id;
+      deleteHistoryItem(id);
+    });
+  });
+
+  // Copy buttons
+  historyListContainer.querySelectorAll('.btn-history-copy').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const id = btn.dataset.id;
+      handleHistoryCopy(id, btn);
+    });
+  });
+}
+
+function formatRelativeTime(date) {
+  const now = new Date();
+  const diffMs = now - date;
+  const diffSec = Math.floor(diffMs / 1000);
+  const diffMin = Math.floor(diffSec / 60);
+  const diffHr = Math.floor(diffMin / 60);
+  const diffDays = Math.floor(diffHr / 24);
+
+  if (diffSec < 15) {
+    return 'baru saja';
+  } else if (diffSec < 60) {
+    return `${diffSec} detik yang lalu`;
+  } else if (diffMin < 60) {
+    return `${diffMin} menit yang lalu`;
+  } else if (diffHr < 24) {
+    return `${diffHr} jam yang lalu`;
+  } else if (diffDays === 1) {
+    return 'kemarin';
+  } else {
+    return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+}
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function clearHistorySearch() {
+  const searchInput = document.getElementById('history-search');
+  if (searchInput) {
+    searchInput.value = '';
+    renderHistory();
+  }
+}
+
+function deleteHistoryItem(id) {
+  const card = document.getElementById(`card-${id}`);
+  if (card) {
+    // Elegant fade out animation before removal
+    card.style.transform = 'scale(0.95)';
+    card.style.opacity = '0';
+    card.style.transition = 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
+    
+    setTimeout(() => {
+      STATE.history = STATE.history.filter(item => item.id !== id);
+      saveHistory();
+      renderHistory(document.getElementById('history-search')?.value || '');
+      showToast(`<i class="fa-solid fa-trash-can" style="color: var(--text-secondary);"></i> Riwayat dihapus.`);
+    }, 250);
+  }
+}
+
+function handleHistoryCopy(id, btn) {
+  const item = STATE.history.find(x => x.id === id);
+  if (!item) return;
+
+  navigator.clipboard.writeText(item.promptText).then(() => {
+    // Button feedback
+    const originalContent = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-check"></i></span> Tersalin!`;
+
+    showToast(`<i class="fa-solid fa-check" style="color: var(--text-primary);"></i> Prompt disalin kembali!`);
+
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = originalContent;
+    }, 2000);
+  }).catch(() => {
+    showToast(`<i class="fa-solid fa-triangle-exclamation" style="color: #ff6b6b;"></i> Gagal menyalin. Silakan coba lagi.`);
+  });
+}
+
+function clearAllHistory() {
+  if (STATE.history.length === 0) {
+    showToast(`<i class="fa-solid fa-circle-info" style="color: var(--text-secondary);"></i> Belum ada riwayat untuk dihapus.`);
+    return;
+  }
+
+  const confirmClear = confirm("Apakah Anda yakin ingin menghapus seluruh riwayat prompt? Tindakan ini tidak dapat dibatalkan.");
+  if (confirmClear) {
+    STATE.history = [];
+    saveHistory();
+    renderHistory();
+    showToast(`<i class="fa-solid fa-trash-can" style="color: var(--text-secondary);"></i> Seluruh riwayat dibersihkan.`);
+  }
+}
+
+// Expose view functions globally for empty state CTA buttons
+window.switchView = switchView;
+window.clearHistorySearch = clearHistorySearch;
+
+// =========================================================
+// SIDEBAR COLLAPSIBLE ENGINE (PERSISTENCE & EVENTS)
+// =========================================================
+function saveLayoutPreferences() {
+  try {
+    localStorage.setItem('promptflex_sidebar_collapsed', JSON.stringify(STATE.sidebarCollapsed));
+  } catch (e) {
+    console.error('Failed to save layout preferences', e);
+  }
+}
+
+function loadLayoutPreferences() {
+  try {
+    const stored = localStorage.getItem('promptflex_sidebar_collapsed');
+    if (stored !== null) {
+      STATE.sidebarCollapsed = JSON.parse(stored);
+      applyDesktopSidebarState();
+    }
+  } catch (e) {
+    console.error('Failed to load layout preferences', e);
+  }
+}
+
+function applyDesktopSidebarState() {
+  const sidebar = document.querySelector('.app-sidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('collapsed', STATE.sidebarCollapsed);
+    
+    // Update collapse button tooltip & ARIA label
+    const toggleBtn = document.getElementById('sidebar-toggle-desktop');
+    if (toggleBtn) {
+      if (STATE.sidebarCollapsed) {
+        toggleBtn.setAttribute('aria-label', 'Tampilkan sidebar');
+        toggleBtn.setAttribute('title', 'Tampilkan sidebar');
+      } else {
+        toggleBtn.setAttribute('aria-label', 'Sembunyikan sidebar');
+        toggleBtn.setAttribute('title', 'Sembunyikan sidebar');
+      }
+    }
+  }
+}
+
+function toggleDesktopSidebar() {
+  STATE.sidebarCollapsed = !STATE.sidebarCollapsed;
+  applyDesktopSidebarState();
+  saveLayoutPreferences();
+}
+
+function toggleMobileSidebar(force) {
+  const open = force !== undefined ? force : !STATE.mobileMenuOpen;
+  STATE.mobileMenuOpen = open;
+
+  const sidebar = document.querySelector('.app-sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const toggleIcon = document.querySelector('#sidebar-toggle-mobile i');
+
+  if (sidebar) sidebar.classList.toggle('mobile-active', open);
+  if (overlay) overlay.classList.toggle('active', open);
+  
+  if (toggleIcon) {
+    if (open) {
+      toggleIcon.className = 'fa-solid fa-xmark';
+    } else {
+      toggleIcon.className = 'fa-solid fa-bars';
+    }
+  }
+}
+
+// Expose layout helpers globally
+window.toggleMobileSidebar = toggleMobileSidebar;
+window.toggleDesktopSidebar = toggleDesktopSidebar;
+
+// =========================================================
 // INIT
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -486,6 +861,12 @@ document.addEventListener('DOMContentLoaded', () => {
   toast = document.getElementById('app-toast');
   copyBtn = document.getElementById('btn-copy');
   clearBtn = document.getElementById('btn-clear');
+
+  // Load history from localStorage
+  loadHistory();
+
+  // Load sidebar collapse preference from localStorage
+  loadLayoutPreferences();
 
   // Bind inputs
   bindInputs();
@@ -504,6 +885,50 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Bind Sidebar Buttons
+  document.querySelectorAll('.sidebar-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchView(btn.dataset.view);
+    });
+  });
+
+  // Bind Desktop Collapse Button
+  const toggleBtnDesktop = document.getElementById('sidebar-toggle-desktop');
+  if (toggleBtnDesktop) {
+    toggleBtnDesktop.addEventListener('click', toggleDesktopSidebar);
+  }
+
+  // Bind Mobile Hamburger Toggle Button
+  const toggleBtnMobile = document.getElementById('sidebar-toggle-mobile');
+  if (toggleBtnMobile) {
+    toggleBtnMobile.addEventListener('click', () => {
+      toggleMobileSidebar();
+    });
+  }
+
+  // Bind Mobile Overlay Backdrop Click
+  const overlay = document.getElementById('sidebar-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      toggleMobileSidebar(false);
+    });
+  }
+
+  // Bind Clear History Button
+  const clearHistoryBtn = document.getElementById('btn-clear-history');
+  if (clearHistoryBtn) {
+    clearHistoryBtn.addEventListener('click', clearAllHistory);
+  }
+
+  // Bind History Search input
+  const searchInput = document.getElementById('history-search');
+  if (searchInput) {
+    searchInput.value = '';
+    searchInput.addEventListener('input', e => {
+      renderHistory(e.target.value);
+    });
+  }
 
   // Copy/Clear buttons
   copyBtn.addEventListener('click', handleCopy);
