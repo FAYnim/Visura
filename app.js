@@ -575,7 +575,10 @@ const STATE = {
   mobileMenuOpen: false, // Mobile overlay drawer open state
   history: [], // List of prompt history entries
   global: {
-    CREATOR_NAME: ''
+    CREATOR_NAME: '',
+    CREATOR_ROLE: '',
+    PROMPT_SUFFIX: '',
+    THEME_ACCENT: 'green'
   },
   slides: {
     1: { BADGE_TEXT: '', MAIN_HEADLINE: '', SUBTITLE_TEXT: '' },
@@ -630,7 +633,7 @@ function compileTemplate(slideNum) {
   const allData = { ...slideData, ...globalData };
 
   // Replace with span-based highlighting
-  return template.replace(/\{\{([A-Z0-9_]+)\}\}/g, (match, key) => {
+  let compiled = template.replace(/\{\{([A-Z0-9_]+)\}\}/g, (match, key) => {
     const value = allData[key];
     if (value && value.trim() !== '') {
       return `<span class="ph-filled">${escapeHtml(value)}</span>`;
@@ -638,6 +641,13 @@ function compileTemplate(slideNum) {
       return `<span class="ph-empty">[${key}]</span>`;
     }
   });
+
+  // Append global prompt suffix if present
+  if (STATE.global.PROMPT_SUFFIX && STATE.global.PROMPT_SUFFIX.trim() !== '') {
+    compiled += `\n\n<span class="ph-filled">${escapeHtml(STATE.global.PROMPT_SUFFIX.trim())}</span>`;
+  }
+
+  return compiled;
 }
 
 // Compile to plain text (for clipboard)
@@ -647,10 +657,17 @@ function compilePlainText(slideNum) {
   const globalData = STATE.global;
   const allData = { ...slideData, ...globalData };
 
-  return template.replace(/\{\{([A-Z0-9_]+)\}\}/g, (match, key) => {
+  let compiled = template.replace(/\{\{([A-Z0-9_]+)\}\}/g, (match, key) => {
     const value = allData[key];
     return (value && value.trim() !== '') ? value : `[${key}]`;
   });
+
+  // Append global prompt suffix if present
+  if (STATE.global.PROMPT_SUFFIX && STATE.global.PROMPT_SUFFIX.trim() !== '') {
+    compiled += '\n\n' + STATE.global.PROMPT_SUFFIX.trim();
+  }
+
+  return compiled;
 }
 
 function escapeHtml(str) {
@@ -660,6 +677,132 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+// =========================================================
+// GLOBAL SETTINGS & THEME ENGINE
+// =========================================================
+function saveSettings() {
+  try {
+    localStorage.setItem('promptflex_global_settings', JSON.stringify(STATE.global));
+  } catch (e) {
+    console.error('Failed to save settings to localStorage', e);
+  }
+}
+
+function loadSettings() {
+  try {
+    const stored = localStorage.getItem('promptflex_global_settings');
+    if (stored) {
+      const settings = JSON.parse(stored);
+      STATE.global = { ...STATE.global, ...settings };
+    }
+  } catch (e) {
+    console.error('Failed to load settings from localStorage', e);
+  }
+}
+
+function updateProfileWidget() {
+  const profileNameEl = document.querySelector('.profile-name');
+  if (profileNameEl) {
+    profileNameEl.textContent = STATE.global.CREATOR_NAME && STATE.global.CREATOR_NAME.trim() !== '' 
+      ? STATE.global.CREATOR_NAME.trim() 
+      : 'Faris AY';
+  }
+  const profileTitleEl = document.querySelector('.profile-title');
+  if (profileTitleEl) {
+    profileTitleEl.textContent = STATE.global.CREATOR_ROLE && STATE.global.CREATOR_ROLE.trim() !== '' 
+      ? STATE.global.CREATOR_ROLE.trim() 
+      : 'Settings';
+  }
+}
+
+function applyThemeAccent(accent) {
+  const root = document.documentElement;
+  const accents = {
+    green: { primary: '#00ff66', glow: 'rgba(0, 255, 102, 0.25)', code: '#00ff66' },
+    blue: { primary: '#3b82f6', glow: 'rgba(59, 130, 246, 0.25)', code: '#60a5fa' },
+    violet: { primary: '#d946ef', glow: 'rgba(217, 70, 239, 0.25)', code: '#f472b6' },
+    red: { primary: '#f43f5e', glow: 'rgba(244, 63, 94, 0.25)', code: '#fb7185' }
+  };
+
+  const colors = accents[accent] || accents.green;
+  root.style.setProperty('--accent-primary', colors.primary);
+  root.style.setProperty('--accent-glow', colors.glow);
+  root.style.setProperty('--text-code', colors.code);
+
+  STATE.global.THEME_ACCENT = accent;
+
+  // Update modal accent button active state
+  document.querySelectorAll('.accent-select-btn').forEach(btn => {
+    const isActive = btn.dataset.accent === accent;
+    btn.classList.toggle('active', isActive);
+  });
+}
+
+function openSettingsModal() {
+  const modal = document.getElementById('settings-modal');
+  if (!modal) return;
+
+  // Load current global state into modal inputs
+  const creatorNameInput = document.getElementById('setting-creator-name');
+  const creatorRoleInput = document.getElementById('setting-creator-role');
+  const promptSuffixInput = document.getElementById('setting-prompt-suffix');
+
+  if (creatorNameInput) creatorNameInput.value = STATE.global.CREATOR_NAME || '';
+  if (creatorRoleInput) creatorRoleInput.value = STATE.global.CREATOR_ROLE || '';
+  if (promptSuffixInput) promptSuffixInput.value = STATE.global.PROMPT_SUFFIX || '';
+
+  applyThemeAccent(STATE.global.THEME_ACCENT || 'green');
+
+  modal.classList.add('active');
+}
+
+function closeSettingsModal() {
+  const modal = document.getElementById('settings-modal');
+  if (modal) modal.classList.remove('active');
+}
+
+function saveGlobalSettings() {
+  const creatorNameInput = document.getElementById('setting-creator-name');
+  const creatorRoleInput = document.getElementById('setting-creator-role');
+  const promptSuffixInput = document.getElementById('setting-prompt-suffix');
+
+  if (creatorNameInput) STATE.global.CREATOR_NAME = creatorNameInput.value;
+  if (creatorRoleInput) STATE.global.CREATOR_ROLE = creatorRoleInput.value;
+  if (promptSuffixInput) STATE.global.PROMPT_SUFFIX = promptSuffixInput.value;
+
+  saveSettings();
+  updateProfileWidget();
+  renderPreview();
+  closeSettingsModal();
+  showToast(`<i class="fa-solid fa-check" style="color: var(--accent-primary);"></i> Pengaturan disimpan!`);
+}
+
+function resetGlobalSettings() {
+  const confirmClear = confirm("Apakah Anda yakin ingin menyetel ulang seluruh pengaturan global ke default?");
+  if (confirmClear) {
+    STATE.global.CREATOR_NAME = '';
+    STATE.global.CREATOR_ROLE = '';
+    STATE.global.PROMPT_SUFFIX = '';
+    STATE.global.THEME_ACCENT = 'green';
+
+    applyThemeAccent('green');
+    
+    const creatorNameInput = document.getElementById('setting-creator-name');
+    const creatorRoleInput = document.getElementById('setting-creator-role');
+    const promptSuffixInput = document.getElementById('setting-prompt-suffix');
+
+    if (creatorNameInput) creatorNameInput.value = '';
+    if (creatorRoleInput) creatorRoleInput.value = '';
+    if (promptSuffixInput) promptSuffixInput.value = '';
+
+    saveSettings();
+    updateProfileWidget();
+    renderPreview();
+    closeSettingsModal();
+    showToast(`<i class="fa-solid fa-rotate-left" style="color: var(--text-secondary);"></i> Pengaturan disetel ulang.`);
+  }
 }
 
 // =========================================================
@@ -721,16 +864,6 @@ function switchSlide(slideNum) {
 // INPUT BINDING
 // =========================================================
 function bindInputs() {
-  // Global creator name
-  const creatorInput = document.getElementById('input-creator-name');
-  if (creatorInput) {
-    creatorInput.value = STATE.global.CREATOR_NAME;
-    creatorInput.addEventListener('input', e => {
-      STATE.global.CREATOR_NAME = e.target.value;
-      renderPreview();
-    });
-  }
-
   // All form inputs/textareas with data-key and data-slide
   document.querySelectorAll('[data-key]').forEach(el => {
     const key = el.dataset.key;
@@ -1195,6 +1328,11 @@ document.addEventListener('DOMContentLoaded', () => {
   copyBtn = document.getElementById('btn-copy');
   clearBtn = document.getElementById('btn-clear');
 
+  // Load settings from localStorage
+  loadSettings();
+  updateProfileWidget();
+  applyThemeAccent(STATE.global.THEME_ACCENT || 'green');
+
   // Load history from localStorage
   loadHistory();
 
@@ -1262,6 +1400,47 @@ document.addEventListener('DOMContentLoaded', () => {
       renderHistory(e.target.value);
     });
   }
+
+  // Bind Settings Profile Button in sidebar bottom
+  const profileSettingsBtn = document.getElementById('btn-settings-profile');
+  if (profileSettingsBtn) {
+    profileSettingsBtn.addEventListener('click', openSettingsModal);
+  }
+
+  // Bind Settings Close button
+  const closeSettingsBtn = document.getElementById('btn-close-settings');
+  if (closeSettingsBtn) {
+    closeSettingsBtn.addEventListener('click', closeSettingsModal);
+  }
+
+  // Bind Settings Modal Backdrop Click to close
+  const settingsModal = document.getElementById('settings-modal');
+  if (settingsModal) {
+    settingsModal.addEventListener('click', e => {
+      if (e.target === settingsModal) {
+        closeSettingsModal();
+      }
+    });
+  }
+
+  // Bind Settings Save Button
+  const saveSettingsBtn = document.getElementById('btn-save-settings');
+  if (saveSettingsBtn) {
+    saveSettingsBtn.addEventListener('click', saveGlobalSettings);
+  }
+
+  // Bind Settings Reset Button
+  const resetSettingsBtn = document.getElementById('btn-reset-settings');
+  if (resetSettingsBtn) {
+    resetSettingsBtn.addEventListener('click', resetGlobalSettings);
+  }
+
+  // Bind Accent selectors click
+  document.querySelectorAll('.accent-select-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      applyThemeAccent(btn.dataset.accent);
+    });
+  });
 
   // Copy/Clear buttons
   copyBtn.addEventListener('click', handleCopy);
