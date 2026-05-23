@@ -59,7 +59,7 @@ Overall mood:
 luxurious futuristic SaaS presentation, cinematic UI showcase, premium digital product branding, Behance featured portfolio aesthetic, modern startup visual identity.`,
 
   // Slides 2, 4, 5 share this template
-  case_study: `Create a premium futuristic Instagram carousel slide for a modern digital product portfolio case study using the uploaded project screenshot as the main interface showcase.
+  case_study: `Create a premium futuristic Instagram carousel slide for a modern digital product portfolio project overview using the uploaded project screenshot as the main interface showcase.
 
 IMPORTANT:
 Use the uploaded screenshot image as the interface displayed inside the floating browser frame.
@@ -69,7 +69,7 @@ Canvas size:
 1080x1350 portrait.
 
 Style:
-minimal futuristic SaaS presentation, luxury startup branding, cinematic dark UI aesthetic, modern editorial layout, inspired by Apple keynote, Linear, Stripe, Framer, and high-end Behance case studies.
+minimal futuristic SaaS presentation, luxury startup branding, cinematic dark UI aesthetic, modern editorial layout, inspired by Apple keynote, Linear, Stripe, Framer, and high-end Behance project overviews.
 
 Background:
 deep black cinematic background with subtle grain texture, soft atmospheric green and blue glow lighting, minimal dotted particle details, elegant futuristic ambiance.
@@ -140,7 +140,7 @@ Title: "{{FEATURE_TITLE_4}}"
 Description: "{{FEATURE_DESC_4}}"
 
 Overall mood:
-luxurious futuristic product presentation, cinematic UI showcase, premium startup branding, modern digital product case study, Behance featured project aesthetic.
+luxurious futuristic product presentation, cinematic UI showcase, premium startup branding, modern digital product project overview, Behance featured project aesthetic.
 
 Quality:
 ultra detailed, cinematic lighting, realistic reflections, soft bloom glow, high-end art direction, sophisticated composition, elegant visual hierarchy, premium portfolio presentation.`,
@@ -232,7 +232,7 @@ premium enterprise SaaS branding, futuristic UI showcase, cinematic digital prod
 Quality:
 ultra detailed, cinematic lighting, realistic reflections, elegant composition, sophisticated art direction, premium visual hierarchy, modern futuristic presentation.`
 ,
-  4: `Create a premium futuristic Instagram carousel slide designed as a cinematic digital product campaign poster using the uploaded project screenshots as the main interface visuals.
+  4: `Create a premium futuristic Instagram carousel slide designed as a cinematic digital product UI showcase using the uploaded project screenshots as the main interface visuals.
 
 IMPORTANT:
 Use the uploaded screenshots as the interfaces displayed inside the floating futuristic display panels.
@@ -383,7 +383,7 @@ Examples:
 DESIGNED FOR IMPACT."
 
 Overall mood:
-futuristic product campaign poster, immersive AI platform showcase, cinematic enterprise SaaS branding, luxury startup presentation, sci-fi UI ecosystem aesthetic, Behance featured project quality.
+futuristic product UI showcase, immersive AI platform showcase, cinematic enterprise SaaS branding, luxury startup presentation, sci-fi UI ecosystem aesthetic, Behance featured project quality.
 
 Quality:
 ultra detailed, cinematic lighting, realistic reflections, soft bloom glow, immersive perspective composition, sophisticated art direction, premium futuristic branding, high-end visual hierarchy.`
@@ -571,7 +571,7 @@ function getTemplateForSlide(slide) {
 const STATE = {
   activeSlide: 1,
   activeView: 'generator', // 'generator' or 'riwayat'
-  sidebarCollapsed: false, // Desktop collapse layout state
+  sidebarCollapsed: true, // Desktop collapse layout state
   mobileMenuOpen: false, // Mobile overlay drawer open state
   history: [], // List of prompt history entries
   global: {
@@ -851,9 +851,9 @@ function switchView(viewName) {
 function addToHistory(promptText) {
   const slideNames = {
     1: 'Slide 1 — Cover',
-    2: 'Slide 2 — Overview',
+    2: 'Slide 2 — Project Overview',
     3: 'Slide 3 — Features',
-    4: 'Slide 4 — Campaign Poster',
+    4: 'Slide 4 — UI Showcase',
     5: 'Slide 5 — Closing Outro'
   };
 
@@ -1125,10 +1125,13 @@ function loadLayoutPreferences() {
     const stored = localStorage.getItem('promptflex_sidebar_collapsed');
     if (stored !== null) {
       STATE.sidebarCollapsed = JSON.parse(stored);
-      applyDesktopSidebarState();
+    } else {
+      STATE.sidebarCollapsed = true;
     }
+    applyDesktopSidebarState();
   } catch (e) {
     console.error('Failed to load layout preferences', e);
+    applyDesktopSidebarState();
   }
 }
 
