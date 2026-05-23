@@ -231,13 +231,338 @@ premium enterprise SaaS branding, futuristic UI showcase, cinematic digital prod
 
 Quality:
 ultra detailed, cinematic lighting, realistic reflections, elegant composition, sophisticated art direction, premium visual hierarchy, modern futuristic presentation.`
+,
+  4: `Create a premium futuristic Instagram carousel slide designed as a cinematic digital product campaign poster using the uploaded project screenshots as the main interface visuals.
+
+IMPORTANT:
+Use the uploaded screenshots as the interfaces displayed inside the floating futuristic display panels.
+Preserve the original UI designs while integrating them naturally into the immersive cinematic environment.
+
+Canvas size:
+1080x1350 portrait.
+
+Style:
+luxurious futuristic SaaS campaign aesthetic, cinematic sci-fi interface presentation, premium startup branding, immersive AI platform showcase, inspired by Apple keynote visuals, futuristic operating system concepts, sci-fi command centers, Linear, Stripe, and high-end Behance presentations.
+
+Background:
+deep black cinematic background with subtle grain texture, atmospheric blue glow, soft green ambient lighting, futuristic haze, minimal particle details, immersive sci-fi atmosphere.
+
+Top left branding badge:
+minimal segmented capsule with subtle borders and elegant futuristic styling.
+
+Badge text:
+"{{TOP_LEFT_BADGE}}"
+
+Examples:
+"INSIGHT v1.0"
+"PLATFORM v2.1"
+"SYSTEM CORE"
+
+Top right editorial label:
+small uppercase luxury typography with large letter spacing.
+
+Label text:
+"{{TOP_RIGHT_LABEL}}"
+
+Examples:
+"AI-POWERED ANALYTICS"
+"ENTERPRISE AI PLATFORM"
+"FUTURE SYSTEM INTERFACE"
+
+Main hero typography:
+massive centered ultra-bold editorial sans-serif heading.
+
+Heading text:
+"{{MAIN_HEADLINE}}"
+
+Examples:
+"INSIGHT.
+ENGINEERED."
+
+"SMART.
+AUTOMATED."
+
+Typography style:
+metallic silver-to-white gradient, oversized scale, cinematic editorial hierarchy, luxurious modern tech branding, strong negative space.
+
+Subtitle below heading:
+"{{SUBTITLE_TEXT}}"
+
+Example:
+"Real-time analytics platform for smarter decisions."
+
+Highlight one important keyword in neon green.
+
+Feature pills section:
+display 4 premium futuristic pills below the subtitle.
+
+Pill placeholders:
+
+Pill 1:
+"{{PILL_TEXT_1}}"
+
+Pill 2:
+"{{PILL_TEXT_2}}"
+
+Pill 3:
+"{{PILL_TEXT_3}}"
+
+Pill 4:
+"{{PILL_TEXT_4}}"
+
+Examples:
+"Responsive"
+"React + Tailwind"
+"Dark Mode"
+"Realtime System"
+
+Pill style:
+minimal dark glassmorphism capsules with:
+- subtle neon icons
+- soft glow
+- rounded corners
+- futuristic premium UI styling
+
+Main composition:
+create an immersive futuristic stage presentation using 3 floating interface displays.
+
+Center display:
+large primary dashboard interface positioned front-facing in the middle.
+
+Left display:
+angled perspective interface panel positioned partially outside the canvas.
+
+Right display:
+angled perspective interface panel positioned partially outside the canvas.
+
+Display style:
+floating futuristic browser panels with:
+- cinematic reflections
+- glowing purple edge lighting
+- subtle transparency
+- premium glassmorphism
+- immersive perspective depth
+- soft bloom lighting
+
+IMPORTANT:
+Embed the uploaded screenshots naturally into the floating display panels with realistic perspective transformation, cinematic reflections, glow integration, and premium presentation styling.
+
+Do not redesign the uploaded interfaces.
+Preserve the original UI appearance.
+
+Environment:
+create a futuristic stage environment underneath the interfaces using:
+- glowing blue perspective floor lines
+- neon runway lighting
+- subtle reflective surfaces
+- immersive cinematic depth
+- sci-fi presentation atmosphere
+
+Lighting:
+use:
+- electric blue glow
+- soft purple edge lighting
+- subtle green accent lighting
+- cinematic bloom
+- atmospheric shadows
+
+Footer left:
+minimal creator branding.
+
+Creator text:
+"Crafted by {{CREATOR_NAME}}"
+
+Footer right:
+minimal editorial brand statement.
+
+Brand statement:
+"{{BRAND_STATEMENT}}"
+
+Examples:
+"BUILT FOR DEVELOPERS.
+DESIGNED FOR IMPACT."
+
+Overall mood:
+futuristic product campaign poster, immersive AI platform showcase, cinematic enterprise SaaS branding, luxury startup presentation, sci-fi UI ecosystem aesthetic, Behance featured project quality.
+
+Quality:
+ultra detailed, cinematic lighting, realistic reflections, soft bloom glow, immersive perspective composition, sophisticated art direction, premium futuristic branding, high-end visual hierarchy.`
+,
+  5: `Create a premium futuristic Instagram carousel closing slide for a modern UI/UX portfolio presentation.
+
+Canvas size:
+1080x1350 portrait.
+
+Style:
+minimal futuristic luxury aesthetic, cinematic SaaS branding, elegant tech presentation, premium portfolio outro screen, inspired by Apple keynote visuals, Linear, Stripe, futuristic AI interfaces, and Behance featured presentations.
+
+Background:
+deep black cinematic background with:
+- subtle grain texture
+- soft blue ambient glow on the left
+- soft green ambient glow on the right
+- atmospheric vignette
+- minimal futuristic particles
+- dark luxury mood
+
+Main composition:
+centered symmetrical layout with elegant spacing and strong visual hierarchy.
+
+Background element:
+create a giant subtle circular outline behind the main content, resembling:
+- futuristic HUD interface
+- cinematic presentation frame
+- sci-fi system UI
+
+The circle should be:
+- very thin
+- subtle
+- low opacity
+- softly glowing
+
+Top badge:
+small futuristic capsule badge centered at the top.
+
+Badge text:
+"{{TOP_BADGE_TEXT}}"
+
+Examples:
+"THANK YOU"
+"FINAL SLIDE"
+"END OF SHOWCASE"
+
+Badge style:
+- rounded capsule
+- thin subtle border
+- small neon green indicator dot
+- uppercase editorial typography
+- elegant spacing
+
+Main hero typography:
+large oversized bold geometric sans-serif typography.
+
+Headline text:
+"{{MAIN_HEADLINE}}"
+
+Examples:
+"Built with Passion."
+"Designed for Impact."
+"Crafted with Vision."
+"Made for the Future."
+
+Typography style:
+- metallic silver gradient
+- cinematic luxury typography
+- ultra-bold
+- centered alignment
+- oversized scale
+- modern editorial spacing
+
+Divider section:
+place a thin horizontal divider below the headline with:
+- subtle glow
+- tiny neon waveform pulse in the center
+- futuristic signal aesthetic
+
+Description text:
+centered minimal paragraph below the divider.
+
+Description placeholder:
+"{{DESCRIPTION_TEXT}}"
+
+Example:
+"Every feature. Every line of code.
+Crafted to solve real problems and deliver real impact."
+
+Highlight one important keyword using neon green.
+
+Creator card:
+centered premium glassmorphism identity card.
+
+Card contains:
+- creator logo placeholder
+- creator name
+- creator role or label
+- small neon status indicator
+
+Creator placeholders:
+"{{CREATOR_NAME}}"
+"{{CREATOR_ROLE}}"
+
+Examples:
+"Alex Morgan"
+"UI/UX Designer"
+"Frontend Developer"
+"Creative Engineer"
+
+Card style:
+- dark transparent glass
+- subtle reflections
+- soft border
+- futuristic luxury UI
+- rounded corners
+- cinematic glow
+
+CTA section:
+create 2 futuristic CTA rows below the creator card.
+
+CTA 1:
+icon + text + glowing horizontal line
+
+Text placeholder:
+"{{CTA_TEXT_1}}"
+
+CTA 2:
+icon + text + glowing horizontal line
+
+Text placeholder:
+"{{CTA_TEXT_2}}"
+
+Examples:
+"Follow for more projects"
+"Open for collaboration"
+"Available for freelance"
+"Let’s build something together"
+
+CTA style:
+- minimal futuristic icons
+- subtle neon green glow
+- thin glowing connector lines
+- clean spacing
+- elegant modern UI aesthetic
+
+Social section:
+place minimal monochrome social media icons at the bottom center.
+
+Style:
+- circular outline buttons
+- minimal luxury design
+- subtle glow
+- evenly spaced
+- monochrome futuristic styling
+
+Lighting:
+use:
+- soft blue ambient glow
+- subtle green neon accents
+- cinematic bloom
+- dark atmospheric shadows
+- premium futuristic reflections
+
+Overall mood:
+cinematic portfolio ending screen, luxury creator branding, futuristic UI showcase outro, elegant tech presentation, premium Behance-quality visual design.
+
+Quality:
+ultra detailed, cinematic composition, elegant typography, sophisticated art direction, premium lighting, futuristic branding aesthetic, clean visual hierarchy.`
 };
 
 // Resolve template for a slide number
 function getTemplateForSlide(slide) {
   if (slide === 1) return TEMPLATES[1];
   if (slide === 3) return TEMPLATES[3];
-  return TEMPLATES.case_study; // Slides 2, 4, 5
+  if (slide === 4) return TEMPLATES[4];
+  if (slide === 5) return TEMPLATES[5];
+  return TEMPLATES.case_study; // Slides 2, 5
 }
 
 // =========================================================
@@ -272,18 +597,23 @@ const STATE = {
       CTA_TEXT: '', CTA_BUTTON: ''
     },
     4: {
-      SECTION_BADGE: '', MAIN_HEADING: '', PROJECT_DESCRIPTION: '', QUOTE_TEXT: '',
-      FEATURE_TITLE_1: '', FEATURE_DESC_1: '',
-      FEATURE_TITLE_2: '', FEATURE_DESC_2: '',
-      FEATURE_TITLE_3: '', FEATURE_DESC_3: '',
-      FEATURE_TITLE_4: '', FEATURE_DESC_4: ''
+      TOP_LEFT_BADGE: '',
+      TOP_RIGHT_LABEL: '',
+      MAIN_HEADLINE: '',
+      SUBTITLE_TEXT: '',
+      PILL_TEXT_1: '',
+      PILL_TEXT_2: '',
+      PILL_TEXT_3: '',
+      PILL_TEXT_4: '',
+      BRAND_STATEMENT: ''
     },
     5: {
-      SECTION_BADGE: '', MAIN_HEADING: '', PROJECT_DESCRIPTION: '', QUOTE_TEXT: '',
-      FEATURE_TITLE_1: '', FEATURE_DESC_1: '',
-      FEATURE_TITLE_2: '', FEATURE_DESC_2: '',
-      FEATURE_TITLE_3: '', FEATURE_DESC_3: '',
-      FEATURE_TITLE_4: '', FEATURE_DESC_4: ''
+      TOP_BADGE_TEXT: '',
+      MAIN_HEADLINE: '',
+      DESCRIPTION_TEXT: '',
+      CREATOR_ROLE: '',
+      CTA_TEXT_1: '',
+      CTA_TEXT_2: ''
     }
   }
 };
@@ -523,8 +853,8 @@ function addToHistory(promptText) {
     1: 'Slide 1 — Cover',
     2: 'Slide 2 — Overview',
     3: 'Slide 3 — Features',
-    4: 'Slide 4 — Deep Dive',
-    5: 'Slide 5 — Closing'
+    4: 'Slide 4 — Campaign Poster',
+    5: 'Slide 5 — Closing Outro'
   };
 
   const historyItem = {
