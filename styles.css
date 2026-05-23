@@ -1532,9 +1532,7 @@ body {
 
 /* ---- Settings View Layout ---- */
 .settings-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 24px;
+  padding: 32px;
   animation: fade-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   width: 100%;
 }
