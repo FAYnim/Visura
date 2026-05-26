@@ -18,15 +18,8 @@
        HEADER — Branding & Global Creator Name Input
        ===================================================== -->
   <header class="app-header" role="banner">
-    <!-- Hamburger button for mobile drawer toggle -->
-    <button id="sidebar-toggle-mobile" class="header-toggle-btn" aria-label="Buka menu navigasi" title="Buka menu">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-
     <div class="header-brand">
-      <div class="brand-icon" aria-hidden="true"><i class="fa-solid fa-bolt-lightning"></i></div>
       <span class="brand-name">PromptFlex</span>
-      <span class="brand-tag">MVP</span>
     </div>
   </header>
 
@@ -34,39 +27,28 @@
     <!-- =====================================================
          SIDEBAR — Main App Navigation
          ===================================================== -->
-    <aside class="app-sidebar collapsed" aria-label="Main navigation">
+    <aside class="app-sidebar" aria-label="Main navigation">
       <div class="sidebar-top">
         <nav class="sidebar-menu" role="navigation">
           <a class="sidebar-btn active" href="index.html" id="tab-generator" aria-current="page">
-            <span class="btn-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
-            <span class="btn-text">Generator</span>
+            <span class="btn-text">Prompt Generator</span>
           </a>
           <a class="sidebar-btn" href="riwayat.html" id="tab-riwayat">
-            <span class="btn-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
-            <span class="btn-text">Riwayat</span>
+            <span class="btn-text">History</span>
           </a>
         </nav>
       </div>
 
       <div class="sidebar-bottom">
-        <!-- Desktop collapse toggle button -->
-        <div class="sidebar-header-row">
-          <button id="sidebar-toggle-desktop" class="sidebar-toggle-btn" aria-label="Tampilkan sidebar" title="Tampilkan sidebar">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-        </div>
         <!-- Profile & Settings Area -->
         <div class="sidebar-profile-section">
           <a href="settings.html" id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Buka Pengaturan Profil" title="Pengaturan Profil">
             <div class="avatar-container">
               <img src="avatar.png" alt="Profile" class="profile-avatar-img" />
-              <span class="status-indicator online"></span>
             </div>
             <div class="profile-info-text">
-              <span class="profile-name">Faris AY</span>
-              <span class="profile-title">Settings</span>
+              <span class="profile-name">John Doe</span>
             </div>
-            <span class="profile-settings-icon"><i class="fa-solid fa-gear"></i></span>
           </a>
         </div>
       </div>
@@ -86,28 +68,18 @@
              ===================================================== -->
   <nav class="slide-nav" role="tablist" aria-label="Slide selector">
     <button class="slide-tab active" role="tab" data-slide="1" aria-selected="true" tabindex="0" id="tab-slide-1">
-      <span class="tab-dot" aria-hidden="true"></span>
-      <span class="tab-number">01</span>
       Slide 1
     </button>
     <button class="slide-tab" role="tab" data-slide="2" aria-selected="false" tabindex="-1" id="tab-slide-2">
-      <span class="tab-dot" aria-hidden="true"></span>
-      <span class="tab-number">02</span>
       Slide 2
     </button>
     <button class="slide-tab" role="tab" data-slide="3" aria-selected="false" tabindex="-1" id="tab-slide-3">
-      <span class="tab-dot" aria-hidden="true"></span>
-      <span class="tab-number">03</span>
       Slide 3
     </button>
     <button class="slide-tab" role="tab" data-slide="4" aria-selected="false" tabindex="-1" id="tab-slide-4">
-      <span class="tab-dot" aria-hidden="true"></span>
-      <span class="tab-number">04</span>
       Slide 4
     </button>
     <button class="slide-tab" role="tab" data-slide="5" aria-selected="false" tabindex="-1" id="tab-slide-5">
-      <span class="tab-dot" aria-hidden="true"></span>
-      <span class="tab-number">05</span>
       Slide 5
     </button>
   </nav>
@@ -128,7 +100,7 @@
       <div class="form-panel active" data-slide="1" role="tabpanel" aria-labelledby="tab-slide-1">
         <div class="form-section-header">
           <div class="form-slide-badge"><i class="fa-solid fa-image" style="margin-right: 6px;"></i> Cover Slide</div>
-          <h1 class="form-slide-title">Slide 1 — Cover</h1>
+          <h1 class="form-slide-title">Slide 1 - Cover</h1>
           <p class="form-slide-desc">The hero opener for your carousel. Defines the first visual impression of your digital product showcase.</p>
         </div>
 
@@ -185,7 +157,7 @@
       <div class="form-panel" data-slide="2" role="tabpanel" aria-labelledby="tab-slide-2">
         <div class="form-section-header">
           <div class="form-slide-badge"><i class="fa-solid fa-briefcase" style="margin-right: 6px;"></i> Project Overview</div>
-          <h2 class="form-slide-title">Slide 2 — Project Overview</h2>
+          <h2 class="form-slide-title">Slide 2 - Project Overview</h2>
           <p class="form-slide-desc">Project overview slide with description, quote, and 4 feature highlight cards.</p>
         </div>
 
@@ -287,7 +259,7 @@
       <div class="form-panel" data-slide="3" role="tabpanel" aria-labelledby="tab-slide-3">
         <div class="form-section-header">
           <div class="form-slide-badge"><i class="fa-solid fa-cubes" style="margin-right: 6px;"></i> Features Grid</div>
-          <h2 class="form-slide-title">Slide 3 — Features</h2>
+          <h2 class="form-slide-title">Slide 3 - Features</h2>
           <p class="form-slide-desc">Modular feature grid with 6 cards, each containing a title, description, and mini UI component specification.</p>
         </div>
 
@@ -452,7 +424,7 @@
       <div class="form-panel" data-slide="4" role="tabpanel" aria-labelledby="tab-slide-4">
         <div class="form-section-header">
           <div class="form-slide-badge"><i class="fa-solid fa-desktop" style="margin-right: 6px;"></i> UI Showcase</div>
-          <h2 class="form-slide-title">Slide 4 — UI Showcase</h2>
+          <h2 class="form-slide-title">Slide 4 - UI Showcase</h2>
           <p class="form-slide-desc">Premium cinematic product UI showcase showcasing three floating perspective dashboard displays.</p>
         </div>
 
@@ -520,7 +492,7 @@
       <div class="form-panel" data-slide="5" role="tabpanel" aria-labelledby="tab-slide-5">
         <div class="form-section-header">
           <div class="form-slide-badge"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Closing Outro</div>
-          <h2 class="form-slide-title">Slide 5 — Closing Outro</h2>
+          <h2 class="form-slide-title">Slide 5 - Closing Outro</h2>
           <p class="form-slide-desc">Premium futuristic outro slide designed to leave a lasting, luxury startup impression.</p>
         </div>
 
@@ -569,11 +541,12 @@
     <aside class="preview-column" aria-label="Live prompt preview">
 
       <div class="preview-header">
-        <div class="preview-title-group">
-          <span class="preview-label">Live Preview</span>
-          <h2 class="preview-title" id="preview-title">Slide 1 — Cover Prompt</h2>
-        </div>
-        <span class="preview-char-count" id="preview-char-count">0 chars</span>
+        <h2 class="static-preview-title">Prompt</h2>
+        <!-- Hidden elements to preserve JS bindings without errors -->
+        <span id="preview-title" style="display: none;"></span>
+        <span id="preview-char-count" style="display: none;"></span>
+        
+        <button class="btn-copy-text" id="btn-copy" aria-label="Copy current slide prompt to clipboard">Salin</button>
       </div>
 
       <!-- Code Editor Style Preview Panel -->
@@ -581,16 +554,9 @@
         <div class="preview-output" id="preview-output" tabindex="0" aria-label="Generated prompt text" role="textbox" aria-readonly="true"></div>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="action-buttons" role="group" aria-label="Prompt actions">
-        <button class="btn btn-primary" id="btn-copy" aria-label="Copy current slide prompt to clipboard">
-          <span class="btn-icon"><i class="fa-regular fa-copy"></i></span>
-          Copy Current Slide
-        </button>
-        <button class="btn btn-secondary" id="btn-clear" aria-label="Clear all inputs on the active slide">
-          <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span>
-          Clear Slide
-        </button>
+      <!-- Hidden elements to preserve JS clear slide bindings without errors -->
+      <div style="display: none;">
+        <button id="btn-clear"></button>
       </div>
 
     </aside><!-- /preview-column -->

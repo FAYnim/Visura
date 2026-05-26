@@ -21,7 +21,7 @@ const SETTINGS_DEFAULTS = {
   CREATOR_NAME: '',
   CREATOR_ROLE: '',
   PROMPT_SUFFIX: '',
-  THEME_ACCENT: 'green'
+  THEME_ACCENT: 'violet'
 };
 
 // =========================================================
@@ -41,7 +41,7 @@ function populateInputs(settings) {
   if (creatorRoleInput)  creatorRoleInput.value  = settings.CREATOR_ROLE  || '';
   if (promptSuffixInput) promptSuffixInput.value = settings.PROMPT_SUFFIX || '';
 
-  applyThemeAccent(settings.THEME_ACCENT || 'green');
+  applyThemeAccent(settings.THEME_ACCENT || 'violet');
 }
 
 // =========================================================
@@ -69,7 +69,7 @@ function resetGlobalSettings() {
   if (confirmClear) {
     currentSettings = { ...SETTINGS_DEFAULTS };
 
-    applyThemeAccent('green');
+    applyThemeAccent('violet');
 
     const creatorNameInput   = document.getElementById('setting-creator-name');
     const creatorRoleInput   = document.getElementById('setting-creator-role');
