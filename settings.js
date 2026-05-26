@@ -3,7 +3,6 @@
    ========================================================= */
 
 import {
-  escapeHtml,
   loadSettings,
   saveSettings,
   updateProfileWidget,
@@ -20,7 +19,6 @@ import {
 const SETTINGS_DEFAULTS = {
   CREATOR_NAME: '',
   CREATOR_ROLE: '',
-  PROMPT_SUFFIX: '',
   THEME_ACCENT: 'violet'
 };
 
@@ -35,11 +33,9 @@ let currentSettings = { ...SETTINGS_DEFAULTS };
 function populateInputs(settings) {
   const creatorNameInput   = document.getElementById('setting-creator-name');
   const creatorRoleInput   = document.getElementById('setting-creator-role');
-  const promptSuffixInput  = document.getElementById('setting-prompt-suffix');
 
   if (creatorNameInput)  creatorNameInput.value  = settings.CREATOR_NAME  || '';
   if (creatorRoleInput)  creatorRoleInput.value  = settings.CREATOR_ROLE  || '';
-  if (promptSuffixInput) promptSuffixInput.value = settings.PROMPT_SUFFIX || '';
 
   applyThemeAccent(settings.THEME_ACCENT || 'violet');
 }
@@ -50,11 +46,9 @@ function populateInputs(settings) {
 function saveGlobalSettings() {
   const creatorNameInput   = document.getElementById('setting-creator-name');
   const creatorRoleInput   = document.getElementById('setting-creator-role');
-  const promptSuffixInput  = document.getElementById('setting-prompt-suffix');
 
   if (creatorNameInput)  currentSettings.CREATOR_NAME  = creatorNameInput.value;
   if (creatorRoleInput)  currentSettings.CREATOR_ROLE  = creatorRoleInput.value;
-  if (promptSuffixInput) currentSettings.PROMPT_SUFFIX = promptSuffixInput.value;
 
   saveSettings(currentSettings);
   updateProfileWidget(currentSettings);
@@ -73,11 +67,9 @@ function resetGlobalSettings() {
 
     const creatorNameInput   = document.getElementById('setting-creator-name');
     const creatorRoleInput   = document.getElementById('setting-creator-role');
-    const promptSuffixInput  = document.getElementById('setting-prompt-suffix');
 
     if (creatorNameInput)  creatorNameInput.value  = '';
     if (creatorRoleInput)  creatorRoleInput.value  = '';
-    if (promptSuffixInput) promptSuffixInput.value = '';
 
     saveSettings(currentSettings);
     updateProfileWidget(currentSettings);

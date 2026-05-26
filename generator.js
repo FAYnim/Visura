@@ -586,7 +586,6 @@ function getTemplateForSlide(slide) {
 const SETTINGS_DEFAULTS = {
   CREATOR_NAME: '',
   CREATOR_ROLE: '',
-  PROMPT_SUFFIX: '',
   THEME_ACCENT: 'violet'
 };
 
@@ -642,10 +641,6 @@ function compileTemplate(slideNum) {
     }
   });
 
-  if (STATE.settings.PROMPT_SUFFIX && STATE.settings.PROMPT_SUFFIX.trim() !== '') {
-    compiled += `\n\n<span class="ph-filled">${escapeHtml(STATE.settings.PROMPT_SUFFIX.trim())}</span>`;
-  }
-
   return compiled;
 }
 
@@ -658,10 +653,6 @@ function compilePlainText(slideNum) {
     const value = allData[key];
     return (value && value.trim() !== '') ? value : `[${key}]`;
   });
-
-  if (STATE.settings.PROMPT_SUFFIX && STATE.settings.PROMPT_SUFFIX.trim() !== '') {
-    compiled += '\n\n' + STATE.settings.PROMPT_SUFFIX.trim();
-  }
 
   return compiled;
 }

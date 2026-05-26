@@ -21,7 +21,6 @@ import {
 const SETTINGS_DEFAULTS = {
   CREATOR_NAME: '',
   CREATOR_ROLE: '',
-  PROMPT_SUFFIX: '',
   THEME_ACCENT: 'green'
 };
 
