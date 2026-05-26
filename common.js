@@ -9,8 +9,7 @@
 // =========================================================
 export const STORAGE_KEYS = {
   SETTINGS: 'promptflex_global_settings',
-  HISTORY: 'promptflex_history',
-  SIDEBAR: 'promptflex_sidebar_collapsed'
+  HISTORY: 'promptflex_history'
 };
 
 // =========================================================
@@ -86,45 +85,7 @@ export function updateProfileWidget(settings) {
 // SIDEBAR TOGGLE HELPERS (shared across pages)
 // =========================================================
 export function initSidebar() {
-  let sidebarCollapsed = true;
   let mobileMenuOpen = false;
-
-  // Load persisted sidebar state
-  try {
-    const stored = localStorage.getItem(STORAGE_KEYS.SIDEBAR);
-    if (stored !== null) {
-      sidebarCollapsed = JSON.parse(stored);
-    }
-  } catch (e) {
-    console.error('Failed to load sidebar preference', e);
-  }
-
-  function applyDesktopSidebarState() {
-    const sidebar = document.querySelector('.app-sidebar');
-    if (sidebar) {
-      sidebar.classList.toggle('collapsed', sidebarCollapsed);
-      const toggleBtn = document.getElementById('sidebar-toggle-desktop');
-      if (toggleBtn) {
-        if (sidebarCollapsed) {
-          toggleBtn.setAttribute('aria-label', 'Tampilkan sidebar');
-          toggleBtn.setAttribute('title', 'Tampilkan sidebar');
-        } else {
-          toggleBtn.setAttribute('aria-label', 'Sembunyikan sidebar');
-          toggleBtn.setAttribute('title', 'Sembunyikan sidebar');
-        }
-      }
-    }
-  }
-
-  function toggleDesktopSidebar() {
-    sidebarCollapsed = !sidebarCollapsed;
-    applyDesktopSidebarState();
-    try {
-      localStorage.setItem(STORAGE_KEYS.SIDEBAR, JSON.stringify(sidebarCollapsed));
-    } catch (e) {
-      console.error('Failed to save sidebar preference', e);
-    }
-  }
 
   function toggleMobileSidebar(force) {
     const open = force !== undefined ? force : !mobileMenuOpen;
@@ -141,22 +102,11 @@ export function initSidebar() {
     }
   }
 
-  // Apply initial state
-  applyDesktopSidebarState();
-
-  // Bind desktop toggle button
-  const toggleBtnDesktop = document.getElementById('sidebar-toggle-desktop');
-  if (toggleBtnDesktop) {
-    toggleBtnDesktop.addEventListener('click', toggleDesktopSidebar);
-  }
-
-  // Bind mobile hamburger button
   const toggleBtnMobile = document.getElementById('sidebar-toggle-mobile');
   if (toggleBtnMobile) {
     toggleBtnMobile.addEventListener('click', () => toggleMobileSidebar());
   }
 
-  // Bind mobile overlay backdrop click
   const overlay = document.getElementById('sidebar-overlay');
   if (overlay) {
     overlay.addEventListener('click', () => toggleMobileSidebar(false));
