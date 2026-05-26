@@ -734,6 +734,7 @@ a:focus {
 .sidebar-btn {
   display: flex;
   align-items: center;
+  justify-content: left;
   gap: 12px;
   padding: 12px 16px;
   background: transparent;
@@ -1187,37 +1188,6 @@ a:focus {
   border-color: var(--border-medium);
 }
 
-/* Desktop Collapsed Modifier Classes */
-.app-sidebar.collapsed {
-  width: 68px;
-  padding: 24px 10px;
-}
-
-.app-sidebar.collapsed .sidebar-header-row {
-  justify-content: center;
-}
-
-.app-sidebar.collapsed .sidebar-toggle-btn i {
-  transform: rotate(180deg);
-}
-
-.app-sidebar.collapsed .btn-text,
-.app-sidebar.collapsed .footer-text {
-  display: none !important;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.app-sidebar.collapsed .sidebar-btn {
-  justify-content: center;
-  padding: 12px;
-}
-
-.app-sidebar.collapsed .sidebar-btn .btn-icon {
-  font-size: 16px;
-  width: 24px;
-}
-
 /* Glassmorphic Mobile Drawer Overlay Backdrop */
 .sidebar-overlay {
   position: fixed;
@@ -1296,33 +1266,6 @@ a:focus {
     justify-content: space-between;
     z-index: 160;
     box-shadow: 10px 0 30px rgba(0, 0, 0, 0.6);
-  }
-
-  /* Mobile collapsed bypass (so collapsed on desktop doesn't shrink drawer width on mobile resize) */
-  .app-sidebar.collapsed {
-    width: 240px;
-    padding: 20px 16px;
-  }
-  
-  .app-sidebar.collapsed .sidebar-header-row {
-    justify-content: flex-end;
-  }
-
-  .app-sidebar.collapsed .btn-text,
-  .app-sidebar.collapsed .footer-text {
-    display: inline !important;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .app-sidebar.collapsed .sidebar-btn {
-    justify-content: flex-start;
-    padding: 12px 16px;
-  }
-
-  .app-sidebar.collapsed .sidebar-btn .btn-icon {
-    font-size: 15px;
-    width: 20px;
   }
 
   /* Active state for mobile sidebar drawer */
@@ -1515,32 +1458,6 @@ a:focus {
   justify-content: center;
 }
 
-/* Collapsed Sidebar adjustments */
-.app-sidebar.collapsed .sidebar-profile-section {
-  padding-top: 10px;
-  align-items: center;
-}
-
-.app-sidebar.collapsed .sidebar-profile-btn {
-  padding: 4px;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-  background: transparent;
-}
-
-.app-sidebar.collapsed .sidebar-profile-btn:hover {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: var(--border-subtle);
-}
-
-.app-sidebar.collapsed .profile-info-text,
-.app-sidebar.collapsed .profile-settings-icon {
-  display: none !important;
-  opacity: 0;
-  pointer-events: none;
-}
-
 /* ---- Settings View Layout ---- */
 .settings-container {
   padding: 32px;
@@ -1697,28 +1614,6 @@ a:focus {
   transition: none !important;
 }
 
-/* Override collapsed styles completely so sidebar remains 240px and fully wide */
-.app-sidebar.collapsed {
-  width: 240px !important;
-  padding: 0 !important;
-}
-
-.app-sidebar.collapsed .sidebar-header-row {
-  display: none !important;
-}
-
-.app-sidebar.collapsed .btn-text,
-.app-sidebar.collapsed .footer-text {
-  display: inline !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-
-.app-sidebar.collapsed .sidebar-profile-section .profile-info-text {
-  display: block !important;
-  opacity: 1 !important;
-}
-
 .sidebar-top {
   width: 100% !important;
   padding: 0 !important;
@@ -1732,6 +1627,7 @@ a:focus {
 .sidebar-btn {
   display: flex !important;
   align-items: center !important;
+  justify-content: center !important;
   padding: 16px 24px !important;
   background: transparent !important;
   border: none !important;
@@ -1742,6 +1638,7 @@ a:focus {
   width: 100% !important;
   transition: all 0.2s ease !important;
   text-decoration: none !important;
+  text-align: center !important;
 }
 
 .sidebar-btn:hover {
