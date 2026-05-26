@@ -8,7 +8,6 @@ import {
   loadHistory,
   saveHistory,
   updateProfileWidget,
-  applyThemeAccent,
   initSidebar,
   showToast
 } from './common.js';
@@ -20,8 +19,7 @@ import {
 // =========================================================
 const SETTINGS_DEFAULTS = {
   CREATOR_NAME: '',
-  CREATOR_ROLE: '',
-  THEME_ACCENT: 'green'
+  CREATOR_ROLE: ''
 };
 
 // =========================================================
@@ -251,8 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load settings & apply theme
   const settings = loadSettings(SETTINGS_DEFAULTS);
   updateProfileWidget(settings);
-  applyThemeAccent(settings.THEME_ACCENT || 'green');
-
   // Load history
   history = loadHistory();
 

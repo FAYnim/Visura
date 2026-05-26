@@ -10,7 +10,6 @@ import {
   loadHistory,
   saveHistory,
   updateProfileWidget,
-  applyThemeAccent,
   initSidebar,
   showToast
 } from './common.js';
@@ -585,8 +584,7 @@ function getTemplateForSlide(slide) {
 // =========================================================
 const SETTINGS_DEFAULTS = {
   CREATOR_NAME: '',
-  CREATOR_ROLE: '',
-  THEME_ACCENT: 'violet'
+  CREATOR_ROLE: ''
 };
 
 const STATE = {
@@ -808,8 +806,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load settings & apply
   STATE.settings = loadSettings(SETTINGS_DEFAULTS);
   updateProfileWidget(STATE.settings);
-  applyThemeAccent(STATE.settings.THEME_ACCENT || 'green');
-
   // Load history
   STATE.history = loadHistory();
 

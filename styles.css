@@ -1626,52 +1626,6 @@ a:focus {
   gap: 8px;
 }
 
-/* Theme accent selector design */
-.theme-accent-selectors {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.accent-select-btn {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 10px 12px;
-  color: var(--text-secondary);
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 550;
-  cursor: pointer;
-  outline: none;
-  transition: all var(--transition-base);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.accent-select-btn:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.accent-select-btn.active {
-  border-color: var(--accent-color);
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.accent-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent-color);
-  box-shadow: 0 0 8px var(--accent-color);
-}
-
 /* Make profile button active highlight look like an active tab */
 .sidebar-profile-btn.active {
   color: var(--text-primary);

@@ -83,29 +83,6 @@ export function updateProfileWidget(settings) {
 }
 
 // =========================================================
-// THEME ACCENT ENGINE
-// =========================================================
-export function applyThemeAccent(accent) {
-  const root = document.documentElement;
-  const accents = {
-    green:  { primary: '#00ff66', glow: 'rgba(0, 255, 102, 0.25)',   code: '#00ff66' },
-    blue:   { primary: '#3b82f6', glow: 'rgba(59, 130, 246, 0.25)',  code: '#60a5fa' },
-    violet: { primary: '#d946ef', glow: 'rgba(217, 70, 239, 0.25)',  code: '#f472b6' },
-    red:    { primary: '#f43f5e', glow: 'rgba(244, 63, 94, 0.25)',   code: '#fb7185' }
-  };
-
-  const colors = accents[accent] || accents.green;
-  root.style.setProperty('--accent-primary', colors.primary);
-  root.style.setProperty('--accent-glow', colors.glow);
-  root.style.setProperty('--text-code', colors.code);
-
-  document.querySelectorAll('.accent-select-btn').forEach(btn => {
-    const isActive = btn.dataset.accent === accent;
-    btn.classList.toggle('active', isActive);
-  });
-}
-
-// =========================================================
 // SIDEBAR TOGGLE HELPERS (shared across pages)
 // =========================================================
 export function initSidebar() {

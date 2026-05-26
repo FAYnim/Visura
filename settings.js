@@ -6,7 +6,6 @@ import {
   loadSettings,
   saveSettings,
   updateProfileWidget,
-  applyThemeAccent,
   initSidebar,
   showToast
 } from './common.js';
@@ -18,8 +17,7 @@ import {
 // =========================================================
 const SETTINGS_DEFAULTS = {
   CREATOR_NAME: '',
-  CREATOR_ROLE: '',
-  THEME_ACCENT: 'violet'
+  CREATOR_ROLE: ''
 };
 
 // =========================================================
@@ -37,7 +35,6 @@ function populateInputs(settings) {
   if (creatorNameInput)  creatorNameInput.value  = settings.CREATOR_NAME  || '';
   if (creatorRoleInput)  creatorRoleInput.value  = settings.CREATOR_ROLE  || '';
 
-  applyThemeAccent(settings.THEME_ACCENT || 'violet');
 }
 
 // =========================================================
@@ -63,8 +60,6 @@ function resetGlobalSettings() {
   if (confirmClear) {
     currentSettings = { ...SETTINGS_DEFAULTS };
 
-    applyThemeAccent('violet');
-
     const creatorNameInput   = document.getElementById('setting-creator-name');
     const creatorRoleInput   = document.getElementById('setting-creator-role');
 
@@ -88,14 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Init sidebar
   initSidebar();
-
-  // Bind accent selector buttons
-  document.querySelectorAll('.accent-select-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentSettings.THEME_ACCENT = btn.dataset.accent;
-      applyThemeAccent(btn.dataset.accent);
-    });
-  });
 
   // Bind save button
   const saveBtn = document.getElementById('btn-save-settings');
