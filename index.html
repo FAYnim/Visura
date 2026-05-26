@@ -36,15 +36,15 @@
          ===================================================== -->
     <aside class="app-sidebar collapsed" aria-label="Main navigation">
       <div class="sidebar-top">
-        <nav class="sidebar-menu" role="tablist">
-          <button class="sidebar-btn active" role="tab" aria-selected="true" data-view="generator" id="tab-generator">
+        <nav class="sidebar-menu" role="navigation">
+          <a class="sidebar-btn active" href="index.html" id="tab-generator" aria-current="page">
             <span class="btn-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
             <span class="btn-text">Generator</span>
-          </button>
-          <button class="sidebar-btn" role="tab" aria-selected="false" data-view="riwayat" id="tab-riwayat">
+          </a>
+          <a class="sidebar-btn" href="riwayat.html" id="tab-riwayat">
             <span class="btn-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
             <span class="btn-text">Riwayat</span>
-          </button>
+          </a>
         </nav>
       </div>
 
@@ -57,7 +57,7 @@
         </div>
         <!-- Profile & Settings Area -->
         <div class="sidebar-profile-section">
-          <button id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Buka Pengaturan Profil" title="Pengaturan Profil">
+          <a href="settings.html" id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Buka Pengaturan Profil" title="Pengaturan Profil">
             <div class="avatar-container">
               <img src="avatar.png" alt="Profile" class="profile-avatar-img" />
               <span class="status-indicator online"></span>
@@ -67,7 +67,7 @@
               <span class="profile-title">Settings</span>
             </div>
             <span class="profile-settings-icon"><i class="fa-solid fa-gear"></i></span>
-          </button>
+          </a>
         </div>
       </div>
     </aside>
@@ -598,129 +598,6 @@
   </main><!-- /app-main -->
       </div><!-- /view-generator -->
 
-      <!-- ---------------------------------------------------
-           RIWAYAT (HISTORY) VIEW
-           --------------------------------------------------- -->
-      <div id="view-riwayat" class="app-view">
-        <div class="history-container">
-          <header class="history-header">
-            <div class="history-title-group">
-              <h2 class="history-title">Riwayat Prompt</h2>
-              <p class="history-desc">Daftar prompt yang telah Anda salin sebelumnya.</p>
-            </div>
-            <div class="history-actions">
-              <button class="btn btn-secondary" id="btn-clear-history" aria-label="Hapus semua riwayat prompt">
-                <span class="btn-icon"><i class="fa-regular fa-trash-can"></i></span>
-                Hapus Semua
-              </button>
-            </div>
-          </header>
-
-          <div class="history-search-bar">
-            <span class="search-icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input
-              type="text"
-              id="history-search"
-              placeholder="Cari riwayat berdasarkan judul slide, nama pembuat, atau teks prompt..."
-              autocomplete="off"
-              spellcheck="false"
-              aria-label="Cari riwayat prompt"
-            />
-          </div>
-
-          <!-- Dynamic history cards container -->
-          <div class="history-list" id="history-list">
-            <!-- Dynamic elements will be injected here by app.js -->
-          </div>
-        </div>
-      </div><!-- /view-riwayat -->
-
-      <!-- ---------------------------------------------------
-           PENGATURAN (SETTINGS) VIEW
-           --------------------------------------------------- -->
-      <div id="view-settings" class="app-view">
-        <div class="settings-container">
-          <header class="settings-header">
-            <div class="settings-title-group">
-              <h2 class="settings-title">Pengaturan Global</h2>
-              <p class="settings-desc">Konfigurasi variabel global, suffix kustom, dan kustomisasi tema antarmuka aplikasi.</p>
-            </div>
-          </header>
-
-          <div class="settings-grid">
-            <!-- Left Side: Fields -->
-            <div class="settings-fields-column">
-              <!-- Creator Info Card -->
-              <div class="settings-card">
-                <h3 class="settings-card-title"><i class="fa-regular fa-user"></i> Informasi Creator</h3>
-                <div class="settings-card-body">
-                  <div class="field">
-                    <label class="field-label" for="setting-creator-name">Nama Pembuat <span class="var-hint">{{CREATOR_NAME}}</span></label>
-                    <input type="text" id="setting-creator-name" placeholder="e.g. Faris AY" autocomplete="off" />
-                  </div>
-                  <div class="field">
-                    <label class="field-label" for="setting-creator-role">Peran Pembuat <span class="var-hint">{{CREATOR_ROLE}}</span></label>
-                    <input type="text" id="setting-creator-role" placeholder="e.g. Creative Engineer" autocomplete="off" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Suffix Options Card -->
-              <div class="settings-card">
-                <h3 class="settings-card-title"><i class="fa-solid fa-code"></i> Format Prompt Tambahan</h3>
-                <div class="settings-card-body">
-                  <div class="field">
-                    <label class="field-label" for="setting-prompt-suffix">Akhiran Prompt (Suffix) <span class="var-hint">Ditambahkan ke akhir prompt</span></label>
-                    <input type="text" id="setting-prompt-suffix" placeholder="e.g. --ar 4:5 --v 6.0 --style raw" autocomplete="off" />
-                    <p class="field-help">Menambahkan parameter aspek rasio atau versi secara otomatis di akhir salinan prompt.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right Side: Theme customization -->
-            <div class="settings-options-column">
-              <!-- Theme Accent Card -->
-              <div class="settings-card">
-                <h3 class="settings-card-title"><i class="fa-solid fa-palette"></i> Tampilan & Tema Aplikasi</h3>
-                <div class="settings-card-body">
-                  <p class="settings-card-desc">Pilih aksen warna untuk mengubah tampilan visual antarmuka PromptFlex secara instan.</p>
-                  <div class="theme-accent-selectors">
-                    <button class="accent-select-btn active" data-accent="green" style="--accent-color: #00ff66;">
-                      <span class="accent-dot"></span> Hijau Neon
-                    </button>
-                    <button class="accent-select-btn" data-accent="blue" style="--accent-color: #3b82f6;">
-                      <span class="accent-dot"></span> Biru Elektrik
-                    </button>
-                    <button class="accent-select-btn" data-accent="violet" style="--accent-color: #d946ef;">
-                      <span class="accent-dot"></span> Cyber Violet
-                    </button>
-                    <button class="accent-select-btn" data-accent="red" style="--accent-color: #f43f5e;">
-                      <span class="accent-dot"></span> Crimson Neon
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Control Actions Card -->
-              <div class="settings-card">
-                <h3 class="settings-card-title"><i class="fa-solid fa-sliders"></i> Tindakan Pengaturan</h3>
-                <div class="settings-card-body">
-                  <div class="settings-action-buttons">
-                    <button class="btn btn-primary" id="btn-save-settings" style="width: 100%; margin-bottom: 10px;">
-                      <span class="btn-icon"><i class="fa-solid fa-check"></i></span> Simpan Perubahan
-                    </button>
-                    <button class="btn btn-secondary" id="btn-reset-settings" style="width: 100%;">
-                      <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span> Reset ke Default
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div><!-- /view-settings -->
-
     </div><!-- /app-content -->
   </div><!-- /app-body -->
 
@@ -732,6 +609,6 @@
        ===================================================== -->
   <div class="toast" id="app-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-  <script src="app.js"></script>
+  <script type="module" src="generator.js"></script>
 </body>
 </html>
