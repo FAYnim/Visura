@@ -1,4 +1,4 @@
-![Visura Logo](assets/img/logo/android-chrome-192x192.png)
+![Visura Logo](public/img/logo/android-chrome-192x192.png)
 
 # Visura
 
@@ -15,9 +15,9 @@ Premium prompt generator untuk membuat carousel portofolio Instagram 5-slide den
 
 ## Tampilan Aplikasi
 
-- **Prompt Generator:** `index.html`
-- **History:** `riwayat.html`
-- **Settings:** `settings.html`
+- **Prompt Generator:** `http://localhost:3000/`
+- **History:** `http://localhost:3000/riwayat`
+- **Settings:** `http://localhost:3000/settings`
 
 > [!NOTE]
 > Aplikasi ini tidak mengunggah screenshot; prompt yang dihasilkan mengasumsikan Anda menambahkan screenshot saat menggunakan tool AI image generator favorit Anda.
@@ -25,22 +25,20 @@ Premium prompt generator untuk membuat carousel portofolio Instagram 5-slide den
 ## Tech Stack
 
 - HTML, CSS, JavaScript (ES Modules)
+- Node.js + Express sebagai HTTP server
 - LocalStorage untuk menyimpan settings & history
 - Font Awesome + Google Fonts
 
 ## Menjalankan Secara Lokal
 
-Karena ini aplikasi statis, Anda bisa menjalankannya dengan cara sederhana:
+Pastikan Node.js >= 18.x sudah terinstal, lalu:
 
 ```bash
-# opsi 1: buka langsung
-start index.html
-
-# opsi 2: jalankan server statis (contoh menggunakan python)
-python -m http.server 8080
+npm install
+npm run dev
 ```
 
-Lalu buka `http://localhost:8080/index.html`.
+Lalu buka `http://localhost:3000`.
 
 ## Cara Pakai
 
@@ -58,26 +56,31 @@ Lalu buka `http://localhost:8080/index.html`.
 
 ```text
 .
-├── index.html            # Generator
-├── riwayat.html          # History
-├── settings.html         # Settings
-├── generator.js          # Logic generator & template prompt
-├── riwayat.js            # Logic history
-├── settings.js           # Logic settings
-├── common.js             # Utilities & localStorage
-├── styles.css            # UI & design system
-├── assets/               # Asset statis
+├── package.json          # Node.js manifest & scripts
+├── server.js             # Express entry point
+├── public/
+│   ├── index.html        # Generator
+│   ├── riwayat.html      # History
+│   ├── settings.html     # Settings
+│   ├── css/
+│   │   └── styles.css    # UI & design system
+│   ├── js/
+│   │   ├── common.js     # Utilities & localStorage
+│   │   ├── generator.js  # Logic generator & template prompt
+│   │   ├── riwayat.js    # Logic history
+│   │   └── settings.js   # Logic settings
 │   └── img/
 │       ├── avatar.png    # Logo/avatar default
 │       └── logo/         # Paket logo (favicon, webmanifest, dll)
-└── docs/                 # Spesifikasi internal
+└── plan/                 # Spesifikasi internal
 ```
 
 ## Kustomisasi
 
-- **Template prompt:** edit di `generator.js` pada objek `TEMPLATES`.
-- **Tema & UI:** sesuaikan di `styles.css`.
+- **Template prompt:** edit di `public/js/generator.js` pada objek `TEMPLATES`.
+- **Tema & UI:** sesuaikan di `public/css/styles.css`.
 - **Default creator:** update di `SETTINGS_DEFAULTS` pada `generator.js`, `riwayat.js`, dan `settings.js`.
 
 > [!IMPORTANT]
 > Data history dan settings disimpan di LocalStorage browser. Menghapus cache browser akan menghapus data tersebut.
+
