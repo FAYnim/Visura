@@ -1,4 +1,4 @@
-![Visura Logo](avatar.png)
+![Visura Logo](assets/img/logo/android-chrome-192x192.png)
 
 # Visura
 
@@ -66,7 +66,10 @@ Lalu buka `http://localhost:8080/index.html`.
 ├── settings.js           # Logic settings
 ├── common.js             # Utilities & localStorage
 ├── styles.css            # UI & design system
-├── avatar.png            # Logo/avatar default
+├── assets/               # Asset statis
+│   └── img/
+│       ├── avatar.png    # Logo/avatar default
+│       └── logo/         # Paket logo (favicon, webmanifest, dll)
 └── docs/                 # Spesifikasi internal
 ```
 
