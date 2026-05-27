@@ -33,7 +33,11 @@ Style:
 minimal futuristic SaaS presentation, cinematic dark UI aesthetic, premium startup branding, modern product showcase, inspired by Apple keynote, Linear, Stripe, Framer, and Behance featured projects.
 
 Background:
-deep black cinematic background with subtle grain texture, soft atmospheric blue and green glow lighting, minimal dotted particle details, luxurious futuristic ambiance.
+clean plain dark background with a dominant matte black or deep charcoal tone.
+Keep the background minimal and distraction-free.
+Avoid colorful gradients, abstract landscapes, glowing terrain, sci-fi environments, excessive particles, nebula effects, rocks, or decorative cinematic elements.
+Use only subtle soft vignette lighting and very minimal ambient glow to create depth while maintaining a clean premium presentation look.
+The overall background should feel empty, elegant, modern, and focused entirely on the typography and UI showcase.
 
 Top left badge:
 small rounded capsule outline with subtle neon green glow and small green indicator dot.
@@ -53,22 +57,33 @@ Subtitle below heading:
 
 Main showcase:
 large floating interface frame positioned at the center-right area.
+
 Frame style:
-minimal dark glassmorphic browser-style frame with rounded corners, subtle transparency, soft border glow, cinematic reflections, and a premium floating effect.
+minimal dark glassmorphic browser-style frame with rounded corners, subtle transparency, soft border glow, cinematic reflections, and premium floating effect.
 
 IMPORTANT:
-Embed the uploaded screenshot naturally into the floating interface frame with realistic perspective alignment, subtle reflections, soft glow integration, and premium screen presentation. Do not redesign the uploaded interface. Preserve the original UI layout from the screenshot.
+Embed the uploaded screenshot naturally into the floating interface frame with realistic perspective alignment, subtle reflections, soft glow integration, and premium screen presentation.
+Do not redesign the uploaded interface.
+Preserve the original UI layout from the screenshot.
 
-Bottom area:
-dark abstract rocky terrain surface with subtle blue cinematic lighting reflections. The terrain should feel futuristic, premium, atmospheric, sci-fi inspired, and minimal but cinematic.
+Composition focus:
+The main visual focus must remain on:
+1. The project title typography
+2. The uploaded project screenshot
+
+All supporting visual elements should remain subtle and secondary.
 
 Footer branding:
 minimal creator branding placed on bottom left corner.
-Creator text:
+Display ONLY the text:
 "Crafted by {{CREATOR_NAME}}"
 
+IMPORTANT:
+Do not add any icon, logo, badge, symbol, code bracket, glowing square, decorative container, or graphic element beside the footer branding text.
+The footer branding must be clean plain typography only.
+
 Overall mood:
-luxurious futuristic SaaS presentation, cinematic UI showcase, premium digital product branding, Behance featured portfolio aesthetic, modern startup visual identity.`,
+minimal luxurious SaaS presentation, clean premium portfolio aesthetic, modern startup branding, elegant dark presentation style, distraction-free composition, Behance featured portfolio aesthetic.`,
 
   // Slides 2 share this template
   case_study: `Create a premium futuristic Instagram carousel slide for a modern digital product portfolio project overview using the uploaded project screenshot as the main interface showcase.
