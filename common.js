@@ -1,5 +1,5 @@
 /* =========================================================
-   PromptFlex — Shared Utilities (common.js)
+   Visura — Shared Utilities (common.js)
    ========================================================= */
 
 'use strict';
@@ -8,6 +8,11 @@
 // STORAGE KEYS
 // =========================================================
 export const STORAGE_KEYS = {
+  SETTINGS: 'visura_global_settings',
+  HISTORY: 'visura_history'
+};
+
+export const LEGACY_STORAGE_KEYS = {
   SETTINGS: 'promptflex_global_settings',
   HISTORY: 'promptflex_history'
 };
@@ -30,7 +35,20 @@ export function escapeHtml(str) {
 export function loadSettings(defaults) {
   try {
     const stored = localStorage.getItem(STORAGE_KEYS.SETTINGS);
-    return stored ? { ...defaults, ...JSON.parse(stored) } : { ...defaults };
+    if (stored) {
+      return { ...defaults, ...JSON.parse(stored) };
+    }
+
+    const legacyStored = localStorage.getItem(LEGACY_STORAGE_KEYS.SETTINGS);
+    if (legacyStored) {
+      const parsedLegacy = JSON.parse(legacyStored);
+      const migrated = { ...defaults, ...parsedLegacy };
+      localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(migrated));
+      localStorage.removeItem(LEGACY_STORAGE_KEYS.SETTINGS);
+      return migrated;
+    }
+
+    return { ...defaults };
   } catch (e) {
     console.error('Failed to load settings from localStorage', e);
     return { ...defaults };
@@ -51,7 +69,19 @@ export function saveSettings(settings) {
 export function loadHistory() {
   try {
     const stored = localStorage.getItem(STORAGE_KEYS.HISTORY);
-    return stored ? JSON.parse(stored) : [];
+    if (stored) {
+      return JSON.parse(stored);
+    }
+
+    const legacyStored = localStorage.getItem(LEGACY_STORAGE_KEYS.HISTORY);
+    if (legacyStored) {
+      const parsedLegacy = JSON.parse(legacyStored);
+      localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(parsedLegacy));
+      localStorage.removeItem(LEGACY_STORAGE_KEYS.HISTORY);
+      return parsedLegacy;
+    }
+
+    return [];
   } catch (e) {
     console.error('Failed to load history from localStorage', e);
     return [];

@@ -1,5 +1,5 @@
 /* =========================================================
-   PromptFlex — Generator Page Logic (generator.js)
+   Visura — Generator Page Logic (generator.js)
    ========================================================= */
 
 import {

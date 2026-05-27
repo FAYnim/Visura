@@ -1,5 +1,5 @@
 /* =========================================================
-   PromptFlex — Settings Page Logic (settings.js)
+   Visura — Settings Page Logic (settings.js)
    ========================================================= */
 
 import {

@@ -1,8 +1,8 @@
-![PromptFlex Logo](avatar.png)
+![Visura Logo](avatar.png)
 
-# PromptFlex
+# Visura
 
-Premium prompt generator untuk membuat carousel portofolio Instagram 5-slide dengan gaya cinematic UI. PromptFlex menyediakan form terstruktur, preview real-time, riwayat prompt, dan pengaturan creator—semua berjalan langsung di browser.
+Premium prompt generator untuk membuat carousel portofolio Instagram 5-slide dengan gaya cinematic UI. Visura menyediakan form terstruktur, preview real-time, riwayat prompt, dan pengaturan creator—semua berjalan langsung di browser.
 
 ## Fitur Utama
 
