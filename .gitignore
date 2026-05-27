@@ -3,6 +3,12 @@
 # Specific requested file
 PRD.md
 
+# Generated planning artifacts
+plan/
+
+# Documentation folder (not tracked)
+docs/
+
 # OS files
 .DS_Store
 Thumbs.db
