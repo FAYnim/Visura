@@ -6,7 +6,6 @@ import {
   STORAGE_KEYS,
   escapeHtml,
   loadSettings,
-  saveSettings,
   loadHistory,
   saveHistory,
   updateProfileWidget,
@@ -677,7 +676,7 @@ let previewOutput;
 let previewTitle;
 let previewCharCount;
 let copyBtn;
-let clearBtn;
+let resetBtn;
 
 // =========================================================
 // RENDER ENGINE
@@ -761,21 +760,26 @@ function handleCopy() {
 }
 
 // =========================================================
-// CLEAR HANDLER
+// RESET HANDLER
 // =========================================================
-function handleClear() {
-  const slide = STATE.activeSlide;
-
-  Object.keys(STATE.slides[slide]).forEach(key => {
-    STATE.slides[slide][key] = '';
+function handleReset() {
+  // 1. Reset slide data for all slides (1 to 5) to empty string
+  Object.keys(STATE.slides).forEach(slide => {
+    Object.keys(STATE.slides[slide]).forEach(key => {
+      STATE.slides[slide][key] = '';
+    });
   });
 
-  document.querySelectorAll(`[data-slide="${slide}"][data-key]`).forEach(el => {
+  // 2. Clear all form inputs with [data-key]
+  document.querySelectorAll('[data-key]').forEach(el => {
     el.value = '';
   });
 
+  // 3. Restore preview to placeholder state
   renderPreview();
-  showToast(`<i class="fa-solid fa-rotate-left" style="color: var(--text-secondary);"></i> Slide ${slide} cleared.`);
+
+  // 4. Show user feedback toast
+  showToast(`<i class="fa-solid fa-rotate-left" style="color: var(--text-secondary);"></i> All generator inputs have been reset.`);
 }
 
 // =========================================================
@@ -816,7 +820,7 @@ document.addEventListener('DOMContentLoaded', () => {
   previewTitle     = document.getElementById('preview-title');
   previewCharCount = document.getElementById('preview-char-count');
   copyBtn          = document.getElementById('btn-copy');
-  clearBtn         = document.getElementById('btn-clear');
+  resetBtn         = document.getElementById('btn-reset');
 
   // Load settings & apply
   STATE.settings = loadSettings(SETTINGS_DEFAULTS);
@@ -841,9 +845,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Copy/Clear buttons
+  // Copy/Reset buttons
   copyBtn.addEventListener('click', handleCopy);
-  clearBtn.addEventListener('click', handleClear);
+  resetBtn.addEventListener('click', handleReset);
 
   // Initial render
   switchSlide(1);

@@ -551,7 +551,10 @@
         <span id="preview-title" style="display: none;"></span>
         <span id="preview-char-count" style="display: none;"></span>
         
-        <button class="btn-copy-text" id="btn-copy" aria-label="Copy current slide prompt to clipboard">Salin</button>
+        <div class="preview-actions">
+          <button class="btn-copy-text" id="btn-copy" aria-label="Copy current slide prompt to clipboard">Salin</button>
+          <button class="btn-copy-text" id="btn-reset" aria-label="Reset all inputs and settings across all slides">Reset</button>
+        </div>
       </div>
 
       <!-- Code Editor Style Preview Panel -->
@@ -559,10 +562,7 @@
         <div class="preview-output" id="preview-output" tabindex="0" aria-label="Generated prompt text" role="textbox" aria-readonly="true"></div>
       </div>
 
-      <!-- Hidden elements to preserve JS clear slide bindings without errors -->
-      <div style="display: none;">
-        <button id="btn-clear"></button>
-      </div>
+
 
     </aside><!-- /preview-column -->
 

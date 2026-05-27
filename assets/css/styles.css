@@ -1861,6 +1861,12 @@ a:focus {
   margin: 0 !important;
 }
 
+.preview-actions {
+  display: flex !important;
+  gap: 16px !important;
+  align-items: center !important;
+}
+
 .btn-copy-text {
   background: transparent !important;
   border: none !important;
