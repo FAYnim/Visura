@@ -30,3 +30,6 @@ yarn-error.log*
 node_modules/
 dist/
 build/
+
+# Environment variables (API keys — never commit)
+.env

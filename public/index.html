@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -552,6 +552,10 @@
         <span id="preview-char-count" style="display: none;"></span>
         
         <div class="preview-actions">
+          <button class="btn-ai-fill" id="btn-ai-fill" aria-label="Open AI Auto-Fill panel">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            AI Auto-Fill
+          </button>
           <button class="btn-copy-text" id="btn-copy" aria-label="Copy current slide prompt to clipboard">Salin</button>
           <button class="btn-copy-text" id="btn-reset" aria-label="Reset all inputs and settings across all slides">Reset</button>
         </div>
@@ -579,6 +583,129 @@
        TOAST NOTIFICATION
        ===================================================== -->
   <div class="toast" id="app-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- =====================================================
+       AI AUTO-FILL MODAL
+       ===================================================== -->
+  <div class="autofill-backdrop" id="autofill-backdrop" aria-hidden="true"></div>
+
+  <div class="autofill-modal" id="autofill-modal" role="dialog" aria-modal="true" aria-labelledby="autofill-modal-title" hidden>
+    <div class="autofill-modal-inner">
+
+      <!-- Header -->
+      <div class="autofill-header">
+        <div class="autofill-header-left">
+          <span class="autofill-badge">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            AI Auto-Fill
+          </span>
+          <h2 class="autofill-title" id="autofill-modal-title">Fill All Slides with AI</h2>
+          <p class="autofill-subtitle">Provide a brief and/or upload a Markdown/PDF file. The AI will extract and fill all 5 slide fields automatically.</p>
+        </div>
+        <button class="autofill-close" id="autofill-close" aria-label="Close AI Auto-Fill panel">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Privacy Notice -->
+      <div class="autofill-notice">
+        <i class="fa-solid fa-shield-halved"></i>
+        Data dikirim ke API LLM eksternal untuk diproses. File tidak disimpan permanen.
+      </div>
+
+      <!-- Input Section -->
+      <div class="autofill-inputs">
+
+        <!-- Brief textarea -->
+        <div class="autofill-field">
+          <label class="autofill-label" for="af-brief">
+            <i class="fa-solid fa-align-left"></i>
+            Project Brief
+            <span class="autofill-optional">Optional if file uploaded</span>
+          </label>
+          <textarea
+            id="af-brief"
+            class="autofill-textarea"
+            placeholder="Describe your project: name, purpose, features, tech stack, target users, tagline..."
+            rows="5"
+          ></textarea>
+        </div>
+
+        <!-- File upload -->
+        <div class="autofill-field">
+          <label class="autofill-label">
+            <i class="fa-solid fa-file-arrow-up"></i>
+            Document File
+            <span class="autofill-optional">Markdown or PDF, max 10 MB</span>
+          </label>
+          <div class="autofill-dropzone" id="af-dropzone">
+            <input type="file" id="af-doc-file" accept=".md,.pdf,text/markdown,application/pdf" class="autofill-file-input" aria-label="Upload Markdown or PDF file" />
+            <div class="autofill-dropzone-inner">
+              <i class="fa-solid fa-cloud-arrow-up autofill-upload-icon"></i>
+              <span class="autofill-dropzone-text">Drag & drop or <span class="autofill-browse">browse</span></span>
+              <span class="autofill-file-name" id="af-file-name">No file selected</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Progress State -->
+      <div class="autofill-progress" id="autofill-progress" hidden>
+        <div class="autofill-progress-bar">
+          <div class="autofill-progress-fill" id="autofill-progress-fill"></div>
+        </div>
+        <div class="autofill-progress-text">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          <span id="autofill-progress-msg">Analyzing your content...</span>
+        </div>
+      </div>
+
+      <!-- Result Summary -->
+      <div class="autofill-result" id="autofill-result" hidden>
+        <div class="autofill-result-header">
+          <i class="fa-solid fa-circle-check autofill-result-icon"></i>
+          <div>
+            <div class="autofill-result-title">Extraction Complete</div>
+            <div class="autofill-result-stats" id="autofill-result-stats"></div>
+          </div>
+        </div>
+        <div class="autofill-coverage-bar">
+          <div class="autofill-coverage-fill" id="autofill-coverage-fill"></div>
+        </div>
+        <div class="autofill-empty-fields" id="autofill-empty-fields" hidden>
+          <span class="autofill-empty-label">Fields left empty:</span>
+          <div class="autofill-empty-list" id="autofill-empty-list"></div>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div class="autofill-error" id="autofill-error" hidden>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span id="autofill-error-msg">Something went wrong. Please try again.</span>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="autofill-footer">
+        <button class="autofill-btn-secondary" id="autofill-cancel">Cancel</button>
+        <div class="autofill-footer-right">
+          <button class="autofill-btn-secondary" id="autofill-regenerate" hidden>
+            <i class="fa-solid fa-rotate-right"></i>
+            Regenerate
+          </button>
+          <button class="autofill-btn-apply" id="autofill-apply" hidden>
+            <i class="fa-solid fa-check"></i>
+            Apply to All Slides
+          </button>
+          <button class="autofill-btn-primary" id="autofill-run">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Extract with AI
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <script type="module" src="/js/generator.js"></script>
 </body>
