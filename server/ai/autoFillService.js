@@ -1,98 +1,33 @@
 'use strict';
 
-const https = require('https');
+const { GoogleGenAI } = require('@google/genai');
 const { buildPrompt, normalizeOutput, SCHEMA } = require('./promptBuilder');
 
 // ── Provider detection ────────────────────────────────────────────────────────
-// Set OPENAI_API_KEY for OpenAI or ANTHROPIC_API_KEY for Claude.
-const OPENAI_KEY = process.env.OPENAI_API_KEY || '';
-const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY || '';
+// Set GEMINI_API_KEY for Google Gemini.
+const GEMINI_KEY = process.env.GEMINI_API_KEY || '';
 
-if (!OPENAI_KEY && !ANTHROPIC_KEY) {
-  console.warn('[autoFillService] WARNING: No LLM API key found in environment. Set OPENAI_API_KEY or ANTHROPIC_API_KEY in .env');
+if (!GEMINI_KEY) {
+  console.warn('[autoFillService] WARNING: No LLM API key found in environment. Set GEMINI_API_KEY in .env');
 }
 
-// ── HTTP helper ───────────────────────────────────────────────────────────────
-function httpsPost(hostname, path, headers, body) {
-  return new Promise((resolve, reject) => {
-    const payload = JSON.stringify(body);
-    const options = {
-      hostname,
-      path,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(payload),
-        ...headers
-      }
-    };
+// ── Gemini call ───────────────────────────────────────────────────────────────
+async function callGemini(systemPrompt, userPrompt) {
+  const ai = new GoogleGenAI({ apiKey: GEMINI_KEY });
 
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => { data += chunk; });
-      res.on('end', () => {
-        try {
-          resolve(JSON.parse(data));
-        } catch {
-          reject(new Error(`Failed to parse response: ${data.slice(0, 200)}`));
-        }
-      });
-    });
-
-    req.on('error', reject);
-    req.setTimeout(60000, () => {
-      req.destroy(new Error('LLM request timed out after 60 seconds'));
-    });
-    req.write(payload);
-    req.end();
+  const response = await ai.models.generateContent({
+    // model: 'gemini-3.5-flash',
+    // model: 'gemini-3-flash-preview',
+    model: 'gemini-2.5-flash',
+    contents: userPrompt,
+    config: {
+      systemInstruction: systemPrompt,
+      temperature: 0.3,
+      responseMimeType: 'application/json'
+    }
   });
-}
 
-// ── OpenAI call ───────────────────────────────────────────────────────────────
-async function callOpenAI(systemPrompt, userPrompt) {
-  const response = await httpsPost(
-    'api.openai.com',
-    '/v1/chat/completions',
-    { Authorization: `Bearer ${OPENAI_KEY}` },
-    {
-      model: 'gpt-4o-mini',
-      temperature: 0.3,
-      response_format: { type: 'json_object' },
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt }
-      ]
-    }
-  );
-
-  if (response.error) throw new Error(`OpenAI error: ${response.error.message}`);
-  const content = response.choices?.[0]?.message?.content || '{}';
-  return JSON.parse(content);
-}
-
-// ── Anthropic (Claude) call ───────────────────────────────────────────────────
-async function callAnthropic(systemPrompt, userPrompt) {
-  const response = await httpsPost(
-    'api.anthropic.com',
-    '/v1/messages',
-    {
-      'x-api-key': ANTHROPIC_KEY,
-      'anthropic-version': '2023-06-01'
-    },
-    {
-      model: 'claude-3-5-haiku-20241022',
-      max_tokens: 4096,
-      temperature: 0.3,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userPrompt }]
-    }
-  );
-
-  if (response.error) throw new Error(`Anthropic error: ${response.error.message}`);
-  const content = response.content?.[0]?.text || '{}';
-  // Claude may wrap JSON in code fences — strip them
-  const cleaned = content.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
-  return JSON.parse(cleaned);
+  return JSON.parse(response.text || '{}');
 }
 
 // ── Main entry ────────────────────────────────────────────────────────────────
@@ -107,12 +42,12 @@ async function autoFillFromSources({ brief, docText }) {
   const { systemPrompt, userPrompt } = buildPrompt({ brief, docText });
 
   // Pick provider
-  const callLLM = OPENAI_KEY ? callOpenAI : ANTHROPIC_KEY ? callAnthropic : null;
+  const callLLM = GEMINI_KEY ? callGemini : null;
 
   if (!callLLM) {
     // No API key — return empty schema so frontend can still show coverage = 0
     console.error('[autoFillService] No LLM API key configured.');
-    throw new Error('No LLM API key configured. Please set OPENAI_API_KEY or ANTHROPIC_API_KEY in your .env file.');
+    throw new Error('No LLM API key configured. Please set GEMINI_API_KEY in your .env file.');
   }
 
   let raw;

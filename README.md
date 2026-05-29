@@ -7,7 +7,7 @@ Premium prompt generator untuk membuat carousel portofolio Instagram 5-slide den
 ## Fitur Utama
 
 - **Generator 5 slide** dengan template prompt berbeda untuk cover, overview, feature grid, showcase, dan outro.
-- **AI Auto-Fill** — isi semua field otomatis dari brief teks + file Markdown/PDF menggunakan LLM (OpenAI / Claude).
+- **AI Auto-Fill** — isi semua field otomatis dari brief teks + file Markdown/PDF menggunakan LLM (Google Gemini).
 - **Live preview** dengan highlight placeholder vs input yang sudah terisi.
 - **Copy sekali klik** ke clipboard dengan toast feedback.
 - **Riwayat prompt** tersimpan lokal + pencarian cepat.
@@ -40,13 +40,10 @@ npm install
 
 ### Setup AI Auto-Fill (Opsional)
 
-Fitur AI Auto-Fill membutuhkan API key dari OpenAI atau Anthropic. Buat file `.env` di root project:
+Fitur AI Auto-Fill membutuhkan API key dari Google Gemini. Buat file `.env` di root project:
 
 ```bash
-# Pilih salah satu (OpenAI diprioritaskan jika keduanya ada)
-OPENAI_API_KEY=sk-...
-# atau
-ANTHROPIC_API_KEY=sk-ant-...
+GEMINI_API_KEY=AIza...
 ```
 
 > [!IMPORTANT]
