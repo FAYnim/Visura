@@ -8,10 +8,17 @@ import {
   loadSettings,
   loadHistory,
   saveHistory,
+  loadPromptBatches,
+  getActivePromptBatch,
   updateProfileWidget,
   initSidebar,
   showToast
 } from './common.js';
+
+import {
+  DEFAULT_PROMPTS,
+  normalizePromptBatches
+} from './promptStore.js';
 
 'use strict';
 
@@ -585,12 +592,21 @@ ultra detailed, cinematic composition, elegant typography, sophisticated art dir
 // =========================================================
 // TEMPLATE RESOLVER
 // =========================================================
+/**
+ * Returns the prompt template string for a given slide number.
+ * If an active prompt batch is set in STATE, uses that batch's slide template.
+ * Falls back to DEFAULT_PROMPTS (identical to original TEMPLATES) if no batch active.
+ */
 function getTemplateForSlide(slide) {
-  if (slide === 1) return TEMPLATES[1];
-  if (slide === 3) return TEMPLATES[3];
-  if (slide === 4) return TEMPLATES[4];
-  if (slide === 5) return TEMPLATES[5];
-  return TEMPLATES.case_study; // Slide 2
+  // Try active batch first
+  if (STATE.activePromptBatchId && STATE.promptBatches) {
+    const activeBatch = getActivePromptBatch(STATE.promptBatches, STATE.activePromptBatchId);
+    if (activeBatch && activeBatch.slides && activeBatch.slides[slide]) {
+      return activeBatch.slides[slide];
+    }
+  }
+  // Fallback: default templates
+  return DEFAULT_PROMPTS[slide] || DEFAULT_PROMPTS[1];
 }
 
 // =========================================================
@@ -605,6 +621,8 @@ const STATE = {
   activeSlide: 1,
   settings: { ...SETTINGS_DEFAULTS },
   history: [],
+  promptBatches: [],
+  activePromptBatchId: null,
   slides: {
     1: { BADGE_TEXT: '', MAIN_HEADLINE: '', SUBTITLE_TEXT: '' },
     2: {
@@ -827,6 +845,16 @@ document.addEventListener('DOMContentLoaded', () => {
   updateProfileWidget(STATE.settings);
   // Load history
   STATE.history = loadHistory();
+
+  // Load prompt batches & active id
+  const rawBatches = loadPromptBatches();
+  if (Array.isArray(rawBatches)) {
+    STATE.promptBatches = normalizePromptBatches(rawBatches);
+    STATE.activePromptBatchId = null;
+  } else if (rawBatches && typeof rawBatches === 'object') {
+    STATE.promptBatches = normalizePromptBatches(rawBatches.batches || []);
+    STATE.activePromptBatchId = rawBatches.activeId || null;
+  }
 
   // Init sidebar
   initSidebar();

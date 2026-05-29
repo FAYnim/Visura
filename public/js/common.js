@@ -9,12 +9,14 @@
 // =========================================================
 export const STORAGE_KEYS = {
   SETTINGS: 'visura_global_settings',
-  HISTORY: 'visura_history'
+  HISTORY: 'visura_history',
+  PROMPT_BATCHES: 'visura_prompt_batches'
 };
 
 export const LEGACY_STORAGE_KEYS = {
   SETTINGS: 'promptflex_global_settings',
-  HISTORY: 'promptflex_history'
+  HISTORY: 'promptflex_history',
+  PROMPT_BATCHES: 'promptflex_prompt_batches'
 };
 
 // =========================================================
@@ -94,6 +96,51 @@ export function saveHistory(history) {
   } catch (e) {
     console.error('Failed to save history to localStorage', e);
   }
+}
+
+// =========================================================
+// PROMPT BATCHES STORAGE
+// =========================================================
+export function loadPromptBatches() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEYS.PROMPT_BATCHES);
+    if (stored) {
+      return JSON.parse(stored);
+    }
+
+    const legacyStored = localStorage.getItem(LEGACY_STORAGE_KEYS.PROMPT_BATCHES);
+    if (legacyStored) {
+      const parsedLegacy = JSON.parse(legacyStored);
+      localStorage.setItem(STORAGE_KEYS.PROMPT_BATCHES, JSON.stringify(parsedLegacy));
+      localStorage.removeItem(LEGACY_STORAGE_KEYS.PROMPT_BATCHES);
+      return parsedLegacy;
+    }
+
+    return [];
+  } catch (e) {
+    console.error('Failed to load prompt batches from localStorage', e);
+    return [];
+  }
+}
+
+export function savePromptBatches(batches) {
+  try {
+    localStorage.setItem(STORAGE_KEYS.PROMPT_BATCHES, JSON.stringify(batches));
+  } catch (e) {
+    console.error('Failed to save prompt batches to localStorage', e);
+  }
+}
+
+/**
+ * Returns the active batch object from the batches array.
+ * Falls back to null if not found (caller should use DEFAULT_PROMPT_BATCH).
+ * @param {Array} batches
+ * @param {string|null} activeId
+ * @returns {Object|null}
+ */
+export function getActivePromptBatch(batches, activeId) {
+  if (!activeId || !Array.isArray(batches) || batches.length === 0) return null;
+  return batches.find(b => b.id === activeId) || null;
 }
 
 // =========================================================

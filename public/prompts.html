@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visura — Prompt Manager</title>
+  <meta name="description" content="Kelola batch template prompt per slide untuk generator Visura. Buat, edit, duplikat, dan aktifkan batch prompt dengan mudah." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/logo/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/logo/favicon-16x16.png" />
+  <link rel="icon" href="/img/logo/favicon.ico" />
+  <link rel="manifest" href="/img/logo/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* ── Prompt Manager Page Styles ─────────────────────────── */
+    .prompts-container {
+      padding: 32px 28px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .prompts-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    /* .prompts-title-group {} */
+    .prompts-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 4px;
+    }
+    .prompts-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .prompts-header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ── Layout Grid ─────────────────────────────────────────── */
+    .prompts-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .prompts-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Batch List Panel ────────────────────────────────────── */
+    .batch-list-panel {
+      background: var(--surface-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .batch-list-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .batch-list {
+      list-style: none;
+      margin: 0;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .batch-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      position: relative;
+      user-select: none;
+    }
+    .batch-item:hover { background: var(--surface-hover); }
+    .batch-item.selected { background: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.08); }
+    .batch-item.selected .batch-item-name { color: var(--accent-primary); }
+
+    .batch-item-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: var(--surface-secondary);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .batch-item.selected .batch-item-icon {
+      background: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.12);
+      border-color: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.3);
+      color: var(--accent-primary);
+    }
+
+    .batch-item-info { flex: 1; min-width: 0; }
+    .batch-item-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .batch-item-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .batch-active-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 7px;
+      border-radius: 20px;
+      background: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.15);
+      color: var(--accent-primary);
+      border: 1px solid rgba(var(--accent-primary-rgb, 74, 222, 128), 0.3);
+      flex-shrink: 0;
+    }
+    .batch-active-badge::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      display: inline-block;
+    }
+
+    .batch-empty-state {
+      padding: 24px 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    /* ── Editor Panel ────────────────────────────────────────── */
+    .batch-editor-panel {
+      background: var(--surface-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .editor-panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .editor-panel-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .editor-panel-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .editor-panel-body {
+      padding: 20px;
+    }
+
+    /* Batch meta fields */
+    .batch-meta-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 640px) {
+      .batch-meta-fields { grid-template-columns: 1fr; }
+    }
+
+    .field-group { display: flex; flex-direction: column; gap: 6px; }
+    .field-group label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .field-group input,
+    .field-group textarea {
+      background: var(--surface-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-family: inherit;
+      padding: 8px 12px;
+      transition: border-color 0.15s;
+      resize: vertical;
+    }
+    .field-group input:focus,
+    .field-group textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+    .field-group input:disabled,
+    .field-group textarea:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Slide editor tabs */
+    .slide-tabs-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .slide-editor-tab {
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-secondary);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .slide-editor-tab:hover { background: var(--surface-hover); color: var(--text-primary); }
+    .slide-editor-tab.active {
+      background: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.12);
+      border-color: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.35);
+      color: var(--accent-primary);
+    }
+    .slide-editor-tab.has-error {
+      border-color: rgba(255, 107, 107, 0.4);
+      color: #ff6b6b;
+    }
+
+    /* Slide content editor */
+    .slide-editor-panel {
+      display: none;
+    }
+    .slide-editor-panel.active {
+      display: block;
+    }
+
+    .slide-editor-info {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--surface-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .slide-editor-info strong { color: var(--text-secondary); }
+    .slide-editor-info code {
+      background: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.1);
+      color: var(--accent-primary);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 0.75rem;
+    }
+
+    .slide-template-textarea {
+      width: 100%;
+      min-height: 380px;
+      background: var(--surface-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 14px;
+      resize: vertical;
+      line-height: 1.6;
+      transition: border-color 0.15s;
+      box-sizing: border-box;
+    }
+    .slide-template-textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+    .slide-template-textarea:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .slide-template-textarea.error {
+      border-color: #ff6b6b;
+    }
+
+    .slide-validation-msg {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: #ff6b6b;
+      display: none;
+    }
+    .slide-validation-msg.visible { display: block; }
+
+    /* No selection state */
+    .editor-no-selection {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .editor-no-selection i {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      opacity: 0.3;
+      display: block;
+    }
+    .editor-no-selection p { font-size: 0.9rem; margin: 0; }
+
+    /* Default batch note */
+    .default-batch-notice {
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: #fbbf24;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .default-batch-notice.visible { display: flex; gap: 8px; align-items: flex-start; }
+
+    /* Placeholder helper tags */
+    .placeholder-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .ph-tag {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.1);
+      color: var(--accent-primary);
+      border: 1px solid rgba(var(--accent-primary-rgb, 74, 222, 128), 0.25);
+      font-family: monospace;
+      transition: all 0.2s ease;
+    }
+    .ph-tag.missing {
+      background: rgba(255, 107, 107, 0.1);
+      color: #ff6b6b;
+      border-color: rgba(255, 107, 107, 0.3);
+      text-decoration: line-through;
+    }
+
+    .btn.btn-danger {
+      background: rgba(255, 107, 107, 0.12);
+      border-color: rgba(255, 107, 107, 0.3);
+      color: #ff6b6b;
+    }
+    .btn.btn-danger:hover {
+      background: rgba(255, 107, 107, 0.2);
+    }
+
+    .btn.btn-activate {
+      background: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.12);
+      border-color: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.35);
+      color: var(--accent-primary);
+    }
+    .btn.btn-activate:hover {
+      background: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.2);
+    }
+    .btn.btn-activate.is-active {
+      background: rgba(var(--accent-primary-rgb, 74, 222, 128), 0.18);
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================
+       HEADER — Branding
+       ===================================================== -->
+  <header class="app-header" role="banner">
+    <div class="header-brand">
+      <span class="brand-name">Visura</span>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <!-- =====================================================
+         SIDEBAR — Main App Navigation
+         ===================================================== -->
+    <aside class="app-sidebar" aria-label="Main navigation">
+      <div class="sidebar-top">
+        <nav class="sidebar-menu" role="navigation">
+          <a class="sidebar-btn" href="/" id="tab-generator">
+            <span class="btn-text">Prompt Generator</span>
+          </a>
+          <a class="sidebar-btn" href="/riwayat" id="tab-riwayat">
+            <span class="btn-text">History</span>
+          </a>
+          <a class="sidebar-btn active" href="/prompts" id="tab-prompts" aria-current="page">
+            <span class="btn-text">Prompt Manager</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <!-- Profile & Settings Area -->
+        <div class="sidebar-profile-section">
+          <a href="/settings" id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Buka Pengaturan Profil" title="Pengaturan Profil">
+            <div class="avatar-container">
+              <img src="/img/avatar.png" alt="Profile" class="profile-avatar-img" />
+            </div>
+            <div class="profile-info-text">
+              <span class="profile-name">John Doe</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =====================================================
+         CONTENT WORKSPACE
+         ===================================================== -->
+    <div class="app-content">
+      <div id="view-prompts" class="app-view active">
+        <div class="prompts-container">
+
+          <!-- Page Header -->
+          <header class="prompts-header">
+            <div class="prompts-title-group">
+              <h1 class="prompts-title">Prompt Manager</h1>
+              <p class="prompts-desc">Kelola batch template prompt per slide. Hanya bagian style dan layout yang boleh diubah — placeholder <code>{{...}}</code> wajib tetap ada.</p>
+            </div>
+            <div class="prompts-header-actions">
+              <button class="btn btn-primary" id="btn-create-batch">
+                <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
+                Buat Batch Baru
+              </button>
+            </div>
+          </header>
+
+          <!-- Main Layout -->
+          <div class="prompts-layout">
+
+            <!-- ── Batch List Panel ────────────────────────── -->
+            <div class="batch-list-panel">
+              <div class="batch-list-header">Batch Prompt</div>
+              <ul class="batch-list" id="batch-list" role="listbox" aria-label="Daftar batch prompt">
+                <!-- Rendered by prompts.js -->
+              </ul>
+            </div>
+
+            <!-- ── Editor Panel ───────────────────────────── -->
+            <div class="batch-editor-panel" id="batch-editor-panel">
+
+              <!-- No selection state -->
+              <div class="editor-no-selection" id="editor-no-selection">
+                <i class="fa-solid fa-layer-group"></i>
+                <p>Pilih batch dari daftar atau buat batch baru untuk memulai.</p>
+              </div>
+
+              <!-- Editor content (hidden until batch selected) -->
+              <div id="editor-content" hidden>
+
+                <!-- Editor Header -->
+                <div class="editor-panel-header">
+                  <h2 class="editor-panel-title" id="editor-title">Edit Batch</h2>
+                  <div class="editor-panel-actions">
+                    <button class="btn btn-secondary btn-sm" id="btn-duplicate-batch" title="Duplikat batch ini">
+                      <span class="btn-icon"><i class="fa-solid fa-copy"></i></span>
+                      Duplikat
+                    </button>
+                    <button class="btn btn-activate btn-sm" id="btn-activate-batch" title="Jadikan batch ini aktif">
+                      <span class="btn-icon"><i class="fa-solid fa-circle-check"></i></span>
+                      Jadikan Aktif
+                    </button>
+                    <button class="btn btn-danger btn-sm" id="btn-delete-batch" title="Hapus batch ini">
+                      <span class="btn-icon"><i class="fa-regular fa-trash-can"></i></span>
+                      Hapus
+                    </button>
+                    <button class="btn btn-primary btn-sm" id="btn-save-batch">
+                      <span class="btn-icon"><i class="fa-solid fa-floppy-disk"></i></span>
+                      Simpan
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Editor Body -->
+                <div class="editor-panel-body">
+
+                  <!-- Default batch notice -->
+                  <div class="default-batch-notice" id="default-batch-notice">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>Ini adalah batch default sistem yang hanya dapat dibaca. Duplikat batch ini untuk membuat versi yang dapat diedit.</span>
+                  </div>
+
+                  <!-- Batch meta fields -->
+                  <div class="batch-meta-fields">
+                    <div class="field-group">
+                      <label for="input-batch-name">Nama Batch</label>
+                      <input type="text" id="input-batch-name" placeholder="e.g. Gaya Minimalis" autocomplete="off" />
+                    </div>
+                    <div class="field-group">
+                      <label for="input-batch-desc">Deskripsi (opsional)</label>
+                      <input type="text" id="input-batch-desc" placeholder="e.g. Versi clean dengan warna putih" autocomplete="off" />
+                    </div>
+                  </div>
+
+                  <!-- Slide Editor Tabs -->
+                  <div class="slide-tabs-row" role="tablist" aria-label="Slide prompt tabs">
+                    <button class="slide-editor-tab active" data-slide="1" role="tab" aria-selected="true" id="slide-tab-1">Slide 1</button>
+                    <button class="slide-editor-tab" data-slide="2" role="tab" aria-selected="false" id="slide-tab-2">Slide 2</button>
+                    <button class="slide-editor-tab" data-slide="3" role="tab" aria-selected="false" id="slide-tab-3">Slide 3</button>
+                    <button class="slide-editor-tab" data-slide="4" role="tab" aria-selected="false" id="slide-tab-4">Slide 4</button>
+                    <button class="slide-editor-tab" data-slide="5" role="tab" aria-selected="false" id="slide-tab-5">Slide 5</button>
+                  </div>
+
+                  <!-- Slide 1 -->
+                  <div class="slide-editor-panel active" data-slide="1" role="tabpanel" aria-labelledby="slide-tab-1">
+                    <div class="slide-editor-info">
+                      <strong>Slide 1 — Cover.</strong> Anda boleh mengubah gaya dan layout di luar placeholder. Placeholder wajib yang harus tetap ada:
+                      <div class="placeholder-tags">
+                        <span class="ph-tag" data-ph="BADGE_TEXT">{{BADGE_TEXT}}</span>
+                        <span class="ph-tag" data-ph="MAIN_HEADLINE">{{MAIN_HEADLINE}}</span>
+                        <span class="ph-tag" data-ph="SUBTITLE_TEXT">{{SUBTITLE_TEXT}}</span>
+                        <span class="ph-tag" data-ph="CREATOR_NAME">{{CREATOR_NAME}}</span>
+                      </div>
+                    </div>
+                    <textarea class="slide-template-textarea" id="slide-textarea-1" aria-label="Template prompt slide 1" data-slide="1"></textarea>
+                    <div class="slide-validation-msg" id="slide-error-1" role="alert"></div>
+                  </div>
+
+                  <!-- Slide 2 -->
+                  <div class="slide-editor-panel" data-slide="2" role="tabpanel" aria-labelledby="slide-tab-2">
+                    <div class="slide-editor-info">
+                      <strong>Slide 2 — Project Overview.</strong> Placeholder wajib:
+                      <div class="placeholder-tags">
+                        <span class="ph-tag" data-ph="SECTION_BADGE">{{SECTION_BADGE}}</span>
+                        <span class="ph-tag" data-ph="MAIN_HEADING">{{MAIN_HEADING}}</span>
+                        <span class="ph-tag" data-ph="PROJECT_DESCRIPTION">{{PROJECT_DESCRIPTION}}</span>
+                        <span class="ph-tag" data-ph="QUOTE_TEXT">{{QUOTE_TEXT}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_1">{{FEATURE_TITLE_1}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_1">{{FEATURE_DESC_1}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_2">{{FEATURE_TITLE_2}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_2">{{FEATURE_DESC_2}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_3">{{FEATURE_TITLE_3}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_3">{{FEATURE_DESC_3}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_4">{{FEATURE_TITLE_4}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_4">{{FEATURE_DESC_4}}</span>
+                      </div>
+                    </div>
+                    <textarea class="slide-template-textarea" id="slide-textarea-2" aria-label="Template prompt slide 2" data-slide="2"></textarea>
+                    <div class="slide-validation-msg" id="slide-error-2" role="alert"></div>
+                  </div>
+
+                  <!-- Slide 3 -->
+                  <div class="slide-editor-panel" data-slide="3" role="tabpanel" aria-labelledby="slide-tab-3">
+                    <div class="slide-editor-info">
+                      <strong>Slide 3 — Features.</strong> Placeholder wajib:
+                      <div class="placeholder-tags">
+                        <span class="ph-tag" data-ph="SECTION_BADGE">{{SECTION_BADGE}}</span>
+                        <span class="ph-tag" data-ph="MAIN_HEADING">{{MAIN_HEADING}}</span>
+                        <span class="ph-tag" data-ph="SUBTITLE_TEXT">{{SUBTITLE_TEXT}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_1">{{FEATURE_TITLE_1}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_1">{{FEATURE_DESC_1}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_UI_1">{{FEATURE_UI_1}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_2">{{FEATURE_TITLE_2}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_2">{{FEATURE_DESC_2}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_UI_2">{{FEATURE_UI_2}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_3">{{FEATURE_TITLE_3}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_3">{{FEATURE_DESC_3}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_UI_3">{{FEATURE_UI_3}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_4">{{FEATURE_TITLE_4}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_4">{{FEATURE_DESC_4}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_UI_4">{{FEATURE_UI_4}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_5">{{FEATURE_TITLE_5}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_5">{{FEATURE_DESC_5}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_UI_5">{{FEATURE_UI_5}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_TITLE_6">{{FEATURE_TITLE_6}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_DESC_6">{{FEATURE_DESC_6}}</span>
+                        <span class="ph-tag" data-ph="FEATURE_UI_6">{{FEATURE_UI_6}}</span>
+                        <span class="ph-tag" data-ph="CTA_TEXT">{{CTA_TEXT}}</span>
+                        <span class="ph-tag" data-ph="CTA_BUTTON">{{CTA_BUTTON}}</span>
+                      </div>
+                    </div>
+                    <textarea class="slide-template-textarea" id="slide-textarea-3" aria-label="Template prompt slide 3" data-slide="3"></textarea>
+                    <div class="slide-validation-msg" id="slide-error-3" role="alert"></div>
+                  </div>
+
+                  <!-- Slide 4 -->
+                  <div class="slide-editor-panel" data-slide="4" role="tabpanel" aria-labelledby="slide-tab-4">
+                    <div class="slide-editor-info">
+                      <strong>Slide 4 — UI Showcase.</strong> Placeholder wajib:
+                      <div class="placeholder-tags">
+                        <span class="ph-tag" data-ph="TOP_LEFT_BADGE">{{TOP_LEFT_BADGE}}</span>
+                        <span class="ph-tag" data-ph="TOP_RIGHT_LABEL">{{TOP_RIGHT_LABEL}}</span>
+                        <span class="ph-tag" data-ph="MAIN_HEADLINE">{{MAIN_HEADLINE}}</span>
+                        <span class="ph-tag" data-ph="SUBTITLE_TEXT">{{SUBTITLE_TEXT}}</span>
+                        <span class="ph-tag" data-ph="PILL_TEXT_1">{{PILL_TEXT_1}}</span>
+                        <span class="ph-tag" data-ph="PILL_TEXT_2">{{PILL_TEXT_2}}</span>
+                        <span class="ph-tag" data-ph="PILL_TEXT_3">{{PILL_TEXT_3}}</span>
+                        <span class="ph-tag" data-ph="PILL_TEXT_4">{{PILL_TEXT_4}}</span>
+                        <span class="ph-tag" data-ph="CREATOR_NAME">{{CREATOR_NAME}}</span>
+                        <span class="ph-tag" data-ph="BRAND_STATEMENT">{{BRAND_STATEMENT}}</span>
+                      </div>
+                    </div>
+                    <textarea class="slide-template-textarea" id="slide-textarea-4" aria-label="Template prompt slide 4" data-slide="4"></textarea>
+                    <div class="slide-validation-msg" id="slide-error-4" role="alert"></div>
+                  </div>
+
+                  <!-- Slide 5 -->
+                  <div class="slide-editor-panel" data-slide="5" role="tabpanel" aria-labelledby="slide-tab-5">
+                    <div class="slide-editor-info">
+                      <strong>Slide 5 — Closing Outro.</strong> Placeholder wajib:
+                      <div class="placeholder-tags">
+                        <span class="ph-tag" data-ph="TOP_BADGE_TEXT">{{TOP_BADGE_TEXT}}</span>
+                        <span class="ph-tag" data-ph="MAIN_HEADLINE">{{MAIN_HEADLINE}}</span>
+                        <span class="ph-tag" data-ph="DESCRIPTION_TEXT">{{DESCRIPTION_TEXT}}</span>
+                        <span class="ph-tag" data-ph="CREATOR_NAME">{{CREATOR_NAME}}</span>
+                        <span class="ph-tag" data-ph="CREATOR_ROLE">{{CREATOR_ROLE}}</span>
+                        <span class="ph-tag" data-ph="CTA_TEXT_1">{{CTA_TEXT_1}}</span>
+                        <span class="ph-tag" data-ph="CTA_TEXT_2">{{CTA_TEXT_2}}</span>
+                      </div>
+                    </div>
+                    <textarea class="slide-template-textarea" id="slide-textarea-5" aria-label="Template prompt slide 5" data-slide="5"></textarea>
+                    <div class="slide-validation-msg" id="slide-error-5" role="alert"></div>
+                  </div>
+
+                </div><!-- /editor-panel-body -->
+              </div><!-- /editor-content -->
+            </div><!-- /batch-editor-panel -->
+
+          </div><!-- /prompts-layout -->
+        </div><!-- /prompts-container -->
+      </div><!-- /view-prompts -->
+    </div><!-- /app-content -->
+  </div><!-- /app-body -->
+
+  <!-- Glassmorphic overlay backdrop for mobile sidebar drawer -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- =====================================================
+       TOAST NOTIFICATION
+       ===================================================== -->
+  <div class="toast" id="app-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="module" src="/js/prompts.js"></script>
+</body>
+</html>
