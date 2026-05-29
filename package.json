@@ -4,7 +4,7 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "nodemon server.js",
     "start": "node server.js"
   },
   "dependencies": {
@@ -14,5 +14,8 @@
     "markdown-it": "^14.2.0",
     "multer": "^2.1.1",
     "pdf-parse": "^2.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
