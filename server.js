@@ -1,6 +1,6 @@
 'use strict';
 
-// Load .env variables (OPENAI_API_KEY / ANTHROPIC_API_KEY)
+// Load .env variables (GEMINI_API_KEY)
 require('dotenv').config();
 
 const express = require('express');

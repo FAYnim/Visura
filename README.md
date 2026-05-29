@@ -49,13 +49,25 @@ GEMINI_API_KEY=AIza...
 > [!IMPORTANT]
 > Tanpa API key, tombol **AI Auto-Fill** akan menampilkan pesan error. Generator tetap berfungsi normal tanpa API key.
 
-Lalu jalankan:
+Lalu jalankan server development:
 
 ```bash
 npm run dev
 ```
 
-Lalu buka `http://localhost:3000`.
+> [!NOTE]
+> Perintah `npm run dev` menjalankan server menggunakan `nodemon` untuk mendeteksi perubahan file backend secara dinamis dan melakukan restart server secara otomatis.
+
+Lalu buka `http://localhost:3000` di browser Anda.
+
+### Menjalankan Pengujian (Testing)
+
+Aplikasi ini dilengkapi dengan suite pengujian skema untuk memverifikasi validitas data output yang dikirimkan oleh AI Auto-Fill. Anda dapat menjalankan pengujian tersebut dengan perintah:
+
+```bash
+npm test
+```
+
 
 ## Cara Pakai
 
@@ -67,7 +79,7 @@ Lalu buka `http://localhost:3000`.
    - Review ringkasan coverage, lalu klik **Apply to All Slides**
 3. Isi atau edit form sesuai slide yang aktif.
 4. Lihat hasil prompt di panel **Preview**.
-5. Klik **Salin** untuk menyalin prompt.
+5. Klik **Copy** untuk menyalin prompt.
 6. Cek **History** untuk melihat prompt yang pernah disalin.
 7. Atur nama dan peran Anda di **Settings**.
 
@@ -79,32 +91,32 @@ Lalu buka `http://localhost:3000`.
 ```text
 .
 ├── .env                      # API keys (tidak di-commit)
-├── package.json              # Node.js manifest & scripts
-├── server.js                 # Express entry point
+├── package.json              # Node.js manifest, scripts, & dev dependencies (nodemon, dll)
+├── PRD.md                    # Spesifikasi PRD lengkap untuk AI Auto-Fill
+├── server.js                 # Express entry point (menginisialisasi HTTP server)
 ├── server/
 │   ├── routes/
-│   │   └── autoFill.js       # POST /api/auto-fill route
+│   │   └── autoFill.js       # Express route handler untuk POST /api/auto-fill
 │   └── ai/
-│       ├── autoFillService.js # LLM call + JSON retry
-│       ├── promptBuilder.js   # Prompt & schema builder
-│       └── textExtractors.js  # MD/PDF text extraction
+│       ├── autoFillService.js # Integrasi Google Gemini (menggunakan SDK @google/genai)
+│       ├── promptBuilder.js   # Pembuat system/user prompt & skema parsing data
+│       └── textExtractors.js  # Utilitas ekstraksi teks untuk file Markdown & PDF
 ├── tests/
-│   └── autoFillSchema.test.js # Schema validation tests
-├── public/
-│   ├── index.html            # Generator
-│   ├── riwayat.html          # History
-│   ├── settings.html         # Settings
-│   ├── css/
-│   │   └── styles.css        # UI & design system
-│   ├── js/
-│   │   ├── common.js         # Utilities & localStorage
-│   │   ├── generator.js      # Logic generator + AI Auto-Fill
-│   │   ├── riwayat.js        # Logic history
-│   │   └── settings.js       # Logic settings
-│   └── img/
-│       ├── avatar.png        # Logo/avatar default
-│       └── logo/             # Paket logo (favicon, webmanifest, dll)
-└── docs/                     # Spesifikasi & plans internal
+│   └── autoFillSchema.test.js # Uji skema validasi minimal (dijalankan via `npm test`)
+└── public/
+    ├── index.html            # UI Utama Generator (landing page slide-based)
+    ├── riwayat.html          # Riwayat Prompt yang disalin
+    ├── settings.html         # Pengaturan global Creator (Name & Role)
+    ├── css/
+    │   └── styles.css        # UI & sistem desain cinematic dark theme
+    ├── js/
+    │   ├── common.js         # State, localStorage, & utilitas UI bersama
+    │   ├── generator.js      # Kontrol form, live compiler prompt, & client-side AI Auto-Fill
+    │   ├── riwayat.js        # Logika manajemen & pencarian riwayat
+    │   └── settings.js       # Logika form manajemen profile Creator
+    └── img/
+        ├── avatar.png        # Avatar default Creator
+        └── logo/             # Paket ikon & favicon aplikasi
 ```
 
 ## Kustomisasi

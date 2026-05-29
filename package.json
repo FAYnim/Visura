@@ -5,7 +5,8 @@
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node tests/autoFillSchema.test.js"
   },
   "dependencies": {
     "@google/genai": "^2.7.0",
