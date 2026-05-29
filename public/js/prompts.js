@@ -13,7 +13,8 @@ import {
   loadSettings,
   updateProfileWidget,
   initSidebar,
-  showToast
+  showToast,
+  escapeHtml
 } from './common.js';
 
 import {
@@ -410,18 +411,7 @@ function handleDeleteBatch() {
   showToast(`<i class="fa-regular fa-trash-can" style="color:var(--text-muted);"></i> Batch dihapus.`);
 }
 
-// =========================================================
-// ESCAPE HTML
-// =========================================================
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
+
 
 function formatDate(iso) {
   try {

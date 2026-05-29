@@ -32,103 +32,72 @@ export function escapeHtml(str) {
 }
 
 // =========================================================
-// SETTINGS STORAGE
+// GENERIC STORAGE HELPERS
 // =========================================================
-export function loadSettings(defaults) {
+export function readStorage(key, legacyKey, fallback) {
   try {
-    const stored = localStorage.getItem(STORAGE_KEYS.SETTINGS);
+    const stored = localStorage.getItem(key);
     if (stored) {
-      return { ...defaults, ...JSON.parse(stored) };
+      return JSON.parse(stored);
     }
 
-    const legacyStored = localStorage.getItem(LEGACY_STORAGE_KEYS.SETTINGS);
-    if (legacyStored) {
-      const parsedLegacy = JSON.parse(legacyStored);
-      const migrated = { ...defaults, ...parsedLegacy };
-      localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(migrated));
-      localStorage.removeItem(LEGACY_STORAGE_KEYS.SETTINGS);
-      return migrated;
+    if (legacyKey) {
+      const legacyStored = localStorage.getItem(legacyKey);
+      if (legacyStored) {
+        const parsedLegacy = JSON.parse(legacyStored);
+        localStorage.setItem(key, JSON.stringify(parsedLegacy));
+        localStorage.removeItem(legacyKey);
+        return parsedLegacy;
+      }
     }
 
-    return { ...defaults };
+    return fallback;
   } catch (e) {
-    console.error('Failed to load settings from localStorage', e);
-    return { ...defaults };
+    console.error(`Failed to load ${key} from localStorage`, e);
+    return fallback;
   }
 }
 
-export function saveSettings(settings) {
+export function writeStorage(key, value) {
   try {
-    localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+    localStorage.setItem(key, JSON.stringify(value));
   } catch (e) {
-    console.error('Failed to save settings to localStorage', e);
+    console.error(`Failed to save ${key} to localStorage`, e);
   }
+}
+
+// =========================================================
+// SETTINGS STORAGE
+// =========================================================
+export function loadSettings(defaults) {
+  const data = readStorage(STORAGE_KEYS.SETTINGS, LEGACY_STORAGE_KEYS.SETTINGS, defaults);
+  return { ...defaults, ...data };
+}
+
+export function saveSettings(settings) {
+  writeStorage(STORAGE_KEYS.SETTINGS, settings);
 }
 
 // =========================================================
 // HISTORY STORAGE
 // =========================================================
 export function loadHistory() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEYS.HISTORY);
-    if (stored) {
-      return JSON.parse(stored);
-    }
-
-    const legacyStored = localStorage.getItem(LEGACY_STORAGE_KEYS.HISTORY);
-    if (legacyStored) {
-      const parsedLegacy = JSON.parse(legacyStored);
-      localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(parsedLegacy));
-      localStorage.removeItem(LEGACY_STORAGE_KEYS.HISTORY);
-      return parsedLegacy;
-    }
-
-    return [];
-  } catch (e) {
-    console.error('Failed to load history from localStorage', e);
-    return [];
-  }
+  return readStorage(STORAGE_KEYS.HISTORY, LEGACY_STORAGE_KEYS.HISTORY, []);
 }
 
 export function saveHistory(history) {
-  try {
-    localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(history));
-  } catch (e) {
-    console.error('Failed to save history to localStorage', e);
-  }
+  writeStorage(STORAGE_KEYS.HISTORY, history);
 }
 
 // =========================================================
 // PROMPT BATCHES STORAGE
 // =========================================================
 export function loadPromptBatches() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEYS.PROMPT_BATCHES);
-    if (stored) {
-      return JSON.parse(stored);
-    }
-
-    const legacyStored = localStorage.getItem(LEGACY_STORAGE_KEYS.PROMPT_BATCHES);
-    if (legacyStored) {
-      const parsedLegacy = JSON.parse(legacyStored);
-      localStorage.setItem(STORAGE_KEYS.PROMPT_BATCHES, JSON.stringify(parsedLegacy));
-      localStorage.removeItem(LEGACY_STORAGE_KEYS.PROMPT_BATCHES);
-      return parsedLegacy;
-    }
-
-    return [];
-  } catch (e) {
-    console.error('Failed to load prompt batches from localStorage', e);
-    return [];
-  }
+  return readStorage(STORAGE_KEYS.PROMPT_BATCHES, LEGACY_STORAGE_KEYS.PROMPT_BATCHES, []);
 }
 
 export function savePromptBatches(batches) {
-  try {
-    localStorage.setItem(STORAGE_KEYS.PROMPT_BATCHES, JSON.stringify(batches));
-  } catch (e) {
-    console.error('Failed to save prompt batches to localStorage', e);
-  }
+  writeStorage(STORAGE_KEYS.PROMPT_BATCHES, batches);
 }
 
 /**
