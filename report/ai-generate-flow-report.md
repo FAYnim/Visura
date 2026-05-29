@@ -49,10 +49,11 @@ DOM to JS Mapping
 - `screenshotFile` is accepted but not processed in MVP in [server/routes/autoFill.js](server/routes/autoFill.js#L18-L40).
 
 ## AI Service Flow
-- Provider config reads `GEMINI_API_KEY` in [server/ai/autoFillService.js](server/ai/autoFillService.js#L8-L11).
-- `callGemini()` sends `systemPrompt` and `userPrompt` using `@google/genai` in [server/ai/autoFillService.js](server/ai/autoFillService.js#L15-L33).
-- `autoFillFromSources()` builds prompts, calls the provider, and retries once with a repair prompt on failure in [server/ai/autoFillService.js](server/ai/autoFillService.js#L41-L66).
-- Output is normalized to schema shape by `normalizeOutput()` in [server/ai/autoFillService.js](server/ai/autoFillService.js#L71).
+- Provider config reads `GEMINI_API_KEY` and `GROQ_API_KEY` in [server/ai/autoFillService.js](server/ai/autoFillService.js#L8-L13).
+- `callGemini()` and `callGroq()` handle API requests to Google Gemini and Groq respectively in [server/ai/autoFillService.js](server/ai/autoFillService.js#L15-L60).
+- `createProviderChain()` builds an ordered array of available providers (Gemini first, then Groq) in [server/ai/autoFillService.js](server/ai/autoFillService.js#L82-L97).
+- `autoFillFromSources()` builds prompts and iterates through the provider chain, retrying each provider once with a repair prompt via `callWithRepair()` before falling back in [server/ai/autoFillService.js](server/ai/autoFillService.js#L99-L129).
+- Output is normalized to schema shape by `normalizeOutput()` in [server/ai/autoFillService.js](server/ai/autoFillService.js#L122).
 
 ## Prompt + Schema
 - Schema shape is defined in `SCHEMA` in [server/ai/promptBuilder.js](server/ai/promptBuilder.js#L7-L65).
@@ -64,7 +65,7 @@ DOM to JS Mapping
 - Frontend network and parse errors are surfaced via `setError()` in [public/js/generator.js](public/js/generator.js#L991-L999).
 - Backend returns 400 when no `brief` and no `docText` are provided in [server/routes/autoFill.js](server/routes/autoFill.js#L43).
 - Backend returns 500 on unhandled errors in [server/routes/autoFill.js](server/routes/autoFill.js#L71).
-- AI service throws when no API key is set and retries once on invalid JSON in [server/ai/autoFillService.js](server/ai/autoFillService.js#L50-L66).
+- AI service throws when no API keys are set, logs warnings when a provider fails, and throws a final error if all available providers in the chain fail in [server/ai/autoFillService.js](server/ai/autoFillService.js#L114-L128).
 
 ## Data Contracts
 Request (multipart/form-data)
@@ -81,3 +82,4 @@ Response (JSON)
 - Required keys for slides and feature sets are validated in [tests/autoFillSchema.test.js](tests/autoFillSchema.test.js#L18-L39).
 - `normalizeOutput()` behavior is tested in [tests/autoFillSchema.test.js](tests/autoFillSchema.test.js#L53-L66).
 - `validateSchema` helper ensures shape in [tests/autoFillSchema.test.js](tests/autoFillSchema.test.js#L69-L77).
+- Provider fallback chain (success, all fail, empty chain, primary success) is verified in [tests/autoFillFallback.test.js](tests/autoFillFallback.test.js#L31-L100).
