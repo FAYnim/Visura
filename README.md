@@ -40,14 +40,20 @@ npm install
 
 ### Setup AI Auto-Fill (Opsional)
 
-Fitur AI Auto-Fill membutuhkan API key dari Google Gemini. Buat file `.env` di root project:
+Fitur AI Auto-Fill mendukung dua provider LLM dengan mekanisme **fallback otomatis**. Buat file `.env` di root project dan isi salah satu atau keduanya:
 
 ```bash
-GEMINI_API_KEY=AIza...
+GEMINI_API_KEY=AIza...   # Google Gemini (provider utama)
+GROQ_API_KEY=gsk_...     # Groq (provider fallback)
 ```
 
+**Urutan fallback:**
+1. **Gemini** digunakan pertama jika `GEMINI_API_KEY` tersedia.
+2. **Groq** digunakan sebagai fallback jika Gemini gagal, atau jika hanya `GROQ_API_KEY` yang tersedia.
+3. Setiap provider mendapat satu kali **retry** dengan repair prompt sebelum beralih ke provider berikutnya.
+
 > [!IMPORTANT]
-> Tanpa API key, tombol **AI Auto-Fill** akan menampilkan pesan error. Generator tetap berfungsi normal tanpa API key.
+> Tanpa API key apa pun, tombol **AI Auto-Fill** akan menampilkan pesan error. Generator tetap berfungsi normal tanpa API key.
 
 Lalu jalankan server development:
 
@@ -98,7 +104,7 @@ npm test
 │   ├── routes/
 │   │   └── autoFill.js       # Express route handler untuk POST /api/auto-fill
 │   └── ai/
-│       ├── autoFillService.js # Integrasi Google Gemini (menggunakan SDK @google/genai)
+│       ├── autoFillService.js # Integrasi Google Gemini + fallback Groq
 │       ├── promptBuilder.js   # Pembuat system/user prompt & skema parsing data
 │       └── textExtractors.js  # Utilitas ekstraksi teks untuk file Markdown & PDF
 ├── tests/
