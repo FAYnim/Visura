@@ -8,7 +8,7 @@
 
 // =========================================================
 // DEFAULT PROMPT TEMPLATES
-// These are the canonical templates extracted from generator.js.
+// Single source of truth for prompt templates.
 // The {{...}} placeholders MUST remain intact in all batches.
 // =========================================================
 export const DEFAULT_PROMPTS = {
