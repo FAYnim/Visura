@@ -20,6 +20,8 @@ import {
   normalizePromptBatches
 } from './promptStore.js';
 
+import { SETTINGS_DEFAULTS } from './settingsDefaults.js';
+
 'use strict';
 
 
@@ -47,10 +49,7 @@ function getTemplateForSlide(slide) {
 // =========================================================
 // STATE MACHINE
 // =========================================================
-const SETTINGS_DEFAULTS = {
-  CREATOR_NAME: '',
-  CREATOR_ROLE: ''
-};
+
 
 const STATE = {
   activeSlide: 1,

@@ -12,15 +12,11 @@ import {
   showToast
 } from './common.js';
 
+import { SETTINGS_DEFAULTS } from './settingsDefaults.js';
+
 'use strict';
 
-// =========================================================
-// SETTINGS DEFAULTS
-// =========================================================
-const SETTINGS_DEFAULTS = {
-  CREATOR_NAME: '',
-  CREATOR_ROLE: ''
-};
+
 
 // =========================================================
 // STATE

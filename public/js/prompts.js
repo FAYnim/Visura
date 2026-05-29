@@ -25,6 +25,8 @@ import {
   validateSlideTemplate
 } from './promptStore.js';
 
+import { SETTINGS_DEFAULTS } from './settingsDefaults.js';
+
 // =========================================================
 // STATE
 // =========================================================
@@ -35,7 +37,7 @@ const STATE = {
   settings: {}
 };
 
-const SETTINGS_DEFAULTS = { CREATOR_NAME: '', CREATOR_ROLE: '' };
+
 
 // =========================================================
 // DOM REFERENCES
