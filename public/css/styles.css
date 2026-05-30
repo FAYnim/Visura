@@ -123,6 +123,13 @@ a:focus {
   color: var(--text-primary);
 }
 
+.brand-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+}
+
 .brand-name {
   font-size: 14px;
   font-weight: 600;
