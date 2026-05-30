@@ -1452,6 +1452,9 @@ body {
   .landing-nav {
     display: none;
   }
+  .header-actions {
+    display: none;
+  }
   .mobile-nav-toggle {
     display: block;
   }
