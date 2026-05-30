@@ -120,7 +120,7 @@ export function updateProfileWidget(settings) {
   const profileTitleEl = document.querySelector('.profile-title');
 
   if (profileNameEl) {
-    profileNameEl.textContent = settings.CREATOR_NAME?.trim() || 'Faris AY';
+    profileNameEl.textContent = settings.CREATOR_NAME?.trim() || 'John Doe';
   }
   if (profileTitleEl) {
     profileTitleEl.textContent = settings.CREATOR_ROLE?.trim() || 'Settings';
