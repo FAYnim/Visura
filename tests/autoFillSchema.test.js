@@ -1,12 +1,10 @@
-'use strict';
-
 /**
  * autoFillSchema.test.js
  * Minimal schema validation test — run with: node tests/autoFillSchema.test.js
  */
 
-const assert = require('assert');
-const { SCHEMA, normalizeOutput } = require('../server/ai/promptBuilder');
+import assert from 'assert';
+import { SCHEMA, normalizeOutput } from '../server/ai/promptBuilder.js';
 
 // ── Test 1: SCHEMA has all 5 slide keys ──────────────────────────────────────
 const expectedSlides = ['slide1', 'slide2', 'slide3', 'slide4', 'slide5'];

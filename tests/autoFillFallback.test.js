@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * autoFillFallback.test.js
  * Test that verifies the provider fallback chain:
@@ -8,9 +6,9 @@
  * Run with: node tests/autoFillFallback.test.js
  */
 
-const assert = require('node:assert/strict');
-const { autoFillFromSources } = require('../server/ai/autoFillService');
-const { SCHEMA } = require('../server/ai/promptBuilder');
+import assert from 'node:assert/strict';
+import { autoFillFromSources } from '../server/ai/autoFillService.js';
+import { SCHEMA } from '../server/ai/promptBuilder.js';
 
 // ── Stub helpers ──────────────────────────────────────────────────────────────
 
@@ -110,7 +108,7 @@ async function testPrimaryProviderSucceeds() {
 }
 
 // ── Runner ────────────────────────────────────────────────────────────────────
-(async () => {
+async function main() {
   try {
     await testFallbackToSecondProvider();
     await testAllProvidersFail();
@@ -122,4 +120,6 @@ async function testPrimaryProviderSucceeds() {
     console.error('\n❌ Test failed:', err.message);
     process.exit(1);
   }
-})();
+}
+
+main();

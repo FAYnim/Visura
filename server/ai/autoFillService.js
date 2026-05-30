@@ -1,7 +1,5 @@
-'use strict';
-
-const { GoogleGenAI } = require('@google/genai');
-const { buildPrompt, normalizeOutput, SCHEMA } = require('./promptBuilder');
+import { GoogleGenAI } from '@google/genai';
+import { buildPrompt, normalizeOutput, SCHEMA } from './promptBuilder.js';
 
 // ── Provider detection ────────────────────────────────────────────────────────
 // Set GEMINI_API_KEY for Google Gemini or GROQ_API_KEY for Groq.
@@ -131,4 +129,4 @@ async function autoFillFromSources({ brief, docText }, providerOverrides) {
   throw new Error('AI extraction failed after retry. Please try again.');
 }
 
-module.exports = { autoFillFromSources, createProviderChain };
+export { autoFillFromSources, createProviderChain };

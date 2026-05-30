@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * JSON schema describing the exact output structure expected from the LLM.
  * All values are strings; empty string means "not found / leave blank".
@@ -70,4 +68,4 @@ const SCHEMA = {
   }
 };
 
-module.exports = { SCHEMA };
+export { SCHEMA };

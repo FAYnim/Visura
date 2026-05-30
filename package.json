@@ -1,11 +1,11 @@
 {
   "name": "visura",
   "version": "1.0.0",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "node tests/autoFillSchema.test.js"
+    "test": "node tests/autoFillSchema.test.js && node tests/autoFillFallback.test.js"
   },
   "dependencies": {
     "@google/genai": "^2.7.0",

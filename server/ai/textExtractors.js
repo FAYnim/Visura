@@ -1,7 +1,9 @@
-'use strict';
+import { createRequire } from 'module';
+import MarkdownIt from 'markdown-it';
 
+// pdf-parse is a CJS-only package; wrap via createRequire (see DEP-001 / RISK-001)
+const require = createRequire(import.meta.url);
 const pdfParse = require('pdf-parse');
-const MarkdownIt = require('markdown-it');
 
 const md = new MarkdownIt();
 
@@ -37,4 +39,4 @@ function extractMarkdownText(buffer) {
   }
 }
 
-module.exports = { extractPdfText, extractMarkdownText };
+export { extractPdfText, extractMarkdownText };

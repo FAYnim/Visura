@@ -1,9 +1,7 @@
-'use strict';
-
-const express = require('express');
-const multer = require('multer');
-const { extractPdfText, extractMarkdownText } = require('../ai/textExtractors');
-const { autoFillFromSources } = require('../ai/autoFillService');
+import express from 'express';
+import multer from 'multer';
+import { extractPdfText, extractMarkdownText } from '../ai/textExtractors.js';
+import { autoFillFromSources } from '../ai/autoFillService.js';
 
 const router = express.Router();
 
@@ -72,4 +70,4 @@ router.post('/auto-fill', uploadFields, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

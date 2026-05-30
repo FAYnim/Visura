@@ -1,6 +1,4 @@
-'use strict';
-
-const { SCHEMA } = require('./schema');
+import { SCHEMA } from './schema.js';
 
 /**
  * Build the system + user prompt for the LLM.
@@ -60,4 +58,4 @@ function normalizeOutput(raw) {
   return result;
 }
 
-module.exports = { SCHEMA, buildPrompt, normalizeOutput };
+export { SCHEMA, buildPrompt, normalizeOutput };
