@@ -6,6 +6,20 @@
 
 A premium prompt generator for crafting gorgeous 5-slide Instagram carousel portfolios with a cinematic UI style. Visura provides structured forms, real-time live preview, prompt history, and creator profile settings—all running directly in your browser.
 
+## The Problem
+
+Showcasing digital products and design portfolios on Instagram is highly effective, yet creators face three persistent challenges:
+* **Tedious Prompting:** Crafting highly detailed, cinematic image generation prompts manually for every single slide takes hours.
+* **Inconsistent Aesthetics:** Keeping lighting, color schemes, and layouts uniform across a multi-slide carousel is nearly impossible without a structured framework.
+* **Lack of Narrative Structure:** High-converting portfolios require a cohesive storytelling flow (Cover → Overview → Features → Showcase → Outro) that raw prompt builders fail to guide.
+
+## The Solution
+
+**Visura** solves this by providing a structured, story-driven prompt construction pipeline that guarantees professional consistency:
+* **Automated Storytelling:** Pre-structured 5-slide blueprints optimized specifically for Instagram's swipe mechanics.
+* **Interactive Prototyping:** Edit fields dynamically with a real-time live compiler and cinematic syntax highlighting.
+* **AI-Assisted Workflows:** Drop a project brief or upload design documentation (Markdown/PDF) to autofill all slide fields instantly via LLMs.
+
 ## Key Features
 
 - **5-Slide Generator** with distinct prompt templates for the Cover, Overview, Features Grid, Showcase, and Outro slides.
