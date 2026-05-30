@@ -3,714 +3,880 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Visura — Premium Portfolio Prompt Generator</title>
-  <meta name="description" content="Generate premium AI image prompts for your 5-slide Instagram carousel project overview portfolio. Fill, preview, and copy cinematic prompts in real-time." />
-  <meta name="theme-color" content="#050505" />
+  <title>Visura — Premium Instagram Carousel Portfolio Prompt Generator</title>
+  <meta name="description" content="Generate cinematic, multi-slide Instagram carousel prompts. Fill, preview, and generate premium AI prompts in real-time." />
+  <meta name="theme-color" content="#080808" />
+  
+  <!-- OG Metadata -->
   <meta property="og:title" content="Visura — Premium Portfolio Prompt Generator" />
-  <meta property="og:description" content="Real-time prompt generator for cinematic Instagram portfolio carousels." />
+  <meta property="og:description" content="Story-led prompt builder for gorgeous cinematic multi-slide Instagram carousels." />
   <meta property="og:type" content="website" />
+  
+  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/img/logo/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/img/logo/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/img/logo/favicon-16x16.png" />
   <link rel="icon" href="/img/logo/favicon.ico" />
-  <link rel="manifest" href="/img/logo/site.webmanifest" />
+  
+  <!-- CSS & Fonts -->
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/landing.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
   <!-- =====================================================
-       HEADER — Branding & Global Creator Name Input
+       HEADER / NAVIGATION
        ===================================================== -->
-  <header class="app-header" role="banner">
-    <div class="header-brand">
-      <span class="brand-name">Visura</span>
+  <header class="landing-header">
+    <div class="header-container">
+      <div class="landing-brand">
+        <span class="brand-text">Visura</span>
+        <span class="brand-tag">Studio</span>
+      </div>
+      <nav class="landing-nav" aria-label="Main Navigation">
+        <a href="#problem" class="nav-link">The Problem</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#carousel-preview" class="nav-link">Preview</a>
+        <a href="#how-it-works" class="nav-link">Process</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <a href="/app" class="btn btn-primary cta-glow">
+          Try Demo <i class="fa-solid fa-arrow-right btn-icon-right"></i>
+        </a>
+      </div>
+      <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
   </header>
 
-  <div class="app-body">
-    <!-- =====================================================
-         SIDEBAR — Main App Navigation
-         ===================================================== -->
-    <aside class="app-sidebar" aria-label="Main navigation">
-      <div class="sidebar-top">
-        <nav class="sidebar-menu" role="navigation">
-          <a class="sidebar-btn active" href="/" id="tab-generator" aria-current="page">
-            <span class="btn-text">Prompt Generator</span>
-          </a>
-          <a class="sidebar-btn" href="/riwayat" id="tab-riwayat">
-            <span class="btn-text">History</span>
-          </a>
-          <a class="sidebar-btn" href="/prompts" id="tab-prompts">
-            <span class="btn-text">Prompt Manager</span>
-          </a>
-        </nav>
-      </div>
-
-      <div class="sidebar-bottom">
-        <!-- Profile & Settings Area -->
-        <div class="sidebar-profile-section">
-          <a href="/settings" id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Buka Pengaturan Profil" title="Pengaturan Profil">
-            <div class="avatar-container">
-              <img src="/img/avatar.png" alt="Profile" class="profile-avatar-img" />
-            </div>
-            <div class="profile-info-text">
-              <span class="profile-name">John Doe</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </aside>
-
-    <!-- =====================================================
-         CONTENT WORKSPACE
-         ===================================================== -->
-    <div class="app-content">
-      <!-- ---------------------------------------------------
-           GENERATOR VIEW
-           --------------------------------------------------- -->
-      <div id="view-generator" class="app-view active">
-
-        <!-- =====================================================
-             SLIDE NAVIGATION TABS
-             ===================================================== -->
-  <nav class="slide-nav" role="tablist" aria-label="Slide selector">
-    <button class="slide-tab active" role="tab" data-slide="1" aria-selected="true" tabindex="0" id="tab-slide-1">
-      Slide 1
-    </button>
-    <button class="slide-tab" role="tab" data-slide="2" aria-selected="false" tabindex="-1" id="tab-slide-2">
-      Slide 2
-    </button>
-    <button class="slide-tab" role="tab" data-slide="3" aria-selected="false" tabindex="-1" id="tab-slide-3">
-      Slide 3
-    </button>
-    <button class="slide-tab" role="tab" data-slide="4" aria-selected="false" tabindex="-1" id="tab-slide-4">
-      Slide 4
-    </button>
-    <button class="slide-tab" role="tab" data-slide="5" aria-selected="false" tabindex="-1" id="tab-slide-5">
-      Slide 5
-    </button>
-  </nav>
+  <!-- Mobile Navigation Sidebar -->
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <aside class="mobile-nav-sidebar" id="mobile-nav-sidebar" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <span class="brand-text">Visura</span>
+      <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="#problem" class="mobile-nav-link">The Problem</a>
+      <a href="#features" class="mobile-nav-link">Features</a>
+      <a href="#carousel-preview" class="mobile-nav-link">Preview</a>
+      <a href="#how-it-works" class="mobile-nav-link">Process</a>
+      <a href="#faq" class="mobile-nav-link">FAQ</a>
+    </nav>
+    <div class="mobile-nav-footer">
+      <a href="/app" class="btn btn-primary" style="width: 100%;">
+        Try Demo <i class="fa-solid fa-arrow-right btn-icon-right"></i>
+      </a>
+    </div>
+  </aside>
 
   <!-- =====================================================
-       MAIN — 2-Column Layout
+       HERO SECTION
        ===================================================== -->
-  <main class="app-main" id="app-main">
+  <section class="hero-section" id="hero">
+    <div class="hero-background-effects">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="glow-orb glow-orb-2"></div>
+    </div>
+    <div class="section-container hero-container">
+      <div class="hero-badge animate-fade-in">
+        <span class="badge-dot"></span>
+        <span class="badge-text">Studio Edition • 100% Free</span>
+      </div>
+      <h1 class="hero-headline animate-fade-in-up">
+        Craft Cinematic Instagram <span class="gradient-text">Carousels</span> in Seconds.
+      </h1>
+      <p class="hero-subtitle animate-fade-in-up-delay">
+        The ultimate portfolio prompt builder for digital creators, designers, and developers. Generate structured multi-slide visual prompts tailored for Midjourney, Stable Diffusion, and DALL-E.
+      </p>
+      <div class="hero-actions animate-fade-in-up-delay-2">
+        <a href="/app" class="btn btn-primary btn-lg cta-glow">
+          Try Demo <i class="fa-solid fa-wand-magic-sparkles btn-icon-right"></i>
+        </a>
+        <a href="#carousel-preview" class="btn btn-secondary btn-lg">
+          View Example <i class="fa-regular fa-eye btn-icon-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
 
-    <!-- ===================================================
-         LEFT COLUMN — Dynamic Forms
-         =================================================== -->
-    <section class="forms-column" aria-label="Slide input form">
-
-      <!-- -----------------------------------------------
-           FORM PANEL: SLIDE 1 — Cover
-           ----------------------------------------------- -->
-      <div class="form-panel active" data-slide="1" role="tabpanel" aria-labelledby="tab-slide-1">
-        <div class="form-section-header">
-          <div class="form-slide-badge"><i class="fa-solid fa-image" style="margin-right: 6px;"></i> Cover Slide</div>
-          <h1 class="form-slide-title">Slide 1 - Cover</h1>
-          <p class="form-slide-desc">The hero opener for your carousel. Defines the first visual impression of your digital product showcase.</p>
+  <!-- =====================================================
+       PROBLEM SECTION
+       ===================================================== -->
+  <section class="problem-section" id="problem">
+    <div class="section-container">
+      <h2 class="section-title reveal">
+        Why is showcasing your digital products so hard?
+      </h2>
+      <p class="section-desc reveal">
+        Creating premium carousel portfolios on Instagram shouldn't require countless hours of trial and error.
+      </p>
+      
+      <div class="problem-grid">
+        <!-- Card 1 -->
+        <div class="problem-card reveal">
+          <div class="problem-card-icon">
+            <i class="fa-solid fa-hourglass-half"></i>
+          </div>
+          <h3 class="problem-card-title">Tedious Prompting</h3>
+          <p class="problem-card-desc">
+            Writing elaborate image generation prompts manually for every single slide takes hours. One wrong word and the whole layout style breaks.
+          </p>
         </div>
-
-        <div class="field-group">
-          <div class="field">
-            <label class="field-label" for="s1-badge-text">
-              Badge Text
-              <span class="var-hint">{{BADGE_TEXT}}</span>
-            </label>
-            <input
-              type="text"
-              id="s1-badge-text"
-              data-slide="1"
-              data-key="BADGE_TEXT"
-              placeholder="e.g. AI TOOL"
-              autocomplete="off"
-            />
+        <!-- Card 2 -->
+        <div class="problem-card reveal reveal-delay-1">
+          <div class="problem-card-icon">
+            <i class="fa-solid fa-palette"></i>
           </div>
-
-          <div class="field">
-            <label class="field-label" for="s1-main-headline">
-              Main Hero Heading
-              <span class="var-hint">{{MAIN_HEADLINE}}</span>
-            </label>
-            <textarea
-              id="s1-main-headline"
-              data-slide="1"
-              data-key="MAIN_HEADLINE"
-              placeholder="e.g. Insight.&#10;Engineered."
-              rows="3"
-            ></textarea>
+          <h3 class="problem-card-title">Inconsistent Style</h3>
+          <p class="problem-card-desc">
+            Keeping colors, lighting, and layout assets uniform across all 5 slides is practically impossible when prompting from scratch.
+          </p>
+        </div>
+        <!-- Card 3 -->
+        <div class="problem-card reveal reveal-delay-2">
+          <div class="problem-card-icon">
+            <i class="fa-solid fa-book-open"></i>
           </div>
-
-          <div class="field">
-            <label class="field-label" for="s1-subtitle">
-              Subtitle Below Heading
-              <span class="var-hint">{{SUBTITLE_TEXT}}</span>
-            </label>
-            <input
-              type="text"
-              id="s1-subtitle"
-              data-slide="1"
-              data-key="SUBTITLE_TEXT"
-              placeholder="e.g. AI-powered analytics for modern teams."
-              autocomplete="off"
-            />
-          </div>
+          <h3 class="problem-card-title">Lack of Storytelling</h3>
+          <p class="problem-card-desc">
+            Great portfolios need narrative structure (Cover → Overview → Features → Mockup → Outro). Raw prompt builders don't pace the flow.
+          </p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- -----------------------------------------------
-           FORM PANEL: SLIDE 2 — Project Overview
-           ----------------------------------------------- -->
-      <div class="form-panel" data-slide="2" role="tabpanel" aria-labelledby="tab-slide-2">
-        <div class="form-section-header">
-          <div class="form-slide-badge"><i class="fa-solid fa-briefcase" style="margin-right: 6px;"></i> Project Overview</div>
-          <h2 class="form-slide-title">Slide 2 - Project Overview</h2>
-          <p class="form-slide-desc">Project overview slide with description, quote, and 4 feature highlight cards.</p>
+  <!-- =====================================================
+       SOLUTION SECTION
+       ===================================================== -->
+  <section class="solution-section" id="solution">
+    <div class="section-container">
+      <div class="solution-grid">
+        <div class="solution-info reveal">
+          <h2 class="section-title text-left">
+            Meet Visura. The complete cinematic workflow.
+          </h2>
+          <p class="section-desc text-left">
+            Visura integrates premium, highly detailed design layouts with an automated builder, letting you focus on the story while we handle the prompting structure.
+          </p>
+          <ul class="solution-list">
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-check"></i></span>
+              <span class="list-text"><strong>Paced 5-Slide Narrative:</strong> Built-in structural blueprints designed specifically for Instagram's swipe mechanic.</span>
+            </li>
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-check"></i></span>
+              <span class="list-text"><strong>Interactive Live Editors:</strong> Edit variables and instantly review high-definition prompt configurations in real-time.</span>
+            </li>
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-check"></i></span>
+              <span class="list-text"><strong>AI-Assisted Magic:</strong> Extract key insights from PDF or markdown documents and autofill all cards with one click.</span>
+            </li>
+          </ul>
         </div>
-
-        <div class="field-group">
-          <div class="field">
-            <label class="field-label" for="s2-section-badge">
-              Section Badge
-              <span class="var-hint">{{SECTION_BADGE}}</span>
-            </label>
-            <input type="text" id="s2-section-badge" data-slide="2" data-key="SECTION_BADGE" placeholder="e.g. 01 / OVERVIEW" autocomplete="off" />
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="s2-main-heading">
-              Main Heading
-              <span class="var-hint">{{MAIN_HEADING}}</span>
-            </label>
-            <input type="text" id="s2-main-heading" data-slide="2" data-key="MAIN_HEADING" placeholder="e.g. Project Overview" autocomplete="off" />
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="s2-description">
-              Project Description
-              <span class="var-hint">{{PROJECT_DESCRIPTION}}</span>
-            </label>
-            <textarea id="s2-description" data-slide="2" data-key="PROJECT_DESCRIPTION" placeholder="e.g. A clean modern paragraph explaining your project vision and impact..." rows="4"></textarea>
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="s2-quote">
-              Quote Text
-              <span class="var-hint">{{QUOTE_TEXT}}</span>
-            </label>
-            <input type="text" id="s2-quote" data-slide="2" data-key="QUOTE_TEXT" placeholder="e.g. Turning data into decisions, instantly." autocomplete="off" />
-          </div>
-        </div>
-
-        <div class="section-divider">
-          <div class="section-divider-line"></div>
-          <span class="section-divider-text">Feature Cards (2×2 Grid)</span>
-          <div class="section-divider-line"></div>
-        </div>
-
-        <div class="feature-grid-2x2">
-          <!-- Feature 1 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 01</span>
-            <div class="field">
-              <label class="field-label" for="s2-f1-title">Title <span class="var-hint">{{FEATURE_TITLE_1}}</span></label>
-              <input type="text" id="s2-f1-title" data-slide="2" data-key="FEATURE_TITLE_1" placeholder="e.g. Real-time Analytics" autocomplete="off" />
+        <div class="solution-visual reveal reveal-delay-1">
+          <div class="mockup-frame">
+            <div class="mockup-header">
+              <div class="mockup-dot"></div>
+              <div class="mockup-dot"></div>
+              <div class="mockup-dot"></div>
+              <span class="mockup-title">Visura Studio Interface</span>
             </div>
-            <div class="field">
-              <label class="field-label" for="s2-f1-desc">Description <span class="var-hint">{{FEATURE_DESC_1}}</span></label>
-              <textarea id="s2-f1-desc" data-slide="2" data-key="FEATURE_DESC_1" placeholder="Short description..." rows="2"></textarea>
-            </div>
-          </div>
-          <!-- Feature 2 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 02</span>
-            <div class="field">
-              <label class="field-label" for="s2-f2-title">Title <span class="var-hint">{{FEATURE_TITLE_2}}</span></label>
-              <input type="text" id="s2-f2-title" data-slide="2" data-key="FEATURE_TITLE_2" placeholder="e.g. Smart Dashboard" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label class="field-label" for="s2-f2-desc">Description <span class="var-hint">{{FEATURE_DESC_2}}</span></label>
-              <textarea id="s2-f2-desc" data-slide="2" data-key="FEATURE_DESC_2" placeholder="Short description..." rows="2"></textarea>
-            </div>
-          </div>
-          <!-- Feature 3 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 03</span>
-            <div class="field">
-              <label class="field-label" for="s2-f3-title">Title <span class="var-hint">{{FEATURE_TITLE_3}}</span></label>
-              <input type="text" id="s2-f3-title" data-slide="2" data-key="FEATURE_TITLE_3" placeholder="e.g. Team Collaboration" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label class="field-label" for="s2-f3-desc">Description <span class="var-hint">{{FEATURE_DESC_3}}</span></label>
-              <textarea id="s2-f3-desc" data-slide="2" data-key="FEATURE_DESC_3" placeholder="Short description..." rows="2"></textarea>
-            </div>
-          </div>
-          <!-- Feature 4 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 04</span>
-            <div class="field">
-              <label class="field-label" for="s2-f4-title">Title <span class="var-hint">{{FEATURE_TITLE_4}}</span></label>
-              <input type="text" id="s2-f4-title" data-slide="2" data-key="FEATURE_TITLE_4" placeholder="e.g. Secure & Scalable" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label class="field-label" for="s2-f4-desc">Description <span class="var-hint">{{FEATURE_DESC_4}}</span></label>
-              <textarea id="s2-f4-desc" data-slide="2" data-key="FEATURE_DESC_4" placeholder="Short description..." rows="2"></textarea>
+            <div class="mockup-body">
+              <div class="mockup-sidebar">
+                <div class="mockup-sidebar-item active"></div>
+                <div class="mockup-sidebar-item"></div>
+                <div class="mockup-sidebar-item"></div>
+              </div>
+              <div class="mockup-content">
+                <div class="mockup-tabs">
+                  <div class="mockup-tab active">Slide 1</div>
+                  <div class="mockup-tab">Slide 2</div>
+                  <div class="mockup-tab">Slide 3</div>
+                </div>
+                <div class="mockup-editor">
+                  <div class="mockup-field">
+                    <span class="mockup-field-label">BADGE TEXT</span>
+                    <div class="mockup-field-input" id="mockup-input-badge">AI ANALYTICS</div>
+                  </div>
+                  <div class="mockup-field">
+                    <span class="mockup-field-label">MAIN HEADLINE</span>
+                    <div class="mockup-field-input highlight" id="mockup-input-headline">Deep insights.<br>Engineered.</div>
+                  </div>
+                </div>
+                <div class="mockup-preview">
+                  <span class="mockup-preview-label">Generated Prompt</span>
+                  <div class="mockup-prompt" id="mockup-output-prompt">
+                    A cinematic dark studio scene, a glass interface reading <span class="prompt-var">"AI ANALYTICS"</span> and <span class="prompt-var">"Deep insights. Engineered."</span>, dramatic moody green lighting, volumetric smoke, high contrast, clean minimalist layout...
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- -----------------------------------------------
-           FORM PANEL: SLIDE 3 — Modular Features Grid
-           ----------------------------------------------- -->
-      <div class="form-panel" data-slide="3" role="tabpanel" aria-labelledby="tab-slide-3">
-        <div class="form-section-header">
-          <div class="form-slide-badge"><i class="fa-solid fa-cubes" style="margin-right: 6px;"></i> Features Grid</div>
-          <h2 class="form-slide-title">Slide 3 - Features</h2>
-          <p class="form-slide-desc">Modular feature grid with 6 cards, each containing a title, description, and mini UI component specification.</p>
+  <!-- =====================================================
+       FEATURES SECTION
+       ===================================================== -->
+  <section class="features-section" id="features">
+    <div class="section-container">
+      <h2 class="section-title reveal">
+        Packed with creative superpowers
+      </h2>
+      <p class="section-desc reveal">
+        A premium workflow designed specifically to elevate your visual marketing game.
+      </p>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <h3 class="feature-title">5-Slide Architecture</h3>
+          <p class="feature-desc">
+            We structure your layouts flawlessly: Cover, Project Overview, Feature Modules, Detailed UI Showcases, and highly persuasive Closing Outros.
+          </p>
         </div>
-
-        <div class="field-group">
-          <div class="field">
-            <label class="field-label" for="s3-section-badge">
-              Section Badge
-              <span class="var-hint">{{SECTION_BADGE}}</span>
-            </label>
-            <input type="text" id="s3-section-badge" data-slide="3" data-key="SECTION_BADGE" placeholder="e.g. FEATURES" autocomplete="off" />
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="s3-main-heading">
-              Main Heading
-              <span class="var-hint">{{MAIN_HEADING}}</span>
-            </label>
-            <input type="text" id="s3-main-heading" data-slide="3" data-key="MAIN_HEADING" placeholder="e.g. Main Features" autocomplete="off" />
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="s3-subtitle">
-              Subtitle Text
-              <span class="var-hint">{{SUBTITLE_TEXT}}</span>
-            </label>
-            <input type="text" id="s3-subtitle" data-slide="3" data-key="SUBTITLE_TEXT" placeholder="e.g. Powerful tools. Smarter decisions." autocomplete="off" />
-          </div>
-        </div>
-
-        <div class="section-divider">
-          <div class="section-divider-line"></div>
-          <span class="section-divider-text">Feature Grid Modules (6 Cards)</span>
-          <div class="section-divider-line"></div>
-        </div>
-
-        <div class="feature-grid-3x2">
-          <!-- Feature 1 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 01</span>
-            <div class="field">
-              <label class="field-label" for="s3-f1-title">Title <span class="var-hint">{{FEATURE_TITLE_1}}</span></label>
-              <input type="text" id="s3-f1-title" data-slide="3" data-key="FEATURE_TITLE_1" placeholder="e.g. Live Sync" autocomplete="off" />
+        <!-- Feature 2 -->
+        <div class="feature-icon-card-row">
+          <div class="feature-card reveal reveal-delay-1">
+            <div class="feature-icon">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
             </div>
-            <div class="field">
-              <label class="field-label" for="s3-f1-desc">Description <span class="var-hint">{{FEATURE_DESC_1}}</span></label>
-              <textarea id="s3-f1-desc" data-slide="3" data-key="FEATURE_DESC_1" placeholder="Short desc..." rows="2"></textarea>
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f1-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_1}}</span></label>
-              <input type="text" id="s3-f1-ui" data-slide="3" data-key="FEATURE_UI_1" placeholder="e.g. analytics chart" autocomplete="off" />
-            </div>
-          </div>
-          <!-- Feature 2 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 02</span>
-            <div class="field">
-              <label class="field-label" for="s3-f2-title">Title <span class="var-hint">{{FEATURE_TITLE_2}}</span></label>
-              <input type="text" id="s3-f2-title" data-slide="3" data-key="FEATURE_TITLE_2" placeholder="e.g. AI Insights" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f2-desc">Description <span class="var-hint">{{FEATURE_DESC_2}}</span></label>
-              <textarea id="s3-f2-desc" data-slide="3" data-key="FEATURE_DESC_2" placeholder="Short desc..." rows="2"></textarea>
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f2-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_2}}</span></label>
-              <input type="text" id="s3-f2-ui" data-slide="3" data-key="FEATURE_UI_2" placeholder="e.g. data graph widget" autocomplete="off" />
-            </div>
-          </div>
-          <!-- Feature 3 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 03</span>
-            <div class="field">
-              <label class="field-label" for="s3-f3-title">Title <span class="var-hint">{{FEATURE_TITLE_3}}</span></label>
-              <input type="text" id="s3-f3-title" data-slide="3" data-key="FEATURE_TITLE_3" placeholder="e.g. Smart Filters" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f3-desc">Description <span class="var-hint">{{FEATURE_DESC_3}}</span></label>
-              <textarea id="s3-f3-desc" data-slide="3" data-key="FEATURE_DESC_3" placeholder="Short desc..." rows="2"></textarea>
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f3-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_3}}</span></label>
-              <input type="text" id="s3-f3-ui" data-slide="3" data-key="FEATURE_UI_3" placeholder="e.g. filter panel" autocomplete="off" />
-            </div>
-          </div>
-          <!-- Feature 4 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 04</span>
-            <div class="field">
-              <label class="field-label" for="s3-f4-title">Title <span class="var-hint">{{FEATURE_TITLE_4}}</span></label>
-              <input type="text" id="s3-f4-title" data-slide="3" data-key="FEATURE_TITLE_4" placeholder="e.g. Role Management" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f4-desc">Description <span class="var-hint">{{FEATURE_DESC_4}}</span></label>
-              <textarea id="s3-f4-desc" data-slide="3" data-key="FEATURE_DESC_4" placeholder="Short desc..." rows="2"></textarea>
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f4-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_4}}</span></label>
-              <input type="text" id="s3-f4-ui" data-slide="3" data-key="FEATURE_UI_4" placeholder="e.g. user roles table" autocomplete="off" />
-            </div>
-          </div>
-          <!-- Feature 5 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 05</span>
-            <div class="field">
-              <label class="field-label" for="s3-f5-title">Title <span class="var-hint">{{FEATURE_TITLE_5}}</span></label>
-              <input type="text" id="s3-f5-title" data-slide="3" data-key="FEATURE_TITLE_5" placeholder="e.g. API Access" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f5-desc">Description <span class="var-hint">{{FEATURE_DESC_5}}</span></label>
-              <textarea id="s3-f5-desc" data-slide="3" data-key="FEATURE_DESC_5" placeholder="Short desc..." rows="2"></textarea>
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f5-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_5}}</span></label>
-              <input type="text" id="s3-f5-ui" data-slide="3" data-key="FEATURE_UI_5" placeholder="e.g. code snippet block" autocomplete="off" />
-            </div>
-          </div>
-          <!-- Feature 6 -->
-          <div class="feature-card-input">
-            <span class="feature-card-num">Feature 06</span>
-            <div class="field">
-              <label class="field-label" for="s3-f6-title">Title <span class="var-hint">{{FEATURE_TITLE_6}}</span></label>
-              <input type="text" id="s3-f6-title" data-slide="3" data-key="FEATURE_TITLE_6" placeholder="e.g. 24/7 Support" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f6-desc">Description <span class="var-hint">{{FEATURE_DESC_6}}</span></label>
-              <textarea id="s3-f6-desc" data-slide="3" data-key="FEATURE_DESC_6" placeholder="Short desc..." rows="2"></textarea>
-            </div>
-            <div class="field">
-              <label class="field-label" for="s3-f6-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_6}}</span></label>
-              <input type="text" id="s3-f6-ui" data-slide="3" data-key="FEATURE_UI_6" placeholder="e.g. chat support widget" autocomplete="off" />
-            </div>
+            <h3 class="feature-title">AI Auto-Fill Magic</h3>
+            <p class="feature-desc">
+              Don't want to type? Drop a markdown project brief or upload a PDF document. Visura extracts and fills your entire slide deck instantly.
+            </p>
           </div>
         </div>
-
-        <div class="section-divider">
-          <div class="section-divider-line"></div>
-          <span class="section-divider-text">CTA Section</span>
-          <div class="section-divider-line"></div>
+        <!-- Feature 3 -->
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-icon">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <h3 class="feature-title">Live Prompt Editor</h3>
+          <p class="feature-desc">
+            Type values and observe the syntax update live inside our cinematic highlighter console. Fully interactive, optimized for quick copying.
+          </p>
         </div>
-
-        <div class="field-group">
-          <div class="field">
-            <label class="field-label" for="s3-cta-text">
-              CTA Text
-              <span class="var-hint">{{CTA_TEXT}}</span>
-            </label>
-            <input type="text" id="s3-cta-text" data-slide="3" data-key="CTA_TEXT" placeholder="e.g. Built with security, performance, and speed in mind." autocomplete="off" />
+        <!-- Feature 4 -->
+        <div class="feature-card reveal reveal-delay-3">
+          <div class="feature-icon">
+            <i class="fa-solid fa-folder-open"></i>
           </div>
-          <div class="field">
-            <label class="field-label" for="s3-cta-button">
-              CTA Button Text
-              <span class="var-hint">{{CTA_BUTTON}}</span>
-            </label>
-            <input type="text" id="s3-cta-button" data-slide="3" data-key="CTA_BUTTON" placeholder="e.g. Start your free trial" autocomplete="off" />
-          </div>
+          <h3 class="feature-title">Advanced Prompt Manager</h3>
+          <p class="feature-desc">
+            Customize slide styles, edit raw blueprints, duplicate styles, and save custom batches. Perfect for matching brand guidelines.
+          </p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- -----------------------------------------------
-           FORM PANEL: SLIDE 4 — UI Showcase
-           ----------------------------------------------- -->
-      <div class="form-panel" data-slide="4" role="tabpanel" aria-labelledby="tab-slide-4">
-        <div class="form-section-header">
-          <div class="form-slide-badge"><i class="fa-solid fa-desktop" style="margin-right: 6px;"></i> UI Showcase</div>
-          <h2 class="form-slide-title">Slide 4 - UI Showcase</h2>
-          <p class="form-slide-desc">Premium cinematic product UI showcase showcasing three floating perspective dashboard displays.</p>
-        </div>
+  <!-- =====================================================
+       CAROUSEL PREVIEW SECTION
+       ===================================================== -->
+  <section class="carousel-preview-section" id="carousel-preview">
+    <div class="section-container">
+      <h2 class="section-title reveal">
+        The Ultimate 5-Slide Anatomy
+      </h2>
+      <p class="section-desc reveal">
+        Click the arrows below to swipe through the standard story-led layout templates generated by Visura.
+      </p>
 
-        <div class="field-group">
-          <div class="field">
-            <label class="field-label" for="s4-top-left-badge">Top Left Branding Badge <span class="var-hint">{{TOP_LEFT_BADGE}}</span></label>
-            <input type="text" id="s4-top-left-badge" data-slide="4" data-key="TOP_LEFT_BADGE" placeholder="e.g. SYSTEM CORE" autocomplete="off" />
-          </div>
-          <div class="field">
-            <label class="field-label" for="s4-top-right-label">Top Right Editorial Label <span class="var-hint">{{TOP_RIGHT_LABEL}}</span></label>
-            <input type="text" id="s4-top-right-label" data-slide="4" data-key="TOP_RIGHT_LABEL" placeholder="e.g. FUTURE SYSTEM INTERFACE" autocomplete="off" />
-          </div>
-          <div class="field">
-            <label class="field-label" for="s4-main-headline">Main Hero Heading <span class="var-hint">{{MAIN_HEADLINE}}</span></label>
-            <textarea id="s4-main-headline" data-slide="4" data-key="MAIN_HEADLINE" placeholder="e.g. SMART.&#10;AUTOMATED." rows="3"></textarea>
-          </div>
-          <div class="field">
-            <label class="field-label" for="s4-subtitle-text">Subtitle Below Heading <span class="var-hint">{{SUBTITLE_TEXT}}</span></label>
-            <input type="text" id="s4-subtitle-text" data-slide="4" data-key="SUBTITLE_TEXT" placeholder="e.g. Real-time analytics platform for smarter decisions." autocomplete="off" />
-          </div>
-        </div>
-
-        <div class="section-divider">
-          <div class="section-divider-line"></div>
-          <span class="section-divider-text">Feature Pills (4 Capsules)</span>
-          <div class="section-divider-line"></div>
-        </div>
-
-        <div class="feature-grid-2x2">
-          <div class="feature-card-input">
-            <span class="feature-card-num">Pill 01</span>
-            <div class="field"><label class="field-label" for="s4-pill-1">Text <span class="var-hint">{{PILL_TEXT_1}}</span></label><input type="text" id="s4-pill-1" data-slide="4" data-key="PILL_TEXT_1" placeholder="e.g. Responsive" autocomplete="off" /></div>
-          </div>
-          <div class="feature-card-input">
-            <span class="feature-card-num">Pill 02</span>
-            <div class="field"><label class="field-label" for="s4-pill-2">Text <span class="var-hint">{{PILL_TEXT_2}}</span></label><input type="text" id="s4-pill-2" data-slide="4" data-key="PILL_TEXT_2" placeholder="e.g. React + Tailwind" autocomplete="off" /></div>
-          </div>
-          <div class="feature-card-input">
-            <span class="feature-card-num">Pill 03</span>
-            <div class="field"><label class="field-label" for="s4-pill-3">Text <span class="var-hint">{{PILL_TEXT_3}}</span></label><input type="text" id="s4-pill-3" data-slide="4" data-key="PILL_TEXT_3" placeholder="e.g. Dark Mode" autocomplete="off" /></div>
-          </div>
-          <div class="feature-card-input">
-            <span class="feature-card-num">Pill 04</span>
-            <div class="field"><label class="field-label" for="s4-pill-4">Text <span class="var-hint">{{PILL_TEXT_4}}</span></label><input type="text" id="s4-pill-4" data-slide="4" data-key="PILL_TEXT_4" placeholder="e.g. Realtime System" autocomplete="off" /></div>
-          </div>
-        </div>
-
-        <div class="section-divider">
-          <div class="section-divider-line"></div>
-          <span class="section-divider-text">Footer Section</span>
-          <div class="section-divider-line"></div>
-        </div>
-
-        <div class="field-group">
-          <div class="field">
-            <label class="field-label" for="s4-brand-statement">Brand Statement (Footer Right) <span class="var-hint">{{BRAND_STATEMENT}}</span></label>
-            <textarea id="s4-brand-statement" data-slide="4" data-key="BRAND_STATEMENT" placeholder="e.g. BUILT FOR DEVELOPERS.&#10;DESIGNED FOR IMPACT." rows="2"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <!-- -----------------------------------------------
-           FORM PANEL: SLIDE 5 — Closing Outro
-           ----------------------------------------------- -->
-      <div class="form-panel" data-slide="5" role="tabpanel" aria-labelledby="tab-slide-5">
-        <div class="form-section-header">
-          <div class="form-slide-badge"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Closing Outro</div>
-          <h2 class="form-slide-title">Slide 5 - Closing Outro</h2>
-          <p class="form-slide-desc">Premium futuristic outro slide designed to leave a lasting, luxury startup impression.</p>
-        </div>
-
-        <div class="field-group">
-          <div class="field">
-            <label class="field-label" for="s5-top-badge">Top Badge Text <span class="var-hint">{{TOP_BADGE_TEXT}}</span></label>
-            <input type="text" id="s5-top-badge" data-slide="5" data-key="TOP_BADGE_TEXT" placeholder="e.g. END OF SHOWCASE" autocomplete="off" />
-          </div>
-          <div class="field">
-            <label class="field-label" for="s5-main-headline">Main Hero Heading <span class="var-hint">{{MAIN_HEADLINE}}</span></label>
-            <input type="text" id="s5-main-headline" data-slide="5" data-key="MAIN_HEADLINE" placeholder="e.g. Designed for Impact." autocomplete="off" />
-          </div>
-          <div class="field">
-            <label class="field-label" for="s5-description-text">Description Text <span class="var-hint">{{DESCRIPTION_TEXT}}</span></label>
-            <textarea id="s5-description-text" data-slide="5" data-key="DESCRIPTION_TEXT" placeholder="e.g. Every feature. Every line of code.&#10;Crafted to solve real problems and deliver real impact." rows="3"></textarea>
-          </div>
-          <div class="field">
-            <label class="field-label" for="s5-creator-role">Creator Role <span class="var-hint">{{CREATOR_ROLE}}</span></label>
-            <input type="text" id="s5-creator-role" data-slide="5" data-key="CREATOR_ROLE" placeholder="e.g. Creative Engineer" autocomplete="off" />
-          </div>
-        </div>
-
-        <div class="section-divider">
-          <div class="section-divider-line"></div>
-          <span class="section-divider-text">Call To Actions (CTA Rows)</span>
-          <div class="section-divider-line"></div>
-        </div>
-
-        <div class="field-group">
-          <div class="field">
-            <label class="field-label" for="s5-cta-1">CTA Line 1 <span class="var-hint">{{CTA_TEXT_1}}</span></label>
-            <input type="text" id="s5-cta-1" data-slide="5" data-key="CTA_TEXT_1" placeholder="e.g. Follow for more projects" autocomplete="off" />
-          </div>
-          <div class="field">
-            <label class="field-label" for="s5-cta-2">CTA Line 2 <span class="var-hint">{{CTA_TEXT_2}}</span></label>
-            <input type="text" id="s5-cta-2" data-slide="5" data-key="CTA_TEXT_2" placeholder="e.g. Available for freelance" autocomplete="off" />
-          </div>
-        </div>
-      </div>
-
-    </section><!-- /forms-column -->
-
-    <!-- ===================================================
-         RIGHT COLUMN — Live Preview & Actions
-         =================================================== -->
-    <aside class="preview-column" aria-label="Live prompt preview">
-
-      <div class="preview-header">
-        <h2 class="static-preview-title">Prompt</h2>
-        <!-- Hidden elements to preserve JS bindings without errors -->
-        <span id="preview-title" style="display: none;"></span>
-        <span id="preview-char-count" style="display: none;"></span>
+      <!-- Custom Interactive Carousel Slider -->
+      <div class="carousel-slider-container reveal">
+        <button class="carousel-nav-btn prev-btn" id="carousel-prev-btn" aria-label="Previous Slide">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
         
-        <div class="preview-actions">
-          <button class="btn-ai-fill" id="btn-ai-fill" aria-label="Open AI Auto-Fill panel">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-            AI Auto-Fill
-          </button>
-          <button class="btn-copy-text" id="btn-copy" aria-label="Copy current slide prompt to clipboard">Copy</button>
-          <button class="btn-copy-text" id="btn-reset" aria-label="Reset all inputs and settings across all slides">Reset</button>
+        <div class="carousel-slides-wrapper">
+          <div class="carousel-slides-track" id="carousel-slides-track">
+            
+            <!-- Slide 1: Cover -->
+            <div class="carousel-slide active" data-slide-index="0">
+              <div class="preview-slide-card theme-cover">
+                <div class="slide-header">
+                  <span class="slide-badge"><i class="fa-solid fa-image"></i> Slide 1 — Cover</span>
+                </div>
+                <div class="slide-preview-body">
+                  <div class="cover-design">
+                    <span class="cover-badge">CREATOR CORE</span>
+                    <h3 class="cover-title">Visura Studio.<br>Reimagined.</h3>
+                    <p class="cover-subtitle">Beautiful multi-slide presentation builder.</p>
+                  </div>
+                </div>
+                <div class="slide-meta">
+                  <span class="slide-meta-label">Purpose:</span>
+                  <span class="slide-meta-value">Hook users instantly with a high-end luxury title and layout.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: Overview -->
+            <div class="carousel-slide" data-slide-index="1">
+              <div class="preview-slide-card theme-overview">
+                <div class="slide-header">
+                  <span class="slide-badge"><i class="fa-solid fa-briefcase"></i> Slide 2 — Overview</span>
+                </div>
+                <div class="slide-preview-body">
+                  <div class="overview-design">
+                    <span class="overview-section">01 / OVERVIEW</span>
+                    <h4 class="overview-title">Project Vision</h4>
+                    <p class="overview-para">We design digital spaces that elevate human productivity through dark-themed minimalist aesthetics.</p>
+                    <div class="overview-quote">"Simplicity is the ultimate sophistication."</div>
+                    <div class="overview-features-mini">
+                      <span>• Dark Mode First</span>
+                      <span>• Fluid Transitions</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide-meta">
+                  <span class="slide-meta-label">Purpose:</span>
+                  <span class="slide-meta-value">Set context with a detailed project description and key features.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: Features Grid -->
+            <div class="carousel-slide" data-slide-index="2">
+              <div class="preview-slide-card theme-features">
+                <div class="slide-header">
+                  <span class="slide-badge"><i class="fa-solid fa-cubes"></i> Slide 3 — Features</span>
+                </div>
+                <div class="slide-preview-body">
+                  <div class="features-design">
+                    <span class="features-badge">MODULAR FRAMEWORK</span>
+                    <h4 class="features-title">Core Systems</h4>
+                    <div class="mini-features-grid">
+                      <div class="mini-feat-card">
+                        <span class="mfc-num">01</span>
+                        <h5>Autopilot</h5>
+                        <p>Fully automated pipelines</p>
+                      </div>
+                      <div class="mini-feat-card">
+                        <span class="mfc-num">02</span>
+                        <h5>Sync</h5>
+                        <p>Realtime database sockets</p>
+                      </div>
+                      <div class="mini-feat-card">
+                        <span class="mfc-num">03</span>
+                        <h5>Shield</h5>
+                        <p>Hardware-level security</p>
+                      </div>
+                      <div class="mini-feat-card">
+                        <span class="mfc-num">04</span>
+                        <h5>Scale</h5>
+                        <p>Infinite cloud metrics</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide-meta">
+                  <span class="slide-meta-label">Purpose:</span>
+                  <span class="slide-meta-value">Showcase standard configurations in a clean grid modules layout.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4: UI Showcase -->
+            <div class="carousel-slide" data-slide-index="3">
+              <div class="preview-slide-card theme-showcase">
+                <div class="slide-header">
+                  <span class="slide-badge"><i class="fa-solid fa-desktop"></i> Slide 4 — UI Showcase</span>
+                </div>
+                <div class="slide-preview-body">
+                  <div class="showcase-design">
+                    <span class="showcase-top-left">SYSTEM DOCK</span>
+                    <h4 class="showcase-title">Perspective Dashboard</h4>
+                    <div class="mini-pills-row">
+                      <span>Responsive</span>
+                      <span>Next.js</span>
+                      <span>Glassmorphism</span>
+                    </div>
+                    <div class="mock-device-visual">
+                      <div class="md-chart-line"></div>
+                      <div class="md-circles-group">
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide-meta">
+                  <span class="slide-meta-label">Purpose:</span>
+                  <span class="slide-meta-value">Display actual product screenshots or visual mockups.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 5: Outro -->
+            <div class="carousel-slide" data-slide-index="4">
+              <div class="preview-slide-card theme-outro">
+                <div class="slide-header">
+                  <span class="slide-badge"><i class="fa-solid fa-circle-check"></i> Slide 5 — Outro</span>
+                </div>
+                <div class="slide-preview-body">
+                  <div class="outro-design">
+                    <span class="outro-top-badge">END OF SHOWCASE</span>
+                    <h4 class="outro-title">Let's build together.</h4>
+                    <p class="outro-desc">Crafted to solve real problems and deliver real impact.</p>
+                    <div class="outro-contact-cards">
+                      <div class="occ-item"><i class="fa-solid fa-link"></i> farisay.dev</div>
+                      <div class="occ-item"><i class="fa-brands fa-instagram"></i> @faydev</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide-meta">
+                  <span class="slide-meta-label">Purpose:</span>
+                  <span class="slide-meta-value">End with a strong call-to-action, credits, and contact cards.</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-      </div>
 
-      <!-- Code Editor Style Preview Panel -->
-      <div class="preview-panel" role="region" aria-label="Generated prompt preview" aria-live="polite">
-        <div class="preview-output" id="preview-output" tabindex="0" aria-label="Generated prompt text" role="textbox" aria-readonly="true"></div>
-      </div>
-
-
-
-    </aside><!-- /preview-column -->
-
-  </main><!-- /app-main -->
-      </div><!-- /view-generator -->
-
-    </div><!-- /app-content -->
-  </div><!-- /app-body -->
-
-  <!-- Glassmorphic overlay backdrop for mobile sidebar drawer -->
-  <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-  <!-- =====================================================
-       TOAST NOTIFICATION
-       ===================================================== -->
-  <div class="toast" id="app-toast" role="status" aria-live="polite" aria-atomic="true"></div>
-
-  <!-- =====================================================
-       AI AUTO-FILL MODAL
-       ===================================================== -->
-  <div class="autofill-backdrop" id="autofill-backdrop" aria-hidden="true"></div>
-
-  <div class="autofill-modal" id="autofill-modal" role="dialog" aria-modal="true" aria-labelledby="autofill-modal-title" hidden>
-    <div class="autofill-modal-inner">
-
-      <!-- Header -->
-      <div class="autofill-header">
-        <div class="autofill-header-left">
-          <span class="autofill-badge">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-            AI Auto-Fill
-          </span>
-          <h2 class="autofill-title" id="autofill-modal-title">Fill All Slides with AI</h2>
-          <p class="autofill-subtitle">Provide a brief and/or upload a Markdown/PDF file. The AI will extract and fill all 5 slide fields automatically.</p>
-        </div>
-        <button class="autofill-close" id="autofill-close" aria-label="Close AI Auto-Fill panel">
-          <i class="fa-solid fa-xmark"></i>
+        <button class="carousel-nav-btn next-btn" id="carousel-next-btn" aria-label="Next Slide">
+          <i class="fa-solid fa-chevron-right"></i>
         </button>
       </div>
 
-      <!-- Privacy Notice -->
-      <div class="autofill-notice">
-        <i class="fa-solid fa-shield-halved"></i>
-        Data dikirim ke API LLM eksternal untuk diproses. File tidak disimpan permanen.
+      <!-- Carousel Indicators (Dots) -->
+      <div class="carousel-indicators reveal" id="carousel-indicators">
+        <span class="indicator-dot active" data-slide-index="0"></span>
+        <span class="indicator-dot" data-slide-index="1"></span>
+        <span class="indicator-dot" data-slide-index="2"></span>
+        <span class="indicator-dot" data-slide-index="3"></span>
+        <span class="indicator-dot" data-slide-index="4"></span>
       </div>
-
-      <!-- Input Section -->
-      <div class="autofill-inputs">
-
-        <!-- Brief textarea -->
-        <div class="autofill-field">
-          <label class="autofill-label" for="af-brief">
-            <i class="fa-solid fa-align-left"></i>
-            Project Brief
-            <span class="autofill-optional">Optional if file uploaded</span>
-          </label>
-          <textarea
-            id="af-brief"
-            class="autofill-textarea"
-            placeholder="Describe your project: name, purpose, features, tech stack, target users, tagline..."
-            rows="5"
-          ></textarea>
-        </div>
-
-        <!-- File upload -->
-        <div class="autofill-field">
-          <label class="autofill-label">
-            <i class="fa-solid fa-file-arrow-up"></i>
-            Document File
-            <span class="autofill-optional">Markdown or PDF, max 10 MB</span>
-          </label>
-          <div class="autofill-dropzone" id="af-dropzone">
-            <input type="file" id="af-doc-file" accept=".md,.pdf,text/markdown,application/pdf" class="autofill-file-input" aria-label="Upload Markdown or PDF file" />
-            <div class="autofill-dropzone-inner">
-              <i class="fa-solid fa-cloud-arrow-up autofill-upload-icon"></i>
-              <span class="autofill-dropzone-text">Drag & drop or <span class="autofill-browse">browse</span></span>
-              <span class="autofill-file-name" id="af-file-name">No file selected</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Progress State -->
-      <div class="autofill-progress" id="autofill-progress" hidden>
-        <div class="autofill-progress-bar">
-          <div class="autofill-progress-fill" id="autofill-progress-fill"></div>
-        </div>
-        <div class="autofill-progress-text">
-          <i class="fa-solid fa-spinner fa-spin"></i>
-          <span id="autofill-progress-msg">Analyzing your content...</span>
-        </div>
-      </div>
-
-      <!-- Result Summary -->
-      <div class="autofill-result" id="autofill-result" hidden>
-        <div class="autofill-result-header">
-          <i class="fa-solid fa-circle-check autofill-result-icon"></i>
-          <div>
-            <div class="autofill-result-title">Extraction Complete</div>
-            <div class="autofill-result-stats" id="autofill-result-stats"></div>
-          </div>
-        </div>
-        <div class="autofill-coverage-bar">
-          <div class="autofill-coverage-fill" id="autofill-coverage-fill"></div>
-        </div>
-        <div class="autofill-empty-fields" id="autofill-empty-fields" hidden>
-          <span class="autofill-empty-label">Fields left empty:</span>
-          <div class="autofill-empty-list" id="autofill-empty-list"></div>
-        </div>
-      </div>
-
-      <!-- Error State -->
-      <div class="autofill-error" id="autofill-error" hidden>
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <span id="autofill-error-msg">Something went wrong. Please try again.</span>
-      </div>
-
-      <!-- Footer Actions -->
-      <div class="autofill-footer">
-        <button class="autofill-btn-secondary" id="autofill-cancel">Cancel</button>
-        <div class="autofill-footer-right">
-          <button class="autofill-btn-secondary" id="autofill-regenerate" hidden>
-            <i class="fa-solid fa-rotate-right"></i>
-            Regenerate
-          </button>
-          <button class="autofill-btn-apply" id="autofill-apply" hidden>
-            <i class="fa-solid fa-check"></i>
-            Apply to All Slides
-          </button>
-          <button class="autofill-btn-primary" id="autofill-run">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-            Extract with AI
-          </button>
-        </div>
-      </div>
-
     </div>
-  </div>
+  </section>
 
-  <script type="module" src="/js/generator.js"></script>
+  <!-- =====================================================
+       HOW IT WORKS SECTION
+       ===================================================== -->
+  <section class="how-it-works-section" id="how-it-works">
+    <div class="section-container">
+      <h2 class="section-title reveal">
+        Three simple steps to absolute perfection
+      </h2>
+      <p class="section-desc reveal">
+        A seamless visual pipeline designed for modern high-velocity product teams.
+      </p>
+
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        
+        <!-- Step 1 -->
+        <div class="timeline-step reveal">
+          <div class="timeline-number">1</div>
+          <div class="timeline-content">
+            <h3 class="timeline-step-title">Fill Form or AI Auto-Fill</h3>
+            <p class="timeline-step-desc">
+              Manually input your product details into our minimalist editor, or drop a PDF/Markdown file for instant automated extraction.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="timeline-step reveal">
+          <div class="timeline-number">2</div>
+          <div class="timeline-content">
+            <h3 class="timeline-step-title">Review & Customize Prompts</h3>
+            <p class="timeline-step-desc">
+              Watch your cinematic prompt syntax update live in real-time. Manage visual templates smoothly through the Prompt Manager.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="timeline-step reveal">
+          <div class="timeline-number">3</div>
+          <div class="timeline-content">
+            <h3 class="timeline-step-title">Copy & Generate Visuals</h3>
+            <p class="timeline-step-desc">
+              Copy your ready-to-use slide prompts and paste them directly into your favorite visual generators (Midjourney, DALL-E) for high-fidelity results.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ SECTION
+       ===================================================== -->
+  <section class="faq-section" id="faq">
+    <div class="section-container">
+      <h2 class="section-title reveal">
+        Common Questions Answered
+      </h2>
+      <p class="section-desc reveal">
+        Everything you need to know about Visura's premium utility and architecture.
+      </p>
+
+      <div class="faq-accordion-container">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item reveal">
+          <button class="faq-question-btn" aria-expanded="false">
+            <span>Do I need an OpenAI or Gemini API key?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer-panel" hidden>
+            <p class="faq-answer">
+              <strong>Not for the basic generator.</strong> You can manually type and structure your slides instantly. An external API key (Gemini) is only required if you want to unlock the <strong>AI Auto-Fill</strong> feature to analyze brief documents automatically.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item reveal reveal-delay-1">
+          <button class="faq-question-btn" aria-expanded="false">
+            <span>How does the AI Auto-Fill work?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer-panel" hidden>
+            <p class="faq-answer">
+              Simply drag and drop your project summary in Markdown (`.md`) or PDF format into the Auto-Fill panel. Our Express server processes the document via the Gemini API, extracts key variables, and populates the generator slide fields instantly.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item reveal reveal-delay-2">
+          <button class="faq-question-btn" aria-expanded="false">
+            <span>Is there any cost to use Visura?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer-panel" hidden>
+            <p class="faq-answer">
+              <strong>100% Free.</strong> Visura was built as an open-source utility tool to help creative developers and digital designers save time structuring premium portfolio posts.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item reveal reveal-delay-3">
+          <button class="faq-question-btn" aria-expanded="false">
+            <span>Where are my custom templates and prompt history stored?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer-panel" hidden>
+            <p class="faq-answer">
+              All your custom batches and prompt history are securely stored in your <strong>browser's Local Storage</strong>. No sensitive text or template data is ever uploaded or saved on our servers.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA FOOTER SECTION
+       ===================================================== -->
+  <section class="landing-cta-footer reveal">
+    <div class="section-container">
+      <h2 class="cta-footer-title">Elevate your portfolio presentations today.</h2>
+      <p class="cta-footer-desc">Craft gorgeous narrative threads. Impress clients. Build your visual legacy.</p>
+      <a href="/app" class="btn btn-primary btn-lg cta-glow">
+        Try Demo Now <i class="fa-solid fa-arrow-right btn-icon-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+  <footer class="landing-footer">
+    <div class="section-container footer-container">
+      <div class="footer-brand-section">
+        <span class="brand-text">Visura</span>
+        <p class="footer-brand-desc">Modern Minimalist Prompt Engineering System for Creative Pioneers.</p>
+      </div>
+      <div class="footer-links-section">
+        <div class="footer-links-col">
+          <h4>Utility</h4>
+          <a href="/app">Prompt Generator</a>
+          <a href="/riwayat">Prompt History</a>
+          <a href="/prompts">Prompt Manager</a>
+        </div>
+        <div class="footer-links-col">
+          <h4>Settings</h4>
+          <a href="/settings">Global Config</a>
+          <a href="#hero">Back to Top</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="section-container footer-bottom-container">
+        <span class="copyright">© 2026 Visura Studio. All rights reserved.</span>
+        <span class="creator-credit">Built with Passion for Visual Creators.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================
+       SCRIPTS FOR INTERACTIVITY
+       ===================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Mobile Nav Toggle
+      const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+      const mobileNavSidebar = document.getElementById('mobile-nav-sidebar');
+      const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+      const mobileNavClose = document.getElementById('mobile-nav-close');
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+      const openMobileNav = () => {
+        mobileNavSidebar.classList.add('active');
+        mobileNavOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeMobileNav = () => {
+        mobileNavSidebar.classList.remove('active');
+        mobileNavOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      mobileNavToggle.addEventListener('click', openMobileNav);
+      mobileNavClose.addEventListener('click', closeMobileNav);
+      mobileNavOverlay.addEventListener('click', closeMobileNav);
+      mobileNavLinks.forEach(link => link.addEventListener('click', closeMobileNav));
+
+      // 2. Interactive FAQ Accordion
+      const faqQuestions = document.querySelectorAll('.faq-question-btn');
+      faqQuestions.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          const panel = btn.nextElementSibling;
+          
+          // Collapse all others
+          faqQuestions.forEach(otherBtn => {
+            if (otherBtn !== btn) {
+              otherBtn.setAttribute('aria-expanded', 'false');
+              otherBtn.nextElementSibling.style.maxHeight = null;
+              otherBtn.nextElementSibling.setAttribute('hidden', '');
+            }
+          });
+
+          // Toggle current
+          btn.setAttribute('aria-expanded', !expanded);
+          if (!expanded) {
+            panel.removeAttribute('hidden');
+            panel.style.maxHeight = panel.scrollHeight + "px";
+          } else {
+            panel.style.maxHeight = null;
+            panel.setAttribute('hidden', '');
+          }
+        });
+      });
+
+      // 3. Custom Interactive Carousel Preview
+      const track = document.getElementById('carousel-slides-track');
+      const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+      const dots = Array.from(document.querySelectorAll('.indicator-dot'));
+      const prevBtn = document.getElementById('carousel-prev-btn');
+      const nextBtn = document.getElementById('carousel-next-btn');
+      let currentSlideIndex = 0;
+
+      const updateCarousel = (index) => {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        
+        currentSlideIndex = index;
+
+        // Smooth slide transition
+        const amountToMove = -currentSlideIndex * 100;
+        track.style.transform = `translateX(${amountToMove}%)`;
+
+        // Update active slide class
+        slides.forEach((slide, i) => {
+          if (i === currentSlideIndex) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        // Update indicators
+        dots.forEach((dot, i) => {
+          if (i === currentSlideIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      };
+
+      prevBtn.addEventListener('click', () => {
+        updateCarousel(currentSlideIndex - 1);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        updateCarousel(currentSlideIndex + 1);
+      });
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const index = parseInt(dot.getAttribute('data-slide-index'));
+          updateCarousel(index);
+        });
+      });
+
+      // Handle swipe / touch gestures for mobile carousel
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      track.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      track.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (diff > 50) {
+          // Swipe left -> Next slide
+          updateCarousel(currentSlideIndex + 1);
+        } else if (diff < -50) {
+          // Swipe right -> Prev slide
+          updateCarousel(currentSlideIndex - 1);
+        }
+      }, { passive: true });
+
+      // 4. Live Mockup UI Simulator (Motion Design Showcase)
+      const mockupBadge = document.getElementById('mockup-input-badge');
+      const mockupHeadline = document.getElementById('mockup-input-headline');
+      const mockupPrompt = document.getElementById('mockup-output-prompt');
+      const mockupFrame = document.querySelector('.mockup-frame');
+
+      const mockupExamples = [
+        {
+          badge: "AI ANALYTICS",
+          headline: "Deep insights.<br>Engineered.",
+          prompt: 'A cinematic dark studio scene, a glass interface reading <span class="prompt-var">"AI ANALYTICS"</span> and <span class="prompt-var">"Deep insights. Engineered."</span>, dramatic moody green lighting, volumetric smoke, high contrast, clean minimalist layout...'
+        },
+        {
+          badge: "CYBER SECURITY",
+          headline: "Threats.<br>Neutralized.",
+          prompt: 'A high-tech digital security vault room, a glowing holographic shield reading <span class="prompt-var">"CYBER SECURITY"</span> and <span class="prompt-var">"Threats. Neutralized."</span>, cyber-blue laser beams, sleek glass panels, silver reflections, cinematic depth of field...'
+        },
+        {
+          badge: "ECO SYSTEM",
+          headline: "Oceans.<br>Restored.",
+          prompt: 'An elegant underwater glass dome sanctuary, a clean minimalist hud displaying <span class="prompt-var">"ECO SYSTEM"</span> and <span class="prompt-var">"Oceans. Restored."</span>, cinematic teal blue water, glowing marine biology, sunlight rays refraction, photorealistic details...'
+        }
+      ];
+
+      let exampleIndex = 0;
+
+      const typeEffect = (element, htmlText, delay = 50) => {
+        return new Promise(resolve => {
+          element.innerHTML = "";
+          let i = 0;
+          const isHTML = htmlText.includes('<');
+          
+          if (!isHTML) {
+            // Standard typing character by character
+            const timer = setInterval(() => {
+              if (i < htmlText.length) {
+                element.textContent += htmlText.charAt(i);
+                i++;
+              } else {
+                clearInterval(timer);
+                resolve();
+              }
+            }, delay);
+          } else {
+            // HTML content fade transition
+            element.style.opacity = 0;
+            element.innerHTML = htmlText;
+            let op = 0;
+            const timer = setInterval(() => {
+              if (op < 1) {
+                op += 0.1;
+                element.style.opacity = op;
+              } else {
+                clearInterval(timer);
+                resolve();
+              }
+            }, delay);
+          }
+        });
+      };
+
+      const runMockupLoop = async () => {
+        while (true) {
+          const current = mockupExamples[exampleIndex];
+          
+          // loading simulator state
+          mockupFrame.classList.add('mockup-generating');
+          
+          await new Promise(r => setTimeout(r, 600));
+          
+          // Type Badge
+          await typeEffect(mockupBadge, current.badge, 40);
+          await new Promise(r => setTimeout(r, 400));
+          
+          // Type Headline
+          await typeEffect(mockupHeadline, current.headline, 60);
+          await new Promise(r => setTimeout(r, 500));
+          
+          // Sparkle generation flash
+          mockupFrame.classList.remove('mockup-generating');
+          mockupFrame.classList.add('mockup-flash');
+          await new Promise(r => setTimeout(r, 150));
+          mockupFrame.classList.remove('mockup-flash');
+          
+          // Smooth fade in prompt
+          mockupPrompt.style.opacity = 0;
+          mockupPrompt.innerHTML = current.prompt;
+          mockupPrompt.style.transition = 'opacity 0.6s ease';
+          mockupPrompt.offsetHeight; // reflow
+          mockupPrompt.style.opacity = 1;
+          
+          // Hold
+          await new Promise(r => setTimeout(r, 4500));
+          
+          // Next
+          exampleIndex = (exampleIndex + 1) % mockupExamples.length;
+        }
+      };
+
+      if (mockupBadge && mockupHeadline && mockupPrompt) {
+        runMockupLoop();
+      }
+
+      // 5. Scroll Reveal Motion
+      const revealElements = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+    });
+  </script>
 </body>
 </html>
-

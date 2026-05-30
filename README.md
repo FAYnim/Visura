@@ -1,150 +1,154 @@
-![Visura Logo](public/img/logo/android-chrome-192x192.png)
+<p align="center">
+  <img src="public/img/logo/android-chrome-192x192.png" alt="Visura Logo" width="128" />
+</p>
 
 # Visura
 
-Premium prompt generator untuk membuat carousel portofolio Instagram 5-slide dengan gaya cinematic UI. Visura menyediakan form terstruktur, preview real-time, riwayat prompt, dan pengaturan creator—semua berjalan langsung di browser.
+A premium prompt generator for crafting gorgeous 5-slide Instagram carousel portfolios with a cinematic UI style. Visura provides structured forms, real-time live preview, prompt history, and creator profile settings—all running directly in your browser.
 
-## Fitur Utama
+## Key Features
 
-- **Generator 5 slide** dengan template prompt berbeda untuk cover, overview, feature grid, showcase, dan outro.
-- **AI Auto-Fill** — isi semua field otomatis dari brief teks + file Markdown/PDF menggunakan LLM (Google Gemini).
-- **Live preview** dengan highlight placeholder vs input yang sudah terisi.
-- **Copy sekali klik** ke clipboard dengan toast feedback.
-- **Riwayat prompt** tersimpan lokal + pencarian cepat.
-- **Pengaturan global** (creator name/role) yang tersinkron di semua slide.
-- **UI modern dark mode** dengan style premium SaaS.
+- **5-Slide Generator** with distinct prompt templates for the Cover, Overview, Features Grid, Showcase, and Outro slides.
+- **AI Auto-Fill** — automatically populate all fields from a text brief or Markdown/PDF documentation file using LLMs (Google Gemini).
+- **Live Preview** with syntax highlighting comparing placeholders and filled values.
+- **One-Click Copy** to clipboard with sleek toast feedback.
+- **Prompt History** saved locally with quick search capabilities.
+- **Global Settings** (Creator Name/Role) synced automatically across all slides.
+- **Modern Dark UI** matching premium SaaS aesthetics.
 
-## Tampilan Aplikasi
+## Application Routes
 
-- **Prompt Generator:** `http://localhost:3000/`
+- **Marketing Landing Page:** `http://localhost:3000/`
+- **Prompt Generator:** `http://localhost:3000/app`
 - **History:** `http://localhost:3000/riwayat`
 - **Settings:** `http://localhost:3000/settings`
+- **Prompt Manager:** `http://localhost:3000/prompts`
 
 > [!NOTE]
-> Aplikasi ini tidak mengunggah screenshot; prompt yang dihasilkan mengasumsikan Anda menambahkan screenshot saat menggunakan tool AI image generator favorit Anda.
+> This application does not upload screenshots; the generated prompts assume you will add actual screenshots when generating images in your favorite AI image generator.
 
 ## Tech Stack
 
 - HTML, CSS, JavaScript (ES Modules)
-- Node.js + Express sebagai HTTP server
-- LocalStorage untuk menyimpan settings & history
+- Node.js + Express as the HTTP server
+- LocalStorage for persisting settings & history
 - Font Awesome + Google Fonts
 
-## Menjalankan Secara Lokal
+## Running Locally
 
-Pastikan Node.js >= 18.x sudah terinstal, lalu:
+Ensure Node.js >= 18.x is installed, then run:
 
 ```bash
 npm install
 ```
 
-### Setup AI Auto-Fill (Opsional)
+### AI Auto-Fill Setup (Optional)
 
-Fitur AI Auto-Fill mendukung dua provider LLM dengan mekanisme **fallback otomatis**. Buat file `.env` di root project dan isi salah satu atau keduanya:
+The AI Auto-Fill feature supports two LLM providers with an **automatic fallback** mechanism. Create a `.env` file in the root directory and specify one or both:
 
 ```bash
-GEMINI_API_KEY=AIza...   # Google Gemini (provider utama)
-GROQ_API_KEY=gsk_...     # Groq (provider fallback)
+GEMINI_API_KEY=AIza...   # Google Gemini (primary provider)
+GROQ_API_KEY=gsk_...     # Groq (fallback provider)
 ```
 
-**Urutan fallback:**
-1. **Gemini** digunakan pertama jika `GEMINI_API_KEY` tersedia.
-2. **Groq** digunakan sebagai fallback jika Gemini gagal, atau jika hanya `GROQ_API_KEY` yang tersedia.
-3. Setiap provider mendapat satu kali **retry** dengan repair prompt sebelum beralih ke provider berikutnya.
+**Fallback order:**
+1. **Gemini** is used first if `GEMINI_API_KEY` is present.
+2. **Groq** is used as a fallback if Gemini fails, or if only `GROQ_API_KEY` is present.
+3. Each provider gets one **retry** attempt with a repair prompt before shifting to the next.
 
 > [!IMPORTANT]
-> Tanpa API key apa pun, tombol **AI Auto-Fill** akan menampilkan pesan error. Generator tetap berfungsi normal tanpa API key.
+> Without any API key set, the **AI Auto-Fill** button will throw an error alert. The prompt generator will continue to work perfectly fine without an API key.
 
-Lalu jalankan server development:
+Then, start the development server:
 
 ```bash
 npm run dev
 ```
 
 > [!NOTE]
-> Perintah `npm run dev` menjalankan server menggunakan `nodemon` untuk mendeteksi perubahan file backend secara dinamis dan melakukan restart server secara otomatis.
+> The `npm run dev` script runs the server using `nodemon` to dynamically watch backend files for changes and automatically restart the server.
 
-Lalu buka `http://localhost:3000` di browser Anda.
+Next, open `http://localhost:3000` in your web browser.
 
-### Menjalankan Pengujian (Testing)
+### Running Tests
 
-Aplikasi ini dilengkapi dengan suite pengujian skema untuk memverifikasi validitas data output yang dikirimkan oleh AI Auto-Fill. Anda dapat menjalankan pengujian tersebut dengan perintah:
+This application includes a schema validation test suite to verify the output data formats returned by the AI Auto-Fill engine. You can execute these tests via:
 
 ```bash
 npm test
 ```
 
+## How to Use
 
-## Cara Pakai
-
-1. Buka **Prompt Generator**.
-2. *(Opsional)* Klik **AI Auto-Fill** dan:
-   - Isi brief proyek di textarea, dan/atau
-   - Upload file Markdown/PDF dokumentasi proyek (≤ 10 MB)
-   - Klik **Extract with AI** — tunggu 10–30 detik
-   - Review ringkasan coverage, lalu klik **Apply to All Slides**
-3. Isi atau edit form sesuai slide yang aktif.
-4. Lihat hasil prompt di panel **Preview**.
-5. Klik **Copy** untuk menyalin prompt.
-6. Cek **History** untuk melihat prompt yang pernah disalin.
-7. Atur nama dan peran Anda di **Settings**.
+1. Open the **Prompt Generator** at `/app`.
+2. *(Optional)* Click **AI Auto-Fill** and:
+   - Provide a project brief inside the textarea, and/or
+   - Upload a Markdown/PDF project document (≤ 10 MB).
+   - Click **Extract with AI** and wait for 10–30 seconds.
+   - Review the coverage summary, then click **Apply to All Slides**.
+3. Fill or edit the fields on the active slide form.
+4. Review the compiled prompt inside the **Preview** panel.
+5. Click **Copy** to save the prompt to your clipboard.
+6. Open **History** to manage previously copied prompts.
+7. Configure your creator name and role under **Settings**.
 
 > [!TIP]
-> Gunakan **History** sebagai bank prompt untuk berbagai versi carousel proyek Anda.
+> Use **History** as a prompt library for iterating on different visual styles of your carousel projects.
 
-## Struktur Proyek
+## Project Structure
 
 ```text
 .
-├── .env                      # API keys (tidak di-commit)
-├── package.json              # Node.js manifest, scripts, & dev dependencies (nodemon, dll)
-├── PRD.md                    # Spesifikasi PRD lengkap untuk AI Auto-Fill
-├── server.js                 # Express entry point (menginisialisasi HTTP server)
+├── .env                      # API keys (git-ignored)
+├── package.json              # Node.js manifest, scripts, & dev dependencies (nodemon, etc.)
+├── PRD.md                    # Full Product Requirement Document for AI Auto-Fill
+├── server.js                 # Express entry point (initializes HTTP server)
 ├── server/
 │   ├── routes/
-│   │   └── autoFill.js       # Express route handler untuk POST /api/auto-fill
+│   │   └── autoFill.js       # Express route handler for POST /api/auto-fill
 │   └── ai/
-│       ├── autoFillService.js # Integrasi Google Gemini + fallback Groq
-│       ├── promptBuilder.js   # Pembuat system/user prompt & skema parsing data
-│       ├── schema.js          # JSON schema output AI Auto-Fill
-│       └── textExtractors.js  # Utilitas ekstraksi teks untuk file Markdown & PDF
+│       ├── autoFillService.js # Google Gemini + Groq fallback integration
+│       ├── promptBuilder.js   # System/user prompt generator & parsing schema
+│       ├── schema.js          # JSON schema for AI Auto-Fill outputs
+│       └── textExtractors.js  # Text extraction utilities for Markdown & PDF files
 ├── tests/
-│   ├── autoFillSchema.test.js  # Uji skema validasi minimal (dijalankan via `npm test`)
-│   └── autoFillFallback.test.js # Uji fallback Gemini -> Groq
+│   ├── autoFillSchema.test.js  # Minimal validation schema test (run via `npm test`)
+│   └── autoFillFallback.test.js # Gemini -> Groq fallback unit tests
 └── public/
-    ├── index.html            # UI Utama Generator (landing page slide-based)
-    ├── prompts.html          # Manajemen prompt batch & template
-    ├── riwayat.html          # Riwayat Prompt yang disalin
-    ├── settings.html         # Pengaturan global Creator (Name & Role)
+    ├── index.html            # Marketing Landing Page (story-led layout)
+    ├── app.html              # Core Slide Generator Page (moved from index.html)
+    ├── prompts.html          # Batch Prompt Manager & Template Editor
+    ├── riwayat.html          # Copy History Viewer
+    ├── settings.html         # Global Creator Settings (Name & Role)
     ├── css/
-    │   └── styles.css        # UI & sistem desain cinematic dark theme
+    │   ├── styles.css        # Core app UI & cinematic dark theme system
+    │   └── landing.css       # Premium marketing landing page styles & reveals
     ├── js/
-    │   ├── autoFill.js           # Client-side AI Auto-Fill flow
-    │   ├── common.js             # State, localStorage, & utilitas UI bersama
-    │   ├── generator.js          # Entry point generator (wiring modul)
-    │   ├── generatorBindings.js  # Event binding form & tab
-    │   ├── generatorClipboard.js # Copy/reset prompt + toast
-    │   ├── generatorHistory.js   # Sinkronisasi riwayat prompt
-    │   ├── generatorRender.js    # Render preview & counter
-    │   ├── generatorState.js     # State runtime & defaults
-    │   ├── generatorTemplates.js # Kompilasi template prompt
-    │   ├── promptStore.js        # Default templates + validasi placeholder
-    │   ├── prompts.js            # UI prompt batch manager
-    │   ├── settingsDefaults.js   # Default creator shared
-    │   ├── riwayat.js            # Logika manajemen & pencarian riwayat
-    │   └── settings.js           # Logika form manajemen profile Creator
+    │   ├── autoFill.js           # Client-side AI Auto-Fill flows
+    │   ├── common.js             # Shared state, localStorage, & UI utilities
+    │   ├── generator.js          # Generator entry point (wiring module)
+    │   ├── generatorBindings.js  # Form & tab event bindings
+    │   ├── generatorClipboard.js # Prompt copy/reset + toast notifications
+    │   ├── generatorHistory.js   # Syncing history logic
+    │   ├── generatorRender.js    # Preview rendering & counters
+    │   ├── generatorState.js     # Runtime state & default presets
+    │   ├── generatorTemplates.js # Prompt template compiler
+    │   ├── promptStore.js        # Default presets + placeholder validations
+    │   ├── prompts.js            # Batch prompt manager UI
+    │   ├── settingsDefaults.js   # Shared defaults creator info
+    │   ├── riwayat.js            # History management & search engine
+    │   └── settings.js           # Creator profile form management logic
     └── img/
-        ├── avatar.png        # Avatar default Creator
-        └── logo/             # Paket ikon & favicon aplikasi
+        ├── avatar.png        # Default creator profile picture
+        └── logo/             # Favicons & logo asset bundle
 ```
 
-## Kustomisasi
+## Customization
 
-- **Template prompt default:** edit di `public/js/promptStore.js` pada `DEFAULT_PROMPTS`.
-- **Kompilasi template prompt:** lihat `public/js/generatorTemplates.js` jika ingin mengubah perilaku placeholder.
-- **Tema & UI:** sesuaikan di `public/css/styles.css`.
-- **Default creator:** update di `public/js/settingsDefaults.js`.
+- **Default Prompt Presets:** Customize inside `public/js/promptStore.js` under `DEFAULT_PROMPTS`.
+- **Template Compiler:** Refer to `public/js/generatorTemplates.js` to modify the placeholder extraction behavior.
+- **Theme & Colors:** Customize variables inside `public/css/styles.css`.
+- **Default Profile:** Update preset profile values inside `public/js/settingsDefaults.js`.
 
 > [!IMPORTANT]
-> Data history dan settings disimpan di LocalStorage browser. Menghapus cache browser akan menghapus data tersebut.
-
+> Prompt history and configuration settings are stored inside the browser's LocalStorage. Clearing your browser cache will erase this data.

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visura — Premium Portfolio Prompt Generator</title>
+  <meta name="description" content="Generate premium AI image prompts for your 5-slide Instagram carousel project overview portfolio. Fill, preview, and copy cinematic prompts in real-time." />
+  <meta name="theme-color" content="#050505" />
+  <meta property="og:title" content="Visura — Premium Portfolio Prompt Generator" />
+  <meta property="og:description" content="Real-time prompt generator for cinematic Instagram portfolio carousels." />
+  <meta property="og:type" content="website" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/logo/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/logo/favicon-16x16.png" />
+  <link rel="icon" href="/img/logo/favicon.ico" />
+  <link rel="manifest" href="/img/logo/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- =====================================================
+       HEADER — Branding & Global Creator Name Input
+       ===================================================== -->
+  <header class="app-header" role="banner">
+    <div class="header-brand">
+      <span class="brand-name">Visura</span>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <!-- =====================================================
+         SIDEBAR — Main App Navigation
+         ===================================================== -->
+    <aside class="app-sidebar" aria-label="Main navigation">
+      <div class="sidebar-top">
+        <nav class="sidebar-menu" role="navigation">
+          <a class="sidebar-btn active" href="/app" id="tab-generator" aria-current="page">
+            <span class="btn-text">Prompt Generator</span>
+          </a>
+          <a class="sidebar-btn" href="/riwayat" id="tab-riwayat">
+            <span class="btn-text">History</span>
+          </a>
+          <a class="sidebar-btn" href="/prompts" id="tab-prompts">
+            <span class="btn-text">Prompt Manager</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <!-- Profile & Settings Area -->
+        <div class="sidebar-profile-section">
+          <a href="/settings" id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Buka Pengaturan Profil" title="Pengaturan Profil">
+            <div class="avatar-container">
+              <img src="/img/avatar.png" alt="Profile" class="profile-avatar-img" />
+            </div>
+            <div class="profile-info-text">
+              <span class="profile-name">John Doe</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =====================================================
+         CONTENT WORKSPACE
+         ===================================================== -->
+    <div class="app-content">
+      <!-- ---------------------------------------------------
+           GENERATOR VIEW
+           --------------------------------------------------- -->
+      <div id="view-generator" class="app-view active">
+
+        <!-- =====================================================
+             SLIDE NAVIGATION TABS
+             ===================================================== -->
+  <nav class="slide-nav" role="tablist" aria-label="Slide selector">
+    <button class="slide-tab active" role="tab" data-slide="1" aria-selected="true" tabindex="0" id="tab-slide-1">
+      Slide 1
+    </button>
+    <button class="slide-tab" role="tab" data-slide="2" aria-selected="false" tabindex="-1" id="tab-slide-2">
+      Slide 2
+    </button>
+    <button class="slide-tab" role="tab" data-slide="3" aria-selected="false" tabindex="-1" id="tab-slide-3">
+      Slide 3
+    </button>
+    <button class="slide-tab" role="tab" data-slide="4" aria-selected="false" tabindex="-1" id="tab-slide-4">
+      Slide 4
+    </button>
+    <button class="slide-tab" role="tab" data-slide="5" aria-selected="false" tabindex="-1" id="tab-slide-5">
+      Slide 5
+    </button>
+  </nav>
+
+  <!-- =====================================================
+       MAIN — 2-Column Layout
+       ===================================================== -->
+  <main class="app-main" id="app-main">
+
+    <!-- ===================================================
+         LEFT COLUMN — Dynamic Forms
+         =================================================== -->
+    <section class="forms-column" aria-label="Slide input form">
+
+      <!-- -----------------------------------------------
+           FORM PANEL: SLIDE 1 — Cover
+           ----------------------------------------------- -->
+      <div class="form-panel active" data-slide="1" role="tabpanel" aria-labelledby="tab-slide-1">
+        <div class="form-section-header">
+          <div class="form-slide-badge"><i class="fa-solid fa-image" style="margin-right: 6px;"></i> Cover Slide</div>
+          <h1 class="form-slide-title">Slide 1 - Cover</h1>
+          <p class="form-slide-desc">The hero opener for your carousel. Defines the first visual impression of your digital product showcase.</p>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label" for="s1-badge-text">
+              Badge Text
+              <span class="var-hint">{{BADGE_TEXT}}</span>
+            </label>
+            <input
+              type="text"
+              id="s1-badge-text"
+              data-slide="1"
+              data-key="BADGE_TEXT"
+              placeholder="e.g. AI TOOL"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="s1-main-headline">
+              Main Hero Heading
+              <span class="var-hint">{{MAIN_HEADLINE}}</span>
+            </label>
+            <textarea
+              id="s1-main-headline"
+              data-slide="1"
+              data-key="MAIN_HEADLINE"
+              placeholder="e.g. Insight.&#10;Engineered."
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="s1-subtitle">
+              Subtitle Below Heading
+              <span class="var-hint">{{SUBTITLE_TEXT}}</span>
+            </label>
+            <input
+              type="text"
+              id="s1-subtitle"
+              data-slide="1"
+              data-key="SUBTITLE_TEXT"
+              placeholder="e.g. AI-powered analytics for modern teams."
+              autocomplete="off"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           FORM PANEL: SLIDE 2 — Project Overview
+           ----------------------------------------------- -->
+      <div class="form-panel" data-slide="2" role="tabpanel" aria-labelledby="tab-slide-2">
+        <div class="form-section-header">
+          <div class="form-slide-badge"><i class="fa-solid fa-briefcase" style="margin-right: 6px;"></i> Project Overview</div>
+          <h2 class="form-slide-title">Slide 2 - Project Overview</h2>
+          <p class="form-slide-desc">Project overview slide with description, quote, and 4 feature highlight cards.</p>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label" for="s2-section-badge">
+              Section Badge
+              <span class="var-hint">{{SECTION_BADGE}}</span>
+            </label>
+            <input type="text" id="s2-section-badge" data-slide="2" data-key="SECTION_BADGE" placeholder="e.g. 01 / OVERVIEW" autocomplete="off" />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="s2-main-heading">
+              Main Heading
+              <span class="var-hint">{{MAIN_HEADING}}</span>
+            </label>
+            <input type="text" id="s2-main-heading" data-slide="2" data-key="MAIN_HEADING" placeholder="e.g. Project Overview" autocomplete="off" />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="s2-description">
+              Project Description
+              <span class="var-hint">{{PROJECT_DESCRIPTION}}</span>
+            </label>
+            <textarea id="s2-description" data-slide="2" data-key="PROJECT_DESCRIPTION" placeholder="e.g. A clean modern paragraph explaining your project vision and impact..." rows="4"></textarea>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="s2-quote">
+              Quote Text
+              <span class="var-hint">{{QUOTE_TEXT}}</span>
+            </label>
+            <input type="text" id="s2-quote" data-slide="2" data-key="QUOTE_TEXT" placeholder="e.g. Turning data into decisions, instantly." autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <div class="section-divider-line"></div>
+          <span class="section-divider-text">Feature Cards (2×2 Grid)</span>
+          <div class="section-divider-line"></div>
+        </div>
+
+        <div class="feature-grid-2x2">
+          <!-- Feature 1 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 01</span>
+            <div class="field">
+              <label class="field-label" for="s2-f1-title">Title <span class="var-hint">{{FEATURE_TITLE_1}}</span></label>
+              <input type="text" id="s2-f1-title" data-slide="2" data-key="FEATURE_TITLE_1" placeholder="e.g. Real-time Analytics" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s2-f1-desc">Description <span class="var-hint">{{FEATURE_DESC_1}}</span></label>
+              <textarea id="s2-f1-desc" data-slide="2" data-key="FEATURE_DESC_1" placeholder="Short description..." rows="2"></textarea>
+            </div>
+          </div>
+          <!-- Feature 2 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 02</span>
+            <div class="field">
+              <label class="field-label" for="s2-f2-title">Title <span class="var-hint">{{FEATURE_TITLE_2}}</span></label>
+              <input type="text" id="s2-f2-title" data-slide="2" data-key="FEATURE_TITLE_2" placeholder="e.g. Smart Dashboard" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s2-f2-desc">Description <span class="var-hint">{{FEATURE_DESC_2}}</span></label>
+              <textarea id="s2-f2-desc" data-slide="2" data-key="FEATURE_DESC_2" placeholder="Short description..." rows="2"></textarea>
+            </div>
+          </div>
+          <!-- Feature 3 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 03</span>
+            <div class="field">
+              <label class="field-label" for="s2-f3-title">Title <span class="var-hint">{{FEATURE_TITLE_3}}</span></label>
+              <input type="text" id="s2-f3-title" data-slide="2" data-key="FEATURE_TITLE_3" placeholder="e.g. Team Collaboration" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s2-f3-desc">Description <span class="var-hint">{{FEATURE_DESC_3}}</span></label>
+              <textarea id="s2-f3-desc" data-slide="2" data-key="FEATURE_DESC_3" placeholder="Short description..." rows="2"></textarea>
+            </div>
+          </div>
+          <!-- Feature 4 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 04</span>
+            <div class="field">
+              <label class="field-label" for="s2-f4-title">Title <span class="var-hint">{{FEATURE_TITLE_4}}</span></label>
+              <input type="text" id="s2-f4-title" data-slide="2" data-key="FEATURE_TITLE_4" placeholder="e.g. Secure & Scalable" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s2-f4-desc">Description <span class="var-hint">{{FEATURE_DESC_4}}</span></label>
+              <textarea id="s2-f4-desc" data-slide="2" data-key="FEATURE_DESC_4" placeholder="Short description..." rows="2"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           FORM PANEL: SLIDE 3 — Modular Features Grid
+           ----------------------------------------------- -->
+      <div class="form-panel" data-slide="3" role="tabpanel" aria-labelledby="tab-slide-3">
+        <div class="form-section-header">
+          <div class="form-slide-badge"><i class="fa-solid fa-cubes" style="margin-right: 6px;"></i> Features Grid</div>
+          <h2 class="form-slide-title">Slide 3 - Features</h2>
+          <p class="form-slide-desc">Modular feature grid with 6 cards, each containing a title, description, and mini UI component specification.</p>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label" for="s3-section-badge">
+              Section Badge
+              <span class="var-hint">{{SECTION_BADGE}}</span>
+            </label>
+            <input type="text" id="s3-section-badge" data-slide="3" data-key="SECTION_BADGE" placeholder="e.g. FEATURES" autocomplete="off" />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="s3-main-heading">
+              Main Heading
+              <span class="var-hint">{{MAIN_HEADING}}</span>
+            </label>
+            <input type="text" id="s3-main-heading" data-slide="3" data-key="MAIN_HEADING" placeholder="e.g. Main Features" autocomplete="off" />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="s3-subtitle">
+              Subtitle Text
+              <span class="var-hint">{{SUBTITLE_TEXT}}</span>
+            </label>
+            <input type="text" id="s3-subtitle" data-slide="3" data-key="SUBTITLE_TEXT" placeholder="e.g. Powerful tools. Smarter decisions." autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <div class="section-divider-line"></div>
+          <span class="section-divider-text">Feature Grid Modules (6 Cards)</span>
+          <div class="section-divider-line"></div>
+        </div>
+
+        <div class="feature-grid-3x2">
+          <!-- Feature 1 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 01</span>
+            <div class="field">
+              <label class="field-label" for="s3-f1-title">Title <span class="var-hint">{{FEATURE_TITLE_1}}</span></label>
+              <input type="text" id="s3-f1-title" data-slide="3" data-key="FEATURE_TITLE_1" placeholder="e.g. Live Sync" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f1-desc">Description <span class="var-hint">{{FEATURE_DESC_1}}</span></label>
+              <textarea id="s3-f1-desc" data-slide="3" data-key="FEATURE_DESC_1" placeholder="Short desc..." rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f1-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_1}}</span></label>
+              <input type="text" id="s3-f1-ui" data-slide="3" data-key="FEATURE_UI_1" placeholder="e.g. analytics chart" autocomplete="off" />
+            </div>
+          </div>
+          <!-- Feature 2 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 02</span>
+            <div class="field">
+              <label class="field-label" for="s3-f2-title">Title <span class="var-hint">{{FEATURE_TITLE_2}}</span></label>
+              <input type="text" id="s3-f2-title" data-slide="3" data-key="FEATURE_TITLE_2" placeholder="e.g. AI Insights" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f2-desc">Description <span class="var-hint">{{FEATURE_DESC_2}}</span></label>
+              <textarea id="s3-f2-desc" data-slide="3" data-key="FEATURE_DESC_2" placeholder="Short desc..." rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f2-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_2}}</span></label>
+              <input type="text" id="s3-f2-ui" data-slide="3" data-key="FEATURE_UI_2" placeholder="e.g. data graph widget" autocomplete="off" />
+            </div>
+          </div>
+          <!-- Feature 3 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 03</span>
+            <div class="field">
+              <label class="field-label" for="s3-f3-title">Title <span class="var-hint">{{FEATURE_TITLE_3}}</span></label>
+              <input type="text" id="s3-f3-title" data-slide="3" data-key="FEATURE_TITLE_3" placeholder="e.g. Smart Filters" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f3-desc">Description <span class="var-hint">{{FEATURE_DESC_3}}</span></label>
+              <textarea id="s3-f3-desc" data-slide="3" data-key="FEATURE_DESC_3" placeholder="Short desc..." rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f3-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_3}}</span></label>
+              <input type="text" id="s3-f3-ui" data-slide="3" data-key="FEATURE_UI_3" placeholder="e.g. filter panel" autocomplete="off" />
+            </div>
+          </div>
+          <!-- Feature 4 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 04</span>
+            <div class="field">
+              <label class="field-label" for="s3-f4-title">Title <span class="var-hint">{{FEATURE_TITLE_4}}</span></label>
+              <input type="text" id="s3-f4-title" data-slide="3" data-key="FEATURE_TITLE_4" placeholder="e.g. Role Management" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f4-desc">Description <span class="var-hint">{{FEATURE_DESC_4}}</span></label>
+              <textarea id="s3-f4-desc" data-slide="3" data-key="FEATURE_DESC_4" placeholder="Short desc..." rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f4-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_4}}</span></label>
+              <input type="text" id="s3-f4-ui" data-slide="3" data-key="FEATURE_UI_4" placeholder="e.g. user roles table" autocomplete="off" />
+            </div>
+          </div>
+          <!-- Feature 5 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 05</span>
+            <div class="field">
+              <label class="field-label" for="s3-f5-title">Title <span class="var-hint">{{FEATURE_TITLE_5}}</span></label>
+              <input type="text" id="s3-f5-title" data-slide="3" data-key="FEATURE_TITLE_5" placeholder="e.g. API Access" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f5-desc">Description <span class="var-hint">{{FEATURE_DESC_5}}</span></label>
+              <textarea id="s3-f5-desc" data-slide="3" data-key="FEATURE_DESC_5" placeholder="Short desc..." rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f5-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_5}}</span></label>
+              <input type="text" id="s3-f5-ui" data-slide="3" data-key="FEATURE_UI_5" placeholder="e.g. code snippet block" autocomplete="off" />
+            </div>
+          </div>
+          <!-- Feature 6 -->
+          <div class="feature-card-input">
+            <span class="feature-card-num">Feature 06</span>
+            <div class="field">
+              <label class="field-label" for="s3-f6-title">Title <span class="var-hint">{{FEATURE_TITLE_6}}</span></label>
+              <input type="text" id="s3-f6-title" data-slide="3" data-key="FEATURE_TITLE_6" placeholder="e.g. 24/7 Support" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f6-desc">Description <span class="var-hint">{{FEATURE_DESC_6}}</span></label>
+              <textarea id="s3-f6-desc" data-slide="3" data-key="FEATURE_DESC_6" placeholder="Short desc..." rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label class="field-label" for="s3-f6-ui">Mini UI Component <span class="var-hint">{{FEATURE_UI_6}}</span></label>
+              <input type="text" id="s3-f6-ui" data-slide="3" data-key="FEATURE_UI_6" placeholder="e.g. chat support widget" autocomplete="off" />
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <div class="section-divider-line"></div>
+          <span class="section-divider-text">CTA Section</span>
+          <div class="section-divider-line"></div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label" for="s3-cta-text">
+              CTA Text
+              <span class="var-hint">{{CTA_TEXT}}</span>
+            </label>
+            <input type="text" id="s3-cta-text" data-slide="3" data-key="CTA_TEXT" placeholder="e.g. Built with security, performance, and speed in mind." autocomplete="off" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="s3-cta-button">
+              CTA Button Text
+              <span class="var-hint">{{CTA_BUTTON}}</span>
+            </label>
+            <input type="text" id="s3-cta-button" data-slide="3" data-key="CTA_BUTTON" placeholder="e.g. Start your free trial" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           FORM PANEL: SLIDE 4 — UI Showcase
+           ----------------------------------------------- -->
+      <div class="form-panel" data-slide="4" role="tabpanel" aria-labelledby="tab-slide-4">
+        <div class="form-section-header">
+          <div class="form-slide-badge"><i class="fa-solid fa-desktop" style="margin-right: 6px;"></i> UI Showcase</div>
+          <h2 class="form-slide-title">Slide 4 - UI Showcase</h2>
+          <p class="form-slide-desc">Premium cinematic product UI showcase showcasing three floating perspective dashboard displays.</p>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label" for="s4-top-left-badge">Top Left Branding Badge <span class="var-hint">{{TOP_LEFT_BADGE}}</span></label>
+            <input type="text" id="s4-top-left-badge" data-slide="4" data-key="TOP_LEFT_BADGE" placeholder="e.g. SYSTEM CORE" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="s4-top-right-label">Top Right Editorial Label <span class="var-hint">{{TOP_RIGHT_LABEL}}</span></label>
+            <input type="text" id="s4-top-right-label" data-slide="4" data-key="TOP_RIGHT_LABEL" placeholder="e.g. FUTURE SYSTEM INTERFACE" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="s4-main-headline">Main Hero Heading <span class="var-hint">{{MAIN_HEADLINE}}</span></label>
+            <textarea id="s4-main-headline" data-slide="4" data-key="MAIN_HEADLINE" placeholder="e.g. SMART.&#10;AUTOMATED." rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label" for="s4-subtitle-text">Subtitle Below Heading <span class="var-hint">{{SUBTITLE_TEXT}}</span></label>
+            <input type="text" id="s4-subtitle-text" data-slide="4" data-key="SUBTITLE_TEXT" placeholder="e.g. Real-time analytics platform for smarter decisions." autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <div class="section-divider-line"></div>
+          <span class="section-divider-text">Feature Pills (4 Capsules)</span>
+          <div class="section-divider-line"></div>
+        </div>
+
+        <div class="feature-grid-2x2">
+          <div class="feature-card-input">
+            <span class="feature-card-num">Pill 01</span>
+            <div class="field"><label class="field-label" for="s4-pill-1">Text <span class="var-hint">{{PILL_TEXT_1}}</span></label><input type="text" id="s4-pill-1" data-slide="4" data-key="PILL_TEXT_1" placeholder="e.g. Responsive" autocomplete="off" /></div>
+          </div>
+          <div class="feature-card-input">
+            <span class="feature-card-num">Pill 02</span>
+            <div class="field"><label class="field-label" for="s4-pill-2">Text <span class="var-hint">{{PILL_TEXT_2}}</span></label><input type="text" id="s4-pill-2" data-slide="4" data-key="PILL_TEXT_2" placeholder="e.g. React + Tailwind" autocomplete="off" /></div>
+          </div>
+          <div class="feature-card-input">
+            <span class="feature-card-num">Pill 03</span>
+            <div class="field"><label class="field-label" for="s4-pill-3">Text <span class="var-hint">{{PILL_TEXT_3}}</span></label><input type="text" id="s4-pill-3" data-slide="4" data-key="PILL_TEXT_3" placeholder="e.g. Dark Mode" autocomplete="off" /></div>
+          </div>
+          <div class="feature-card-input">
+            <span class="feature-card-num">Pill 04</span>
+            <div class="field"><label class="field-label" for="s4-pill-4">Text <span class="var-hint">{{PILL_TEXT_4}}</span></label><input type="text" id="s4-pill-4" data-slide="4" data-key="PILL_TEXT_4" placeholder="e.g. Realtime System" autocomplete="off" /></div>
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <div class="section-divider-line"></div>
+          <span class="section-divider-text">Footer Section</span>
+          <div class="section-divider-line"></div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label" for="s4-brand-statement">Brand Statement (Footer Right) <span class="var-hint">{{BRAND_STATEMENT}}</span></label>
+            <textarea id="s4-brand-statement" data-slide="4" data-key="BRAND_STATEMENT" placeholder="e.g. BUILT FOR DEVELOPERS.&#10;DESIGNED FOR IMPACT." rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           FORM PANEL: SLIDE 5 — Closing Outro
+           ----------------------------------------------- -->
+      <div class="form-panel" data-slide="5" role="tabpanel" aria-labelledby="tab-slide-5">
+        <div class="form-section-header">
+          <div class="form-slide-badge"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Closing Outro</div>
+          <h2 class="form-slide-title">Slide 5 - Closing Outro</h2>
+          <p class="form-slide-desc">Premium futuristic outro slide designed to leave a lasting, luxury startup impression.</p>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label" for="s5-top-badge">Top Badge Text <span class="var-hint">{{TOP_BADGE_TEXT}}</span></label>
+            <input type="text" id="s5-top-badge" data-slide="5" data-key="TOP_BADGE_TEXT" placeholder="e.g. END OF SHOWCASE" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="s5-main-headline">Main Hero Heading <span class="var-hint">{{MAIN_HEADLINE}}</span></label>
+            <input type="text" id="s5-main-headline" data-slide="5" data-key="MAIN_HEADLINE" placeholder="e.g. Designed for Impact." autocomplete="off" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="s5-description-text">Description Text <span class="var-hint">{{DESCRIPTION_TEXT}}</span></label>
+            <textarea id="s5-description-text" data-slide="5" data-key="DESCRIPTION_TEXT" placeholder="e.g. Every feature. Every line of code.&#10;Crafted to solve real problems and deliver real impact." rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label" for="s5-creator-role">Creator Role <span class="var-hint">{{CREATOR_ROLE}}</span></label>
+            <input type="text" id="s5-creator-role" data-slide="5" data-key="CREATOR_ROLE" placeholder="e.g. Creative Engineer" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <div class="section-divider-line"></div>
+          <span class="section-divider-text">Call To Actions (CTA Rows)</span>
+          <div class="section-divider-line"></div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label" for="s5-cta-1">CTA Line 1 <span class="var-hint">{{CTA_TEXT_1}}</span></label>
+            <input type="text" id="s5-cta-1" data-slide="5" data-key="CTA_TEXT_1" placeholder="e.g. Follow for more projects" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="s5-cta-2">CTA Line 2 <span class="var-hint">{{CTA_TEXT_2}}</span></label>
+            <input type="text" id="s5-cta-2" data-slide="5" data-key="CTA_TEXT_2" placeholder="e.g. Available for freelance" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /forms-column -->
+
+    <!-- ===================================================
+         RIGHT COLUMN — Live Preview & Actions
+         =================================================== -->
+    <aside class="preview-column" aria-label="Live prompt preview">
+
+      <div class="preview-header">
+        <h2 class="static-preview-title">Prompt</h2>
+        <!-- Hidden elements to preserve JS bindings without errors -->
+        <span id="preview-title" style="display: none;"></span>
+        <span id="preview-char-count" style="display: none;"></span>
+        
+        <div class="preview-actions">
+          <button class="btn-ai-fill" id="btn-ai-fill" aria-label="Open AI Auto-Fill panel">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            AI Auto-Fill
+          </button>
+          <button class="btn-copy-text" id="btn-copy" aria-label="Copy current slide prompt to clipboard">Copy</button>
+          <button class="btn-copy-text" id="btn-reset" aria-label="Reset all inputs and settings across all slides">Reset</button>
+        </div>
+      </div>
+
+      <!-- Code Editor Style Preview Panel -->
+      <div class="preview-panel" role="region" aria-label="Generated prompt preview" aria-live="polite">
+        <div class="preview-output" id="preview-output" tabindex="0" aria-label="Generated prompt text" role="textbox" aria-readonly="true"></div>
+      </div>
+
+
+
+    </aside><!-- /preview-column -->
+
+  </main><!-- /app-main -->
+      </div><!-- /view-generator -->
+
+    </div><!-- /app-content -->
+  </div><!-- /app-body -->
+
+  <!-- Glassmorphic overlay backdrop for mobile sidebar drawer -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- =====================================================
+       TOAST NOTIFICATION
+       ===================================================== -->
+  <div class="toast" id="app-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- =====================================================
+       AI AUTO-FILL MODAL
+       ===================================================== -->
+  <div class="autofill-backdrop" id="autofill-backdrop" aria-hidden="true"></div>
+
+  <div class="autofill-modal" id="autofill-modal" role="dialog" aria-modal="true" aria-labelledby="autofill-modal-title" hidden>
+    <div class="autofill-modal-inner">
+
+      <!-- Header -->
+      <div class="autofill-header">
+        <div class="autofill-header-left">
+          <span class="autofill-badge">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            AI Auto-Fill
+          </span>
+          <h2 class="autofill-title" id="autofill-modal-title">Fill All Slides with AI</h2>
+          <p class="autofill-subtitle">Provide a brief and/or upload a Markdown/PDF file. The AI will extract and fill all 5 slide fields automatically.</p>
+        </div>
+        <button class="autofill-close" id="autofill-close" aria-label="Close AI Auto-Fill panel">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Privacy Notice -->
+      <div class="autofill-notice">
+        <i class="fa-solid fa-shield-halved"></i>
+        Data dikirim ke API LLM eksternal untuk diproses. File tidak disimpan permanen.
+      </div>
+
+      <!-- Input Section -->
+      <div class="autofill-inputs">
+
+        <!-- Brief textarea -->
+        <div class="autofill-field">
+          <label class="autofill-label" for="af-brief">
+            <i class="fa-solid fa-align-left"></i>
+            Project Brief
+            <span class="autofill-optional">Optional if file uploaded</span>
+          </label>
+          <textarea
+            id="af-brief"
+            class="autofill-textarea"
+            placeholder="Describe your project: name, purpose, features, tech stack, target users, tagline..."
+            rows="5"
+          ></textarea>
+        </div>
+
+        <!-- File upload -->
+        <div class="autofill-field">
+          <label class="autofill-label">
+            <i class="fa-solid fa-file-arrow-up"></i>
+            Document File
+            <span class="autofill-optional">Markdown or PDF, max 10 MB</span>
+          </label>
+          <div class="autofill-dropzone" id="af-dropzone">
+            <input type="file" id="af-doc-file" accept=".md,.pdf,text/markdown,application/pdf" class="autofill-file-input" aria-label="Upload Markdown or PDF file" />
+            <div class="autofill-dropzone-inner">
+              <i class="fa-solid fa-cloud-arrow-up autofill-upload-icon"></i>
+              <span class="autofill-dropzone-text">Drag & drop or <span class="autofill-browse">browse</span></span>
+              <span class="autofill-file-name" id="af-file-name">No file selected</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Progress State -->
+      <div class="autofill-progress" id="autofill-progress" hidden>
+        <div class="autofill-progress-bar">
+          <div class="autofill-progress-fill" id="autofill-progress-fill"></div>
+        </div>
+        <div class="autofill-progress-text">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          <span id="autofill-progress-msg">Analyzing your content...</span>
+        </div>
+      </div>
+
+      <!-- Result Summary -->
+      <div class="autofill-result" id="autofill-result" hidden>
+        <div class="autofill-result-header">
+          <i class="fa-solid fa-circle-check autofill-result-icon"></i>
+          <div>
+            <div class="autofill-result-title">Extraction Complete</div>
+            <div class="autofill-result-stats" id="autofill-result-stats"></div>
+          </div>
+        </div>
+        <div class="autofill-coverage-bar">
+          <div class="autofill-coverage-fill" id="autofill-coverage-fill"></div>
+        </div>
+        <div class="autofill-empty-fields" id="autofill-empty-fields" hidden>
+          <span class="autofill-empty-label">Fields left empty:</span>
+          <div class="autofill-empty-list" id="autofill-empty-list"></div>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div class="autofill-error" id="autofill-error" hidden>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span id="autofill-error-msg">Something went wrong. Please try again.</span>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="autofill-footer">
+        <button class="autofill-btn-secondary" id="autofill-cancel">Cancel</button>
+        <div class="autofill-footer-right">
+          <button class="autofill-btn-secondary" id="autofill-regenerate" hidden>
+            <i class="fa-solid fa-rotate-right"></i>
+            Regenerate
+          </button>
+          <button class="autofill-btn-apply" id="autofill-apply" hidden>
+            <i class="fa-solid fa-check"></i>
+            Apply to All Slides
+          </button>
+          <button class="autofill-btn-primary" id="autofill-run">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Extract with AI
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="/js/generator.js"></script>
+</body>
+</html>
+
