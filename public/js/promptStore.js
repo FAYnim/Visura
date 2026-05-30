@@ -77,70 +77,101 @@ The footer branding must be clean plain typography only.
 Overall mood:
 minimal luxurious SaaS presentation, clean premium portfolio aesthetic, modern startup branding, elegant dark presentation style, distraction-free composition, Behance featured portfolio aesthetic.`,
 
-  2: `Create a premium futuristic Instagram carousel slide for a modern digital product portfolio project overview using the uploaded project screenshot as the main interface showcase.
+  2: `Create a premium Instagram carousel project overview slide for a modern SaaS product portfolio using the uploaded project screenshot as the primary visual showcase.
 
 IMPORTANT:
-Use the uploaded screenshot image as the interface displayed inside the floating browser frame.
-Preserve the original UI design while integrating it naturally into the cinematic premium composition.
+Use the uploaded screenshot image exactly as the interface displayed inside the floating browser frame.
+
+Preserve the original UI design completely.
+Do not redesign, modify, restyle, or reinterpret the uploaded interface.
+The screenshot must remain the most important visual element in the composition.
 
 Canvas size:
 1080x1350 portrait.
 
-Style:
-minimal futuristic SaaS presentation, luxury startup branding, cinematic dark UI aesthetic, modern editorial layout, inspired by Apple keynote, Linear, Stripe, Framer, and high-end Behance project overviews.
+Design Direction:
+premium SaaS case study presentation, luxury minimalism, modern editorial design, product-first composition, high-end Behance showcase, inspired by Apple, Linear, Stripe, Framer, Vercel, and modern startup launch materials.
 
 Background:
-deep black cinematic background with subtle grain texture, soft atmospheric green and blue glow lighting, minimal dotted particle details, elegant futuristic ambiance.
+pure deep black background with subtle film grain texture.
+No visible particles.
+No sci-fi effects.
+No strong color glows.
+Use extremely restrained lighting and high contrast to emphasize the product interface.
 
-Top left badge:
-small rounded capsule outline with subtle neon green glow and small indicator dot.
+Top Left Badge:
+small rounded capsule outline.
+Thin white border.
+Minimal appearance.
+
 Badge text:
 "{{SECTION_BADGE}}"
 
-Main heading:
-large ultra-bold editorial sans-serif typography positioned on the upper left side.
+Main Heading:
+large ultra-bold editorial sans-serif typography aligned vertically on the left side.
+
 Heading text:
 "{{MAIN_HEADING}}"
 
-Typography style:
-massive bold sans-serif font, metallic silver gradient, premium editorial hierarchy, clean kerning, luxurious modern tech branding.
+Typography Style:
+massive bold sans-serif.
+Clean white-to-light-gray gradient.
+Strong contrast.
+Luxury editorial hierarchy.
+No neon effects.
+No futuristic glow.
 
-Accent divider:
-short neon green horizontal line placed below the heading.
+Accent Divider:
+short thin white horizontal line positioned below the heading.
 
-Description section:
-clean modern paragraph explaining the project/product.
+Description Section:
+clean modern paragraph explaining the product.
+
 Description text:
 "{{PROJECT_DESCRIPTION}}"
-Highlight important keywords in neon green.
 
-Quote card:
-small dark glassmorphic quote card below the description.
+Highlight important keywords using subtle weight changes instead of bright neon colors.
+
+Quote Card:
+minimal rounded dark card with thin border.
+No heavy glassmorphism.
+No strong glow.
+
 Quote text:
 "{{QUOTE_TEXT}}"
-Quote card style:
-minimal rounded dark glass panel with subtle border glow and elegant futuristic appearance.
 
-Main showcase:
-large floating browser-style interface frame positioned on the upper right area.
-Frame style:
-dark transparent browser frame with rounded corners, soft reflections, cinematic glow, subtle glassmorphism, and an elegant floating perspective.
+Quote card style:
+premium editorial UI component, understated and elegant.
+
+Main Showcase:
+large floating browser frame positioned on the upper-right area.
+
+Frame Style:
+premium dark browser chrome,
+thin borders,
+subtle reflections,
+soft realistic highlights,
+minimal depth effects.
 
 IMPORTANT:
-Embed the uploaded screenshot naturally into the browser frame with realistic lighting integration, subtle reflections, soft bloom, and premium presentation styling. Do not redesign the uploaded UI. Preserve the original interface appearance.
+The uploaded screenshot must be clearly visible and highly readable.
+The interface should dominate the composition and immediately attract attention.
 
 Composition:
-allow part of the browser frame to extend slightly outside the canvas for cinematic framing and immersive composition.
+allow the browser frame to extend beyond the canvas edges for a premium cropped editorial layout.
+Use generous negative space.
+Prioritize visual balance and readability.
 
-Dashboard aesthetic:
-modern dark SaaS dashboard with electric blue highlights, modern analytics charts, clean widgets, premium spacing, futuristic enterprise interface, and modular UI sections.
+Feature Cards Section:
+display four premium feature cards horizontally near the bottom.
 
-Feature cards section:
-display 4 premium feature cards horizontally near the bottom section.
-Feature card style:
-dark glassmorphism panels, subtle border glow, rounded corners, minimal futuristic UI, elegant spacing, premium SaaS aesthetic.
+Card Style:
+minimal dark panels,
+thin border outlines,
+subtle depth,
+clean spacing,
+enterprise-grade SaaS presentation.
 
-Feature placeholders:
 Feature 1:
 Title: "{{FEATURE_TITLE_1}}"
 Description: "{{FEATURE_DESC_1}}"
@@ -157,11 +188,22 @@ Feature 4:
 Title: "{{FEATURE_TITLE_4}}"
 Description: "{{FEATURE_DESC_4}}"
 
-Overall mood:
-luxurious futuristic product presentation, cinematic UI showcase, premium startup branding, modern digital product project overview, Behance featured project aesthetic.
+Overall Mood:
+premium software showcase,
+editorial product presentation,
+luxury startup branding,
+minimalist enterprise design,
+high-end portfolio case study,
+Behance featured project quality.
 
 Quality:
-ultra detailed, cinematic lighting, realistic reflections, soft bloom glow, high-end art direction, sophisticated composition, elegant visual hierarchy, premium portfolio presentation.`,
+ultra detailed,
+clean composition,
+professional typography,
+high visual hierarchy,
+premium art direction,
+minimal effects,
+maximum product focus.`,
 
   3: `Create a premium futuristic Instagram carousel slide showcasing the main features of a modern digital product platform using the uploaded project screenshot and UI style as inspiration.
 
