@@ -106,20 +106,33 @@ npm test
 │   └── ai/
 │       ├── autoFillService.js # Integrasi Google Gemini + fallback Groq
 │       ├── promptBuilder.js   # Pembuat system/user prompt & skema parsing data
+│       ├── schema.js          # JSON schema output AI Auto-Fill
 │       └── textExtractors.js  # Utilitas ekstraksi teks untuk file Markdown & PDF
 ├── tests/
-│   └── autoFillSchema.test.js # Uji skema validasi minimal (dijalankan via `npm test`)
+│   ├── autoFillSchema.test.js  # Uji skema validasi minimal (dijalankan via `npm test`)
+│   └── autoFillFallback.test.js # Uji fallback Gemini -> Groq
 └── public/
     ├── index.html            # UI Utama Generator (landing page slide-based)
+    ├── prompts.html          # Manajemen prompt batch & template
     ├── riwayat.html          # Riwayat Prompt yang disalin
     ├── settings.html         # Pengaturan global Creator (Name & Role)
     ├── css/
     │   └── styles.css        # UI & sistem desain cinematic dark theme
     ├── js/
-    │   ├── common.js         # State, localStorage, & utilitas UI bersama
-    │   ├── generator.js      # Kontrol form, live compiler prompt, & client-side AI Auto-Fill
-    │   ├── riwayat.js        # Logika manajemen & pencarian riwayat
-    │   └── settings.js       # Logika form manajemen profile Creator
+    │   ├── autoFill.js           # Client-side AI Auto-Fill flow
+    │   ├── common.js             # State, localStorage, & utilitas UI bersama
+    │   ├── generator.js          # Entry point generator (wiring modul)
+    │   ├── generatorBindings.js  # Event binding form & tab
+    │   ├── generatorClipboard.js # Copy/reset prompt + toast
+    │   ├── generatorHistory.js   # Sinkronisasi riwayat prompt
+    │   ├── generatorRender.js    # Render preview & counter
+    │   ├── generatorState.js     # State runtime & defaults
+    │   ├── generatorTemplates.js # Kompilasi template prompt
+    │   ├── promptStore.js        # Default templates + validasi placeholder
+    │   ├── prompts.js            # UI prompt batch manager
+    │   ├── settingsDefaults.js   # Default creator shared
+    │   ├── riwayat.js            # Logika manajemen & pencarian riwayat
+    │   └── settings.js           # Logika form manajemen profile Creator
     └── img/
         ├── avatar.png        # Avatar default Creator
         └── logo/             # Paket ikon & favicon aplikasi
@@ -127,9 +140,10 @@ npm test
 
 ## Kustomisasi
 
-- **Template prompt:** edit di `public/js/generator.js` pada objek `TEMPLATES`.
+- **Template prompt default:** edit di `public/js/promptStore.js` pada `DEFAULT_PROMPTS`.
+- **Kompilasi template prompt:** lihat `public/js/generatorTemplates.js` jika ingin mengubah perilaku placeholder.
 - **Tema & UI:** sesuaikan di `public/css/styles.css`.
-- **Default creator:** update di `SETTINGS_DEFAULTS` pada `generator.js`, `riwayat.js`, dan `settings.js`.
+- **Default creator:** update di `public/js/settingsDefaults.js`.
 
 > [!IMPORTANT]
 > Data history dan settings disimpan di LocalStorage browser. Menghapus cache browser akan menghapus data tersebut.
