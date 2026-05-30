@@ -13,7 +13,8 @@ import {
   loadSettings,
   updateProfileWidget,
   initSidebar,
-  showToast
+  showToast,
+  escapeHtml
 } from './common.js';
 
 import {
@@ -23,6 +24,8 @@ import {
   normalizePromptBatches,
   validateSlideTemplate
 } from './promptStore.js';
+
+import { SETTINGS_DEFAULTS } from './settingsDefaults.js';
 
 // =========================================================
 // STATE
@@ -34,7 +37,7 @@ const STATE = {
   settings: {}
 };
 
-const SETTINGS_DEFAULTS = { CREATOR_NAME: '', CREATOR_ROLE: '' };
+
 
 // =========================================================
 // DOM REFERENCES
@@ -410,18 +413,7 @@ function handleDeleteBatch() {
   showToast(`<i class="fa-regular fa-trash-can" style="color:var(--text-muted);"></i> Batch dihapus.`);
 }
 
-// =========================================================
-// ESCAPE HTML
-// =========================================================
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
+
 
 function formatDate(iso) {
   try {
