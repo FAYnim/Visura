@@ -1220,6 +1220,364 @@ a:focus {
 /* =========================================================
    RESPONSIVE
    ========================================================= */
+
+/* =========================================================
+   PREMIUM REDESIGN CUSTOM OVERRIDES (STUDIO V2)
+   ========================================================= */
+
+/* Root color defaults to matching violet */
+:root {
+  --accent-primary: #7c3aed;
+  --accent-glow: rgba(124, 58, 237, 0.25);
+  --text-code: #a78bfa;
+  --bg-root: #0d0d0d;
+  --bg-surface: #161616;
+}
+
+/* 1. Header styling updates */
+.app-header {
+  background: #0d0d0d;
+  border-bottom: 1px solid #1f1f1f;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0 24px;
+  height: var(--header-height);
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+/* header-toggle-btn is hidden by default (line 1177) and shown at <=768px (line 1247) */
+
+/* 2. Sidebar styling updates (uncollapsible, wide, matte background) */
+.app-sidebar {
+  width: 240px;
+  background: #161616;
+  border-right: 1px solid #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-top {
+  width: 100%;
+  padding: 0;
+}
+
+.sidebar-menu {
+  width: 100%;
+  gap: 0;
+}
+
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 16px 24px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: #9ca3af;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  text-align: left;
+}
+
+.sidebar-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.sidebar-btn.active {
+  color: #ffffff;
+  background: #7c3aed; /* Premium violet color block spanning full width */
+  box-shadow: none;
+}
+
+.sidebar-btn .btn-icon {
+  display: none !important; /* Hide icons in sidebar menu */
+}
+
+/* Sidebar bottom & profile styling */
+.sidebar-bottom {
+  padding: 24px;
+  border-top: 1px solid #1f1f1f;
+  background: #161616;
+}
+
+.sidebar-profile-section {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  width: 100%;
+}
+
+.sidebar-profile-btn {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  width: 100%;
+}
+
+.avatar-container {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.profile-title,
+.profile-settings-icon,
+.status-indicator {
+  display: none !important; /* Hide settings icon, online green dot, and title subtitle */
+}
+
+/* 3. Slide selector navigation styling */
+.slide-nav {
+  background: #0d0d0d;
+  border-bottom: 1px solid #1f1f1f;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0 24px;
+  height: var(--nav-height);
+  gap: 8px;
+}
+
+.slide-tab {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9999px; /* Pill style */
+  padding: 6px 16px;
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slide-tab:hover {
+  color: #ffffff;
+}
+
+.slide-tab.active {
+  color: #ffffff;
+  border: 1px solid #7c3aed; /* Purple border capsule */
+  background: rgba(124, 58, 237, 0.15); /* Low opacity violet background */
+}
+
+.slide-tab .tab-dot,
+.slide-tab .tab-number {
+  display: none !important; /* Hide dot and number span elements */
+}
+
+/* 4. Main Workspace Layout & Columns */
+.app-main {
+  background: #0d0d0d;
+  grid-template-columns: 1fr 1fr;
+}
+
+.forms-column {
+  background: #0d0d0d;
+  border-right: 1px solid #1f1f1f;
+  padding: 32px 24px;
+  max-height: calc(100vh - var(--header-height) - var(--nav-height));
+}
+
+/* Hide badge and description above forms */
+.form-slide-badge,
+.form-slide-desc {
+  display: none !important;
+}
+
+.form-slide-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+/* Hide variable hints inside labels */
+.field-label .var-hint {
+  display: none !important;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: none;
+  margin-bottom: 8px;
+}
+
+/* Premium inputs styling */
+.field input[type="text"],
+.field textarea,
+.field select,
+.feature-card-input input[type="text"],
+.feature-card-input textarea {
+  background: #1e1e1e;
+  border: 1px solid #2d2d2d;
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 10px 16px;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+
+.field input[type="text"]::placeholder,
+.field textarea::placeholder,
+.field select::placeholder {
+  color: #6b7280;
+}
+
+.field input[type="text"]:focus,
+.field textarea:focus,
+.field select:focus,
+.feature-card-input input[type="text"]:focus,
+.feature-card-input textarea:focus {
+  border-color: #7c3aed; /* Premium purple focus outline */
+  background: #1e1e1e;
+  box-shadow: none;
+}
+
+/* Feature cards divider and inputs layout */
+.section-divider-line {
+  background: #1f1f1f;
+}
+
+.section-divider-text {
+  color: #4b5563;
+}
+
+.feature-card-input {
+  background: #151515;
+  border: 1px solid #1f1f1f;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.feature-card-input:hover {
+  border-color: #2d2d2d;
+  background: #181818;
+}
+
+/* 5. Right Column (Preview Panel) */
+.preview-column {
+  background: #0d0d0d;
+  padding: 32px 24px;
+  max-height: calc(100vh - var(--header-height) - var(--nav-height));
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #1f1f1f;
+  padding-bottom: 12px;
+}
+
+.static-preview-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.preview-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-copy-text {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  transition: opacity 0.2s ease;
+  padding: 0;
+}
+
+.btn-copy-text:hover {
+  opacity: 0.8;
+}
+
+/* Prompt output container box */
+.preview-panel {
+  background: #131313;
+  border: 1px solid #2d2d2d;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: none;
+  height: 100%;
+}
+
+.preview-output {
+  background: transparent;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #a3a3a3;
+  font-family: var(--font-ui); /* Sans-serif font as in screenshots */
+  padding: 0;
+}
+
+.preview-output .ph-filled {
+  color: #ffffff; /* White color for filled placeholder values */
+  font-weight: 600;
+}
+
+.preview-output .ph-empty {
+  color: #4b5563;
+  font-weight: 400;
+}
+
+/* 6. Clean minimal scrollbars */
+.forms-column::-webkit-scrollbar,
+.preview-output::-webkit-scrollbar {
+  width: 4px;
+}
+.forms-column::-webkit-scrollbar-track,
+.preview-output::-webkit-scrollbar-track {
+  background: transparent;
+}
+.forms-column::-webkit-scrollbar-thumb,
+.preview-output::-webkit-scrollbar-thumb {
+  background: #2d2d2d;
+  border-radius: 4px;
+}
+
 @media (max-width: 1024px) {
   .app-main {
     grid-template-columns: 1fr;
@@ -1575,363 +1933,6 @@ a:focus {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-}
-
-/* =========================================================
-   PREMIUM REDESIGN CUSTOM OVERRIDES (STUDIO V2)
-   ========================================================= */
-
-/* Root color defaults to matching violet */
-:root {
-  --accent-primary: #7c3aed;
-  --accent-glow: rgba(124, 58, 237, 0.25);
-  --text-code: #a78bfa;
-  --bg-root: #0d0d0d;
-  --bg-surface: #161616;
-}
-
-/* 1. Header styling updates */
-.app-header {
-  background: #0d0d0d !important;
-  border-bottom: 1px solid #1f1f1f !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  padding: 0 24px !important;
-  height: var(--header-height);
-}
-
-.brand-name {
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  color: #ffffff !important;
-  letter-spacing: -0.02em !important;
-}
-
-/* header-toggle-btn is hidden by default (line 1177) and shown at <=768px (line 1247) */
-
-/* 2. Sidebar styling updates (uncollapsible, wide, matte background) */
-.app-sidebar {
-  width: 240px !important;
-  background: #161616 !important;
-  border-right: 1px solid #1f1f1f !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-  padding: 0 !important;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.sidebar-top {
-  width: 100% !important;
-  padding: 0 !important;
-}
-
-.sidebar-menu {
-  width: 100% !important;
-  gap: 0 !important;
-}
-
-.sidebar-btn {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  padding: 16px 24px !important;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  color: #9ca3af !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  width: 100% !important;
-  transition: all 0.2s ease !important;
-  text-decoration: none !important;
-  text-align: left !important;
-}
-
-.sidebar-btn:hover {
-  color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.02) !important;
-}
-
-.sidebar-btn.active {
-  color: #ffffff !important;
-  background: #7c3aed !important; /* Premium violet color block spanning full width */
-  box-shadow: none !important;
-}
-
-.sidebar-btn .btn-icon {
-  display: none !important; /* Hide icons in sidebar menu */
-}
-
-/* Sidebar bottom & profile styling */
-.sidebar-bottom {
-  padding: 24px !important;
-  border-top: 1px solid #1f1f1f !important;
-  background: #161616 !important;
-}
-
-.sidebar-profile-section {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  border-top: none !important;
-  width: 100% !important;
-}
-
-.sidebar-profile-btn {
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 12px !important;
-  text-decoration: none !important;
-  width: 100% !important;
-}
-
-.avatar-container {
-  width: 36px !important;
-  height: 36px !important;
-  border-radius: 50% !important;
-  overflow: hidden !important;
-}
-
-.profile-avatar-img {
-  width: 100% !important;
-  height: 100% !important;
-  border: none !important;
-  border-radius: 50% !important;
-  object-fit: cover !important;
-}
-
-.profile-name {
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: #ffffff !important;
-}
-
-.profile-title,
-.profile-settings-icon,
-.status-indicator {
-  display: none !important; /* Hide settings icon, online green dot, and title subtitle */
-}
-
-/* 3. Slide selector navigation styling */
-.slide-nav {
-  background: #0d0d0d !important;
-  border-bottom: 1px solid #1f1f1f !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  padding: 0 24px !important;
-  height: var(--nav-height) !important;
-  gap: 8px !important;
-}
-
-.slide-tab {
-  background: transparent !important;
-  border: 1px solid transparent !important;
-  border-radius: 9999px !important; /* Pill style */
-  padding: 6px 16px !important;
-  color: #9ca3af !important;
-  font-size: 13px !important;
-  font-weight: 500 !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-}
-
-.slide-tab:hover {
-  color: #ffffff !important;
-}
-
-.slide-tab.active {
-  color: #ffffff !important;
-  border: 1px solid #7c3aed !important; /* Purple border capsule */
-  background: rgba(124, 58, 237, 0.15) !important; /* Low opacity violet background */
-}
-
-.slide-tab .tab-dot,
-.slide-tab .tab-number {
-  display: none !important; /* Hide dot and number span elements */
-}
-
-/* 4. Main Workspace Layout & Columns */
-.app-main {
-  background: #0d0d0d !important;
-  grid-template-columns: 1fr 1fr !important;
-}
-
-.forms-column {
-  background: #0d0d0d !important;
-  border-right: 1px solid #1f1f1f !important;
-  padding: 32px 24px !important;
-  max-height: calc(100vh - var(--header-height) - var(--nav-height)) !important;
-}
-
-/* Hide badge and description above forms */
-.form-slide-badge,
-.form-slide-desc {
-  display: none !important;
-}
-
-.form-slide-title {
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  color: #ffffff !important;
-  margin-bottom: 24px !important;
-}
-
-/* Hide variable hints inside labels */
-.field-label .var-hint {
-  display: none !important;
-}
-
-.field-label {
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  color: #9ca3af !important;
-  text-transform: none !important;
-  margin-bottom: 8px !important;
-}
-
-/* Premium inputs styling */
-.field input[type="text"],
-.field textarea,
-.field select,
-.feature-card-input input[type="text"],
-.feature-card-input textarea {
-  background: #1e1e1e !important;
-  border: 1px solid #2d2d2d !important;
-  border-radius: 8px !important;
-  color: #ffffff !important;
-  padding: 10px 16px !important;
-  font-size: 13px !important;
-  transition: all 0.15s ease !important;
-}
-
-.field input[type="text"]::placeholder,
-.field textarea::placeholder,
-.field select::placeholder {
-  color: #6b7280 !important;
-}
-
-.field input[type="text"]:focus,
-.field textarea:focus,
-.field select:focus,
-.feature-card-input input[type="text"]:focus,
-.feature-card-input textarea:focus {
-  border-color: #7c3aed !important; /* Premium purple focus outline */
-  background: #1e1e1e !important;
-  box-shadow: none !important;
-}
-
-/* Feature cards divider and inputs layout */
-.section-divider-line {
-  background: #1f1f1f !important;
-}
-
-.section-divider-text {
-  color: #4b5563 !important;
-}
-
-.feature-card-input {
-  background: #151515 !important;
-  border: 1px solid #1f1f1f !important;
-  border-radius: 12px !important;
-  padding: 16px !important;
-}
-
-.feature-card-input:hover {
-  border-color: #2d2d2d !important;
-  background: #181818 !important;
-}
-
-/* 5. Right Column (Preview Panel) */
-.preview-column {
-  background: #0d0d0d !important;
-  padding: 32px 24px !important;
-  max-height: calc(100vh - var(--header-height) - var(--nav-height)) !important;
-}
-
-.preview-header {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  margin-bottom: 20px !important;
-  border-bottom: 1px solid #1f1f1f !important;
-  padding-bottom: 12px !important;
-}
-
-.static-preview-title {
-  font-size: 16px !important;
-  font-weight: 700 !important;
-  color: #ffffff !important;
-  margin: 0 !important;
-}
-
-.preview-actions {
-  display: flex !important;
-  gap: 16px !important;
-  align-items: center !important;
-}
-
-.btn-copy-text {
-  background: transparent !important;
-  border: none !important;
-  color: #ffffff !important;
-  font-size: 14px !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-  outline: none !important;
-  transition: opacity 0.2s ease !important;
-  padding: 0 !important;
-}
-
-.btn-copy-text:hover {
-  opacity: 0.8 !important;
-}
-
-/* Prompt output container box */
-.preview-panel {
-  background: #131313 !important;
-  border: 1px solid #2d2d2d !important;
-  border-radius: 12px !important;
-  padding: 16px !important;
-  box-shadow: none !important;
-  height: 100% !important;
-}
-
-.preview-output {
-  background: transparent !important;
-  font-size: 13.5px !important;
-  line-height: 1.6 !important;
-  color: #a3a3a3 !important;
-  font-family: var(--font-ui) !important; /* Sans-serif font as in screenshots */
-  padding: 0 !important;
-}
-
-.preview-output .ph-filled {
-  color: #ffffff !important; /* White color for filled placeholder values */
-  font-weight: 600 !important;
-}
-
-.preview-output .ph-empty {
-  color: #4b5563 !important;
-  font-weight: 400 !important;
-}
-
-/* 6. Clean minimal scrollbars */
-.forms-column::-webkit-scrollbar,
-.preview-output::-webkit-scrollbar {
-  width: 4px;
-}
-.forms-column::-webkit-scrollbar-track,
-.preview-output::-webkit-scrollbar-track {
-  background: transparent;
-}
-.forms-column::-webkit-scrollbar-thumb,
-.preview-output::-webkit-scrollbar-thumb {
-  background: #2d2d2d;
-  border-radius: 4px;
 }
 
 /* =========================================================
