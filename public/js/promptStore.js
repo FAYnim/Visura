@@ -77,100 +77,55 @@ The footer branding must be clean plain typography only.
 Overall mood:
 minimal luxurious SaaS presentation, clean premium portfolio aesthetic, modern startup branding, elegant dark presentation style, distraction-free composition, Behance featured portfolio aesthetic.`,
 
-  2: `Create a premium Instagram carousel project overview slide for a modern SaaS product portfolio using the uploaded project screenshot as the primary visual showcase.
-
-IMPORTANT:
-Use the uploaded screenshot image exactly as the interface displayed inside the floating browser frame.
-
-Preserve the original UI design completely.
-Do not redesign, modify, restyle, or reinterpret the uploaded interface.
-The screenshot must remain the most important visual element in the composition.
+  2: `Create a premium futuristic Instagram carousel slide showcasing the core capabilities of a modern AI-powered portfolio generation platform.
 
 Canvas size:
-1080x1350 portrait.
+1080x1080 square format.
 
-Design Direction:
-premium SaaS case study presentation, luxury minimalism, modern editorial design, product-first composition, high-end Behance showcase, inspired by Apple, Linear, Stripe, Framer, Vercel, and modern startup launch materials.
+Style:
+luxury monochrome SaaS presentation, ultra-premium product marketing design, cinematic black aesthetic, inspired by Apple keynote slides, Nothing design language, Linear, Arc Browser, and high-end Behance featured case studies.
 
 Background:
-pure deep black background with subtle film grain texture.
-No visible particles.
-No sci-fi effects.
-No strong color glows.
-Use extremely restrained lighting and high contrast to emphasize the product interface.
+deep cinematic black background with subtle grain texture, soft ambient lighting, faint dotted particle grid, elegant negative space, minimal futuristic atmosphere.
 
-Top Left Badge:
-small rounded capsule outline.
-Thin white border.
-Minimal appearance.
+Top left badge:
+small rounded capsule with thin white glowing outline and subtle indicator dot.
 
 Badge text:
 "{{SECTION_BADGE}}"
 
-Main Heading:
-large ultra-bold editorial sans-serif typography aligned vertically on the left side.
+Main heading:
+large ultra-bold editorial sans-serif typography positioned in the upper left area.
 
 Heading text:
 "{{MAIN_HEADING}}"
 
-Typography Style:
-massive bold sans-serif.
-Clean white-to-light-gray gradient.
-Strong contrast.
-Luxury editorial hierarchy.
-No neon effects.
-No futuristic glow.
+Typography style:
+massive metallic silver-to-white gradient lettering, chrome-like reflections, premium editorial hierarchy, luxurious spacing, high contrast against the dark background.
 
-Accent Divider:
-short thin white horizontal line positioned below the heading.
-
-Description Section:
-clean modern paragraph explaining the product.
-
-Description text:
+Subtitle:
 "{{PROJECT_DESCRIPTION}}"
 
-Highlight important keywords using subtle weight changes instead of bright neon colors.
+Top right decoration:
+large partial planetary arc emerging from the corner, soft silver-white glow, elegant cosmic lighting, subtle futuristic atmosphere.
 
-Quote Card:
-minimal rounded dark card with thin border.
-No heavy glassmorphism.
-No strong glow.
+Main layout:
+display six premium feature cards arranged in a clean 2-column by 3-row grid.
 
-Quote text:
-"{{QUOTE_TEXT}}"
-
-Quote card style:
-premium editorial UI component, understated and elegant.
-
-Main Showcase:
-large floating browser frame positioned on the upper-right area.
-
-Frame Style:
-premium dark browser chrome,
-thin borders,
-subtle reflections,
-soft realistic highlights,
-minimal depth effects.
+Feature card style:
+minimal luxury glassmorphism panels, deep black surfaces, bright white glowing borders, soft reflections, subtle bloom lighting, rounded corners, sophisticated shadows, premium enterprise presentation.
 
 IMPORTANT:
-The uploaded screenshot must be clearly visible and highly readable.
-The interface should dominate the composition and immediately attract attention.
+Do NOT include dashboard previews, software screenshots, widgets, charts, forms, code blocks, analytics panels, UI mockups, or embedded interfaces inside the cards.
 
-Composition:
-allow the browser frame to extend beyond the canvas edges for a premium cropped editorial layout.
-Use generous negative space.
-Prioritize visual balance and readability.
+Each feature card contains only:
+- feature number
+- glowing monochrome icon
+- feature title
+- short feature description
 
-Feature Cards Section:
-display four premium feature cards horizontally near the bottom.
-
-Card Style:
-minimal dark panels,
-thin border outlines,
-subtle depth,
-clean spacing,
-enterprise-grade SaaS presentation.
+Icon style:
+large futuristic outline icons enclosed inside glowing circular rings, soft white neon glow, luxury monochrome aesthetic.
 
 Feature 1:
 Title: "{{FEATURE_TITLE_1}}"
@@ -188,22 +143,55 @@ Feature 4:
 Title: "{{FEATURE_TITLE_4}}"
 Description: "{{FEATURE_DESC_4}}"
 
-Overall Mood:
-premium software showcase,
-editorial product presentation,
-luxury startup branding,
-minimalist enterprise design,
-high-end portfolio case study,
-Behance featured project quality.
+Feature 5:
+Title: "GLOBAL SETTINGS"
+Description: "Sync creator name and role automatically across all slides."
+
+Feature 6:
+Title: "MODERN DARK UI"
+Description: "Premium SaaS aesthetic for a focused and engaging user experience."
+
+Card layout:
+large icon positioned on the left, title and description aligned on the right, generous spacing, premium visual balance, clean presentation.
+
+Bottom section:
+full-width premium CTA panel spanning the entire width.
+
+CTA panel style:
+deep black glass panel with bright white glowing outline, subtle reflections, elegant futuristic lighting.
+
+Left side CTA:
+rocket icon inside glowing circular ring.
+
+Text:
+"{{QUOTE_TEXT}}"
+
+Right side:
+large premium button.
+
+Button text:
+"START GENERATING NOW"
+
+Button style:
+minimal luxury dark button, thin white glowing border, soft bloom effect, futuristic arrow icon.
+
+Color palette:
+black, charcoal, silver, white, subtle gray highlights only.
+
+Avoid:
+green neon,
+blue neon,
+dashboard UI previews,
+overly colorful elements,
+cyberpunk aesthetics,
+busy compositions,
+excessive decorations.
+
+Overall mood:
+luxurious futuristic presentation, Apple-level visual polish, premium startup branding, monochrome enterprise aesthetic, minimal yet powerful feature showcase.
 
 Quality:
-ultra detailed,
-clean composition,
-professional typography,
-high visual hierarchy,
-premium art direction,
-minimal effects,
-maximum product focus.`,
+ultra detailed, cinematic lighting, luxury art direction, realistic reflections, premium typography, sophisticated visual hierarchy, Behance-featured design quality.`,
 
   3: `Create a premium futuristic Instagram carousel slide showcasing the main features of a modern digital product platform using the uploaded project screenshot and UI style as inspiration.
 
