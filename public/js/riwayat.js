@@ -41,12 +41,12 @@ function formatRelativeTime(date) {
   const diffHr = Math.floor(diffMin / 60);
   const diffDays = Math.floor(diffHr / 24);
 
-  if (diffSec < 15) return 'baru saja';
-  if (diffSec < 60) return `${diffSec} detik yang lalu`;
-  if (diffMin < 60) return `${diffMin} menit yang lalu`;
-  if (diffHr < 24) return `${diffHr} jam yang lalu`;
-  if (diffDays === 1) return 'kemarin';
-  return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+  if (diffSec < 15) return 'just now';
+  if (diffSec < 60) return `${diffSec} seconds ago`;
+  if (diffMin < 60) return `${diffMin} minutes ago`;
+  if (diffHr < 24) return `${diffHr} hours ago`;
+  if (diffDays === 1) return 'yesterday';
+  return date.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 // =========================================================
@@ -72,11 +72,11 @@ function renderHistory(searchQuery = '') {
           <div class="empty-icon-wrap" aria-hidden="true">
             <i class="fa-solid fa-clock-rotate-left"></i>
           </div>
-          <h3 class="empty-title">Belum ada riwayat prompt</h3>
-          <p class="empty-desc">Setiap kali Anda menyalin prompt di menu Generator, prompt tersebut akan otomatis terekam secara aman di sini.</p>
+          <h3 class="empty-title">No prompt history yet</h3>
+          <p class="empty-desc">Whenever you copy a prompt in the Generator menu, it will be automatically and securely recorded here.</p>
           <a href="index.html" class="btn btn-primary btn-empty-cta">
             <span class="btn-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
-            Mulai Generator
+            Open Generator
           </a>
         </div>
       `;
@@ -86,10 +86,10 @@ function renderHistory(searchQuery = '') {
           <div class="empty-icon-wrap" aria-hidden="true">
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
-          <h3 class="empty-title">Tidak ada hasil pencarian</h3>
-          <p class="empty-desc">Tidak dapat menemukan riwayat dengan kata kunci "${escapeHtml(searchQuery)}". Silakan coba kata kunci lain.</p>
+          <h3 class="empty-title">No search results</h3>
+          <p class="empty-desc">No history found for keyword "${escapeHtml(searchQuery)}". Please try a different keyword.</p>
           <button class="btn btn-secondary btn-empty-cta" id="btn-clear-search">
-            Bersihkan Pencarian
+            Clear Search
           </button>
         </div>
       `;
@@ -125,7 +125,7 @@ function renderHistory(searchQuery = '') {
               <i class="fa-regular fa-clock" style="margin-right: 4px;"></i>${timeString}
             </span>
           </div>
-          <button class="history-card-delete" data-id="${item.id}" aria-label="Hapus item riwayat" title="Hapus dari riwayat">
+          <button class="history-card-delete" data-id="${item.id}" aria-label="Delete history item" title="Remove from history">
             <i class="fa-solid fa-trash-can"></i>
           </button>
         </div>
@@ -139,9 +139,9 @@ function renderHistory(searchQuery = '') {
             <i class="fa-regular fa-user"></i>
             <span class="creator-name">${highlightedCreator}</span>
           </div>
-          <button class="btn-history-copy" data-id="${item.id}" aria-label="Salin kembali prompt ini">
+          <button class="btn-history-copy" data-id="${item.id}" aria-label="Copy this prompt again">
             <span class="btn-icon"><i class="fa-regular fa-copy"></i></span>
-            Salin Kembali
+            Copy Again
           </button>
         </div>
       </div>
@@ -181,7 +181,7 @@ function deleteHistoryItem(id) {
       history = history.filter(item => item.id !== id);
       saveHistory(history);
       renderHistory(document.getElementById('history-search')?.value || '');
-      showToast(`<i class="fa-solid fa-trash-can" style="color: var(--text-secondary);"></i> Riwayat dihapus.`);
+      showToast(`<i class="fa-solid fa-trash-can" style="color: var(--text-secondary);"></i> History item deleted.`);
     }, 250);
   }
 }
@@ -196,16 +196,16 @@ function handleHistoryCopy(id, btn) {
   navigator.clipboard.writeText(item.promptText).then(() => {
     const originalContent = btn.innerHTML;
     btn.classList.add('copied');
-    btn.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-check"></i></span> Tersalin!`;
+    btn.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-check"></i></span> Copied!`;
 
-    showToast(`<i class="fa-solid fa-check" style="color: var(--text-primary);"></i> Prompt disalin kembali!`);
+    showToast(`<i class="fa-solid fa-check" style="color: var(--text-primary);"></i> Prompt copied again!`);
 
     setTimeout(() => {
       btn.classList.remove('copied');
       btn.innerHTML = originalContent;
     }, 2000);
   }).catch(() => {
-    showToast(`<i class="fa-solid fa-triangle-exclamation" style="color: #ff6b6b;"></i> Gagal menyalin. Silakan coba lagi.`);
+    showToast(`<i class="fa-solid fa-triangle-exclamation" style="color: #ff6b6b;"></i> Failed to copy. Please try again.`);
   });
 }
 
@@ -214,16 +214,16 @@ function handleHistoryCopy(id, btn) {
 // =========================================================
 function clearAllHistory() {
   if (history.length === 0) {
-    showToast(`<i class="fa-solid fa-circle-info" style="color: var(--text-secondary);"></i> Belum ada riwayat untuk dihapus.`);
+    showToast(`<i class="fa-solid fa-circle-info" style="color: var(--text-secondary);"></i> No history to clear.`);
     return;
   }
 
-  const confirmClear = confirm('Apakah Anda yakin ingin menghapus seluruh riwayat prompt? Tindakan ini tidak dapat dibatalkan.');
+  const confirmClear = confirm('Are you sure you want to clear the entire prompt history? This action cannot be undone.');
   if (confirmClear) {
     history = [];
     saveHistory(history);
     renderHistory();
-    showToast(`<i class="fa-solid fa-trash-can" style="color: var(--text-secondary);"></i> Seluruh riwayat dibersihkan.`);
+    showToast(`<i class="fa-solid fa-trash-can" style="color: var(--text-secondary);"></i> Entire history cleared.`);
   }
 }
 

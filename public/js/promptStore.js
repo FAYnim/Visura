@@ -321,145 +321,121 @@ luxurious futuristic presentation, Apple-level visual polish, premium startup br
 Quality:
 ultra detailed, cinematic lighting, luxury art direction, realistic reflections, premium typography, sophisticated visual hierarchy, Behance-featured design quality.`,
 
-  4: `Create a premium futuristic Instagram carousel slide designed as a cinematic digital product UI showcase using the uploaded project screenshots as the main interface visuals.
+  4: `Create a premium futuristic Instagram carousel slide designed as a luxury minimal tech product showcase using the uploaded project screenshot as the main interface display.
 
 IMPORTANT:
-Use the uploaded screenshots as the interfaces displayed inside the floating futuristic display panels.
-Preserve the original UI designs while integrating them naturally into the immersive cinematic environment.
+Use the uploaded screenshot as the interface shown inside the laptop mockup display.
+Preserve the original UI design exactly as it is.
+Do not redesign or alter the uploaded interface.
 
 Canvas size:
 1080x1350 portrait.
+Aspect ratio 1:1.
 
 Style:
-luxurious futuristic SaaS campaign aesthetic, cinematic sci-fi interface presentation, premium startup branding, immersive AI platform showcase, inspired by Apple keynote visuals, futuristic operating system concepts, sci-fi command centers, Linear, Stripe, and high-end Behance presentations.
+premium minimalist SaaS branding, cinematic luxury tech presentation, modern editorial product showcase, inspired by Apple keynote visuals, Linear, Stripe, Framer, and high-end Behance UI case studies.
+
+Overall aesthetic:
+clean, minimal, elegant, futuristic, luxury startup branding.
+Avoid overly sci-fi environments or cyberpunk aesthetics.
 
 Background:
-deep black cinematic background with subtle grain texture, atmospheric blue glow, soft green ambient lighting, futuristic haze, minimal particle details, immersive sci-fi atmosphere.
+deep matte black cinematic background with very subtle grain texture.
+Keep the background clean and distraction-free.
+Use only soft ambient glow and minimal atmospheric lighting.
+Avoid:
+- futuristic landscapes
+- glowing runways
+- sci-fi stages
+- holographic environments
+- excessive particles
+- heavy fog
+- complex cinematic scenery
 
 Top left branding badge:
-minimal segmented capsule with subtle borders and elegant futuristic styling.
+minimal segmented capsule with thin white borders and subtle futuristic styling.
 
 Badge text:
 "{{TOP_LEFT_BADGE}}"
 
-Examples:
-"INSIGHT v1.0"
-"PLATFORM v2.1"
-"SYSTEM CORE"
-
 Top right editorial label:
-small uppercase luxury typography with large letter spacing.
+small uppercase luxury typography with wide letter spacing.
 
 Label text:
 "{{TOP_RIGHT_LABEL}}"
 
-Examples:
-"AI-POWERED ANALYTICS"
-"ENTERPRISE AI PLATFORM"
-"FUTURE SYSTEM INTERFACE"
-
 Main hero typography:
-massive centered ultra-bold editorial sans-serif heading.
+massive ultra-bold centered editorial sans-serif heading.
 
 Heading text:
 "{{MAIN_HEADLINE}}"
 
-Examples:
-"INSIGHT.
-ENGINEERED."
-
-"SMART.
-AUTOMATED."
-
 Typography style:
-metallic silver-to-white gradient, oversized scale, cinematic editorial hierarchy, luxurious modern tech branding, strong negative space.
+metallic silver-to-white gradient,
+clean luxury finish,
+oversized scale,
+strong negative space,
+modern editorial hierarchy,
+subtle cinematic glow underneath the text.
 
 Subtitle below heading:
 "{{SUBTITLE_TEXT}}"
 
-Example:
-"Real-time analytics platform for smarter decisions."
-
-Highlight one important keyword in neon green.
+Highlight the keyword:
+"effortlessly."
+using subtle neon green.
 
 Feature pills section:
-display 4 premium futuristic pills below the subtitle.
+display 4 premium minimal pills below the subtitle.
 
-Pill placeholders:
-
-Pill 1:
-"{{PILL_TEXT_1}}"
-
-Pill 2:
-"{{PILL_TEXT_2}}"
-
-Pill 3:
-"{{PILL_TEXT_3}}"
-
-Pill 4:
-"{{PILL_TEXT_4}}"
-
-Examples:
-"Responsive"
-"React + Tailwind"
-"Dark Mode"
-"Realtime System"
+Pill texts:
+- "{{PILL_TEXT_1}}"
+- "{{PILL_TEXT_2}}"
+- "{{PILL_TEXT_3}}"
+- "{{PILL_TEXT_4}}"
 
 Pill style:
 minimal dark glassmorphism capsules with:
-- subtle neon icons
-- soft glow
+- thin borders
+- subtle glow
 - rounded corners
-- futuristic premium UI styling
+- clean premium UI styling
+- monochrome futuristic icons
+- elegant spacing
 
 Main composition:
-create an immersive futuristic stage presentation using 3 floating interface displays.
+use a single centered realistic premium laptop mockup.
 
-Center display:
-large primary dashboard interface positioned front-facing in the middle.
-
-Left display:
-angled perspective interface panel positioned partially outside the canvas.
-
-Right display:
-angled perspective interface panel positioned partially outside the canvas.
-
-Display style:
-floating futuristic browser panels with:
-- cinematic reflections
-- glowing purple edge lighting
-- subtle transparency
-- premium glassmorphism
-- immersive perspective depth
-- soft bloom lighting
+Laptop style:
+modern MacBook-inspired laptop,
+front-facing angle,
+minimal perspective distortion,
+premium metallic material,
+thin bezels,
+realistic reflections,
+luxury product presentation.
 
 IMPORTANT:
-Embed the uploaded screenshots naturally into the floating display panels with realistic perspective transformation, cinematic reflections, glow integration, and premium presentation styling.
+Embed the uploaded screenshot naturally into the laptop screen with realistic screen reflections and accurate perspective fitting.
 
-Do not redesign the uploaded interfaces.
-Preserve the original UI appearance.
-
-Environment:
-create a futuristic stage environment underneath the interfaces using:
-- glowing blue perspective floor lines
-- neon runway lighting
-- subtle reflective surfaces
-- immersive cinematic depth
-- sci-fi presentation atmosphere
+Do not use floating panels.
+Do not use multiple displays.
+Do not use holographic UI frames.
 
 Lighting:
-use:
-- electric blue glow
-- soft purple edge lighting
-- subtle green accent lighting
-- cinematic bloom
-- atmospheric shadows
+use soft cinematic lighting with:
+- subtle white glow
+- minimal blue ambient accents
+- soft edge highlights
+- gentle bloom
+- controlled reflections
 
 Footer left:
 minimal creator branding.
 
 Creator text:
-"Crafted by {{CREATOR_NAME}}"
+"Crafted by
+{{CREATOR_NAME}}"
 
 Footer right:
 minimal editorial brand statement.
@@ -467,15 +443,22 @@ minimal editorial brand statement.
 Brand statement:
 "{{BRAND_STATEMENT}}"
 
-Examples:
-"BUILT FOR DEVELOPERS.
-DESIGNED FOR IMPACT."
-
-Overall mood:
-futuristic product UI showcase, immersive AI platform showcase, cinematic enterprise SaaS branding, luxury startup presentation, sci-fi UI ecosystem aesthetic, Behance featured project quality.
+Mood:
+premium modern SaaS campaign,
+luxury startup branding,
+minimal futuristic presentation,
+clean cinematic product showcase,
+high-end Behance featured project aesthetic.
 
 Quality:
-ultra detailed, cinematic lighting, realistic reflections, soft bloom glow, immersive perspective composition, sophisticated art direction, premium futuristic branding, high-end visual hierarchy.`,
+ultra detailed,
+clean composition,
+premium typography hierarchy,
+realistic product rendering,
+minimal cinematic lighting,
+luxury art direction,
+sharp focus,
+high-end presentation quality.`,
 
   5: `Create a premium futuristic Instagram carousel closing slide for a modern UI/UX portfolio presentation.
 
@@ -647,7 +630,7 @@ ultra detailed, cinematic composition, elegant typography, sophisticated art dir
 
 // =========================================================
 // REQUIRED PLACEHOLDERS PER SLIDE
-// Used for validation — simpan jangan sampai hilang
+// Used for validation — save so they don't get lost
 // =========================================================
 export const REQUIRED_PLACEHOLDERS = {
   1: ['BADGE_TEXT', 'MAIN_HEADLINE', 'SUBTITLE_TEXT', 'CREATOR_NAME'],
@@ -685,7 +668,7 @@ export const REQUIRED_PLACEHOLDERS = {
 export const DEFAULT_PROMPT_BATCH = {
   id: 'default',
   name: 'Default Batch',
-  description: 'Template prompt bawaan sistem. Tidak dapat diedit.',
+  description: 'Default system prompt template. Read-only.',
   isDefault: true,
   createdAt: null,
   slides: { ...DEFAULT_PROMPTS }

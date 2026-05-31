@@ -117,7 +117,7 @@ function renderBatchList() {
   const all = allBatches();
 
   if (all.length === 0) {
-    batchList.innerHTML = '<li class="batch-empty-state">Belum ada batch. Buat batch baru untuk memulai.</li>';
+    batchList.innerHTML = '<li class="batch-empty-state">No batches yet. Create a new batch to get started.</li>';
     return;
   }
 
@@ -129,11 +129,11 @@ function renderBatchList() {
     li.dataset.id = batch.id;
 
     const activeBadge = isActive(batch.id)
-      ? `<span class="batch-active-badge">Aktif</span>`
+      ? `<span class="batch-active-badge">Active</span>`
       : '';
 
     const createdLabel = batch.isDefault
-      ? 'Sistem'
+      ? 'System'
       : (batch.createdAt ? formatDate(batch.createdAt) : '');
 
     li.innerHTML = `
@@ -195,11 +195,11 @@ function selectBatch(id) {
   // Activate button state
   if (isActive(id)) {
     btnActivateBatch.classList.add('is-active');
-    btnActivateBatch.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-circle-check"></i></span> Aktif`;
+    btnActivateBatch.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-circle-check"></i></span> Active`;
     btnActivateBatch.disabled = true;
   } else {
     btnActivateBatch.classList.remove('is-active');
-    btnActivateBatch.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-circle-check"></i></span> Jadikan Aktif`;
+    btnActivateBatch.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-circle-check"></i></span> Make Active`;
     btnActivateBatch.disabled = false;
   }
 
@@ -243,7 +243,7 @@ function showSlideError(slideNum, missing) {
   const errEl = document.getElementById(`slide-error-${slideNum}`);
   const ta = document.getElementById(`slide-textarea-${slideNum}`);
   const tab = document.querySelector(`.slide-editor-tab[data-slide="${slideNum}"]`);
-  const msg = `Placeholder wajib hilang: ${missing.map(p => `{{${p}}}`).join(', ')}`;
+  const msg = `Missing required placeholders: ${missing.map(p => `{{${p}}}`).join(', ')}`;
   if (errEl) { errEl.textContent = msg; errEl.classList.add('visible'); }
   if (ta) ta.classList.add('error');
   if (tab) tab.classList.add('has-error');
@@ -289,7 +289,7 @@ function handleSaveBatch() {
 
   // Validate
   if (!validateAllSlides()) {
-    showToast(`<i class="fa-solid fa-triangle-exclamation" style="color:#ff6b6b;"></i> Perbaiki error pada slide sebelum menyimpan.`);
+    showToast(`<i class="fa-solid fa-triangle-exclamation" style="color:#ff6b6b;"></i> Fix errors on slides before saving.`);
     // Switch to first errored tab
     for (let s = 1; s <= 5; s++) {
       const tab = document.querySelector(`.slide-editor-tab[data-slide="${s}"]`);
@@ -301,7 +301,7 @@ function handleSaveBatch() {
   const name = inputBatchName.value.trim();
   if (!name) {
     inputBatchName.focus();
-    showToast(`<i class="fa-solid fa-triangle-exclamation" style="color:#ff6b6b;"></i> Nama batch tidak boleh kosong.`);
+    showToast(`<i class="fa-solid fa-triangle-exclamation" style="color:#ff6b6b;"></i> Batch name cannot be empty.`);
     return;
   }
 
@@ -319,14 +319,14 @@ function handleSaveBatch() {
   // Refresh editor title
   editorTitle.textContent = `Edit: ${batch.name}`;
 
-  showToast(`<i class="fa-solid fa-check" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(batch.name)}</strong>" berhasil disimpan.`);
+  showToast(`<i class="fa-solid fa-check" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(batch.name)}</strong>" saved successfully.`);
 }
 
 // =========================================================
 // CREATE BATCH
 // =========================================================
 function handleCreateBatch() {
-  const name = `Batch Baru ${STATE.batches.length + 1}`;
+  const name = `New Batch ${STATE.batches.length + 1}`;
   const newBatch = createPromptBatch(name, '', null);
   STATE.batches.push(newBatch);
   persistBatches();
@@ -339,7 +339,7 @@ function handleCreateBatch() {
     inputBatchName.focus();
   }, 50);
 
-  showToast(`<i class="fa-solid fa-plus" style="color:var(--accent-primary);"></i> Batch baru dibuat. Isi nama dan edit prompt sesuai kebutuhan.`);
+  showToast(`<i class="fa-solid fa-plus" style="color:var(--accent-primary);"></i> New batch created. Fill in the name and edit prompts as needed.`);
 }
 
 // =========================================================
@@ -352,13 +352,13 @@ function handleDuplicateBatch() {
   const source = getBatchById(id);
   if (!source) return;
 
-  const newBatch = createPromptBatch(`${source.name} (Duplikat)`, source.description, source);
+  const newBatch = createPromptBatch(`${source.name} (Duplicate)`, source.description, source);
   STATE.batches.push(newBatch);
   persistBatches();
   renderBatchList();
   selectBatch(newBatch.id);
 
-  showToast(`<i class="fa-solid fa-copy" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(source.name)}</strong>" berhasil diduplikat.`);
+  showToast(`<i class="fa-solid fa-copy" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(source.name)}</strong>" duplicated successfully.`);
 }
 
 // =========================================================
@@ -382,7 +382,7 @@ function handleActivateBatch() {
 
   const batch = getBatchById(id);
   const batchName = batch ? batch.name : id;
-  showToast(`<i class="fa-solid fa-circle-check" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(batchName)}</strong>" dijadikan aktif untuk generator.`);
+  showToast(`<i class="fa-solid fa-circle-check" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(batchName)}</strong>" set as active for the generator.`);
 }
 
 // =========================================================
@@ -395,7 +395,7 @@ function handleDeleteBatch() {
   const batch = getBatchById(id);
   if (!batch) return;
 
-  if (!confirm(`Yakin ingin menghapus batch "${batch.name}"? Tindakan ini tidak dapat dibatalkan.`)) return;
+  if (!confirm(`Are you sure you want to delete batch "${batch.name}"? This action cannot be undone.`)) return;
 
   // If deleted batch was active, reset to default
   if (STATE.activeId === id) STATE.activeId = null;
@@ -410,14 +410,14 @@ function handleDeleteBatch() {
   editorNoSelection.hidden = false;
   editorContent.hidden = true;
 
-  showToast(`<i class="fa-regular fa-trash-can" style="color:var(--text-muted);"></i> Batch dihapus.`);
+  showToast(`<i class="fa-regular fa-trash-can" style="color:var(--text-muted);"></i> Batch deleted.`);
 }
 
 
 
 function formatDate(iso) {
   try {
-    return new Date(iso).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+    return new Date(iso).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
   } catch {
     return '';
   }

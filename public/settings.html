@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Visura — Pengaturan</title>
-  <meta name="description" content="Konfigurasi variabel global aplikasi Visura." />
+  <title>Visura — Settings</title>
+  <meta name="description" content="Configure global application variables in Visura." />
   <meta name="theme-color" content="#050505" />
   <link rel="apple-touch-icon" sizes="180x180" href="/img/logo/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/img/logo/favicon-32x32.png" />
@@ -51,7 +51,7 @@
       <div class="sidebar-bottom">
         <!-- Profile & Settings Area — active on this page -->
         <div class="sidebar-profile-section">
-          <a href="/settings" id="btn-settings-profile" class="sidebar-profile-btn active" aria-label="Buka Pengaturan Profil" title="Pengaturan Profil" aria-current="page">
+          <a href="/settings" id="btn-settings-profile" class="sidebar-profile-btn active" aria-label="Open Profile Settings" title="Profile Settings" aria-current="page">
             <div class="avatar-container">
               <img src="/img/avatar.png" alt="Profile" class="profile-avatar-img" />
             </div>
@@ -71,8 +71,8 @@
         <div class="settings-container">
           <header class="settings-header">
             <div class="settings-title-group">
-              <h1 class="settings-title">Pengaturan Global</h1>
-              <p class="settings-desc">Konfigurasi variabel global aplikasi.</p>
+              <h1 class="settings-title">Global Settings</h1>
+              <p class="settings-desc">Configure global application variables.</p>
             </div>
           </header>
 
@@ -81,14 +81,14 @@
             <div class="settings-fields-column">
               <!-- Creator Info Card -->
               <div class="settings-card">
-                <h3 class="settings-card-title"><i class="fa-regular fa-user"></i> Informasi Creator</h3>
+                <h3 class="settings-card-title"><i class="fa-regular fa-user"></i> Creator Information</h3>
                 <div class="settings-card-body">
                   <div class="field">
-                    <label class="field-label" for="setting-creator-name">Nama Pembuat <span class="var-hint">{{CREATOR_NAME}}</span></label>
+                    <label class="field-label" for="setting-creator-name">Creator Name <span class="var-hint">{{CREATOR_NAME}}</span></label>
                     <input type="text" id="setting-creator-name" placeholder="e.g. John Doe" autocomplete="off" />
                   </div>
                   <div class="field">
-                    <label class="field-label" for="setting-creator-role">Peran Pembuat <span class="var-hint">{{CREATOR_ROLE}}</span></label>
+                    <label class="field-label" for="setting-creator-role">Creator Role <span class="var-hint">{{CREATOR_ROLE}}</span></label>
                     <input type="text" id="setting-creator-role" placeholder="e.g. Creative Engineer" autocomplete="off" />
                   </div>
                 </div>
@@ -99,14 +99,14 @@
             <div class="settings-options-column">
               <!-- Control Actions Card -->
               <div class="settings-card">
-                <h3 class="settings-card-title"><i class="fa-solid fa-sliders"></i> Tindakan Pengaturan</h3>
+                <h3 class="settings-card-title"><i class="fa-solid fa-sliders"></i> Settings Actions</h3>
                 <div class="settings-card-body">
                   <div class="settings-action-buttons">
                     <button class="btn btn-primary" id="btn-save-settings" style="width: 100%; margin-bottom: 10px;">
-                      <span class="btn-icon"><i class="fa-solid fa-check"></i></span> Simpan Perubahan
+                      <span class="btn-icon"><i class="fa-solid fa-check"></i></span> Save Changes
                     </button>
                     <button class="btn btn-secondary" id="btn-reset-settings" style="width: 100%;">
-                      <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span> Reset ke Default
+                      <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span> Reset to Default
                     </button>
                   </div>
                 </div>
