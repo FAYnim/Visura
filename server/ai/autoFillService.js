@@ -90,4 +90,10 @@ async function autoFillFromSources({ brief, docText }, modelId) {
   return normalizeOutput(raw);
 }
 
-export { autoFillFromSources, getModelOrThrow };
+function isProviderAvailable(provider) {
+  if (provider === 'gemini') return !!GEMINI_KEY;
+  if (provider === 'groq')   return !!GROQ_KEY;
+  return false;
+}
+
+export { autoFillFromSources, getModelOrThrow, isProviderAvailable };

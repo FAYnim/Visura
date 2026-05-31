@@ -1,13 +1,10 @@
 import express from 'express';
 import multer from 'multer';
 import { extractPdfText, extractMarkdownText } from '../ai/textExtractors.js';
-import { autoFillFromSources } from '../ai/autoFillService.js';
+import { autoFillFromSources, isProviderAvailable } from '../ai/autoFillService.js';
 import { MODELS } from '../ai/models.js';
 
 const router = express.Router();
-
-const GEMINI_KEY = process.env.GEMINI_API_KEY || '';
-const GROQ_KEY   = process.env.GROQ_API_KEY   || '';
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -20,11 +17,7 @@ const uploadFields = upload.fields([
 ]);
 
 router.get('/models', (_req, res) => {
-  const available = MODELS.filter(m => {
-    if (m.provider === 'gemini') return !!GEMINI_KEY;
-    if (m.provider === 'groq')   return !!GROQ_KEY;
-    return false;
-  });
+  const available = MODELS.filter(m => isProviderAvailable(m.provider));
   res.json({ models: available.map(m => ({ id: m.id, label: m.label, provider: m.provider })) });
 });
 
