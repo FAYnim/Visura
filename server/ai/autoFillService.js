@@ -1,8 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 import { buildPrompt, normalizeOutput, SCHEMA } from './promptBuilder.js';
+import { MODELS } from './models.js';
 
-// ── Provider detection ────────────────────────────────────────────────────────
-// Set GEMINI_API_KEY for Google Gemini or GROQ_API_KEY for Groq.
 const GEMINI_KEY = process.env.GEMINI_API_KEY || '';
 const GROQ_KEY   = process.env.GROQ_API_KEY   || '';
 
@@ -10,14 +9,10 @@ if (!GEMINI_KEY && !GROQ_KEY) {
   console.warn('[autoFillService] WARNING: No LLM API key found in environment. Set GEMINI_API_KEY or GROQ_API_KEY in .env');
 }
 
-// ── Gemini call ───────────────────────────────────────────────────────────────
-async function callGemini(systemPrompt, userPrompt) {
+async function callGemini(systemPrompt, userPrompt, modelName) {
   const ai = new GoogleGenAI({ apiKey: GEMINI_KEY });
-
   const response = await ai.models.generateContent({
-    // model: 'gemini-3.5-flash',
-    // model: 'gemini-3-flash-preview',
-    model: 'gemini-2.5-flash',
+    model: modelName,
     contents: userPrompt,
     config: {
       systemInstruction: systemPrompt,
@@ -25,12 +20,10 @@ async function callGemini(systemPrompt, userPrompt) {
       responseMimeType: 'application/json'
     }
   });
-
   return JSON.parse(response.text || '{}');
 }
 
-// ── Groq call ─────────────────────────────────────────────────────────────────
-async function callGroq(systemPrompt, userPrompt) {
+async function callGroq(systemPrompt, userPrompt, modelName) {
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -38,7 +31,7 @@ async function callGroq(systemPrompt, userPrompt) {
       Authorization: `Bearer ${GROQ_KEY}`
     },
     body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
+      model: modelName,
       temperature: 0.3,
       response_format: { type: 'json_object' },
       messages: [
@@ -47,86 +40,54 @@ async function callGroq(systemPrompt, userPrompt) {
       ]
     })
   });
-
   if (!response.ok) {
     throw new Error(`Groq API error: ${response.status} ${response.statusText}`);
   }
-
   const data = await response.json();
   const content = data.choices[0].message.content;
   return JSON.parse(content || '{}');
 }
 
-// ── Retry-with-repair helper ──────────────────────────────────────────────────
-/**
- * Call the given LLM function with retry+repair on failure.
- * @param {Function} callFn - async (systemPrompt, userPrompt) => object
- * @param {string} systemPrompt
- * @param {string} userPrompt
- * @returns {Promise<object>} Raw parsed object from LLM
- */
-async function callWithRepair(callFn, systemPrompt, userPrompt) {
+const PROVIDER_MAP = {
+  gemini: callGemini,
+  groq:   callGroq,
+};
+
+async function callWithRepair(callFn, systemPrompt, userPrompt, modelName) {
   try {
-    return await callFn(systemPrompt, userPrompt);
+    return await callFn(systemPrompt, userPrompt, modelName);
   } catch (firstErr) {
-    console.warn('[autoFillService] First LLM attempt failed:', firstErr.message);
-
-    // Retry once with a repair prompt
+    console.warn('[autoFillService] First attempt failed:', firstErr.message);
     const repairUserPrompt = `${userPrompt}\n\nIMPORTANT: Your previous response could not be parsed as valid JSON. Return ONLY valid JSON matching the schema — no markdown, no explanation.`;
-    return await callFn(systemPrompt, repairUserPrompt);
+    return await callFn(systemPrompt, repairUserPrompt, modelName);
   }
 }
 
-// ── Provider chain factory ────────────────────────────────────────────────────
-/**
- * Build an ordered list of available providers based on env key availability.
- * Accepts an optional override array for testing purposes.
- *
- * @param {Array<{name: string, call: Function}>} [overrides]
- * @returns {Array<{name: string, call: Function}>}
- */
-function createProviderChain(overrides) {
-  if (overrides) return overrides;
-
-  const providers = [];
-  if (GEMINI_KEY) providers.push({ name: 'gemini', call: callGemini });
-  if (GROQ_KEY)   providers.push({ name: 'groq',   call: callGroq   });
-  return providers;
+function getModelOrThrow(modelId) {
+  if (!modelId) {
+    throw new Error('No model selected. Please choose an AI model.');
+  }
+  const model = MODELS.find(m => m.id === modelId);
+  if (!model) {
+    throw new Error(`Unknown model ID: "${modelId}". Available models: ${MODELS.map(m => m.id).join(', ')}`);
+  }
+  const keyCheck = model.provider === 'gemini' ? GEMINI_KEY : GROQ_KEY;
+  if (!keyCheck) {
+    throw new Error(`API key for ${model.provider} is not configured. Set ${model.provider === 'gemini' ? 'GEMINI_API_KEY' : 'GROQ_API_KEY'} in .env`);
+  }
+  return model;
 }
 
-// ── Main entry ────────────────────────────────────────────────────────────────
-/**
- * Extract slide field data from brief + document text using an LLM.
- * Tries each configured provider in order (Gemini first, Groq as fallback).
- * Each provider is retried once with a repair prompt before moving on.
- *
- * @param {{ brief: string, docText: string }} input
- * @param {Array<{name: string, call: Function}>} [providerOverrides] - for testing
- * @returns {Promise<object>} Normalized slide data matching SCHEMA shape
- */
-async function autoFillFromSources({ brief, docText }, providerOverrides) {
+async function autoFillFromSources({ brief, docText }, modelId) {
   const { systemPrompt, userPrompt } = buildPrompt({ brief, docText });
-
-  const providers = createProviderChain(providerOverrides);
-
-  if (providers.length === 0) {
-    console.error('[autoFillService] No LLM API key configured.');
-    throw new Error('No LLM API key configured. Please set GEMINI_API_KEY or GROQ_API_KEY in your .env file.');
+  const model = getModelOrThrow(modelId);
+  const callFn = PROVIDER_MAP[model.provider];
+  if (!callFn) {
+    throw new Error(`Unknown provider: ${model.provider}`);
   }
-
-  for (const provider of providers) {
-    console.log(`[autoFillService] Starting extraction, trying provider: ${provider.name}...`);
-    try {
-      const raw = await callWithRepair(provider.call, systemPrompt, userPrompt);
-      console.log(`[autoFillService] Successfully extracted using provider: ${provider.name}`);
-      return normalizeOutput(raw);
-    } catch (err) {
-      console.warn('[autoFillService] Provider failed:', provider.name, err.message);
-      console.log('[autoFillService] Switching to next fallback provider (if available)...');
-    }
-  }
-
-  throw new Error('AI extraction failed after retry. Please try again.');
+  console.log(`[autoFillService] Running extraction with: ${model.label} (${model.id})`);
+  const raw = await callWithRepair(callFn, systemPrompt, userPrompt, model.modelName);
+  return normalizeOutput(raw);
 }
 
-export { autoFillFromSources, createProviderChain };
+export { autoFillFromSources, getModelOrThrow };
