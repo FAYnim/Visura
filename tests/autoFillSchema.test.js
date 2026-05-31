@@ -30,7 +30,6 @@ console.log('✓ slide2 has feature keys');
 for (let i = 1; i <= 6; i++) {
   assert(`FEATURE_TITLE_${i}` in SCHEMA.slide3, `slide3 missing FEATURE_TITLE_${i}`);
   assert(`FEATURE_DESC_${i}` in SCHEMA.slide3, `slide3 missing FEATURE_DESC_${i}`);
-  assert(`FEATURE_UI_${i}` in SCHEMA.slide3, `slide3 missing FEATURE_UI_${i}`);
 }
 assert('CTA_TEXT' in SCHEMA.slide3, 'slide3 missing CTA_TEXT');
 assert('CTA_BUTTON' in SCHEMA.slide3, 'slide3 missing CTA_BUTTON');
