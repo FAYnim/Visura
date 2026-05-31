@@ -777,7 +777,7 @@ body {
 
 .carousel-slider-container {
   position: relative;
-  max-width: 780px;
+  max-width: 620px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -807,16 +807,12 @@ body {
   background: #111111;
 }
 
-/* Individual Simulated Slides Styling */
+/* Real Image Preview Slides */
 .preview-slide-card {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  max-width: 580px;
   background: #080808;
-  padding: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
   overflow: hidden;
 }
@@ -826,7 +822,7 @@ body {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  padding-bottom: 12px;
+  padding: 12px 16px;
   z-index: 10;
 }
 
@@ -845,14 +841,20 @@ body {
 
 .slide-preview-body {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   z-index: 10;
+  line-height: 0;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .slide-meta {
-  padding-top: 12px;
+  padding: 12px 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.04);
   display: flex;
   flex-direction: column;
@@ -873,258 +875,7 @@ body {
   color: var(--text-secondary);
 }
 
-/* Individual Slide Theme Visuals */
-/* Cover Theme */
-.theme-cover {
-  background: linear-gradient(135deg, #0a0a0a 0%, #151515 100%);
-}
 
-.cover-design {
-  text-align: center;
-}
-
-.cover-badge {
-  display: inline-block;
-  font-size: 9px;
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  padding: 2px 8px;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-
-.cover-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 2.3rem;
-  font-weight: 800;
-  line-height: 1.1;
-  color: #ffffff;
-  margin-bottom: 12px;
-  letter-spacing: -0.03em;
-}
-
-.cover-subtitle {
-  font-size: 12.5px;
-  color: var(--text-secondary);
-}
-
-/* Overview Theme */
-.overview-design {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.overview-section {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--accent-primary);
-  font-weight: 600;
-}
-
-.overview-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.overview-para {
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: var(--text-secondary);
-}
-
-.overview-quote {
-  border-left: 2px solid var(--accent-primary);
-  padding-left: 12px;
-  font-style: italic;
-  font-size: 12px;
-  color: #ffffff;
-  margin: 8px 0;
-}
-
-.overview-features-mini {
-  display: flex;
-  gap: 12px;
-  font-size: 10px;
-  color: var(--text-muted);
-}
-
-/* Features Grid Theme */
-.features-design {
-  width: 100%;
-}
-
-.features-badge {
-  font-size: 8px;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-}
-
-.features-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 14px;
-}
-
-.mini-features-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.mini-feat-card {
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 6px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.mfc-num {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  color: var(--text-muted);
-}
-
-.mini-feat-card h5 {
-  font-size: 11px;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.mini-feat-card p {
-  font-size: 9.5px;
-  color: var(--text-muted);
-}
-
-/* UI Showcase Theme */
-.showcase-design {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.showcase-top-left {
-  font-size: 8px;
-  color: var(--text-muted);
-}
-
-.showcase-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.mini-pills-row {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-
-.mini-pills-row span {
-  font-size: 8.5px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 3px;
-  padding: 1px 6px;
-  color: var(--text-secondary);
-}
-
-.mock-device-visual {
-  height: 90px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-  position: relative;
-  overflow: hidden;
-}
-
-.md-chart-line {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60%;
-  background: linear-gradient(180deg, rgba(0, 255, 102, 0.08) 0%, transparent 100%);
-  border-top: 1.5px solid var(--accent-primary);
-}
-
-.md-circles-group {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  gap: 4px;
-}
-
-.md-circles-group span {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Outro Theme */
-.outro-design {
-  text-align: center;
-}
-
-.outro-top-badge {
-  font-size: 9px;
-  color: var(--accent-primary);
-  letter-spacing: 0.08em;
-  font-weight: 600;
-  margin-bottom: 12px;
-  display: block;
-}
-
-.outro-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 8px;
-}
-
-.outro-desc {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-bottom: 20px;
-}
-
-.outro-contact-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: center;
-}
-
-.occ-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-  padding: 4px 12px;
-  color: var(--text-secondary);
-  width: 160px;
-}
 
 /* Slider Controls Styling */
 .carousel-nav-btn {
@@ -1494,15 +1245,7 @@ body {
   .section-title {
     font-size: 1.8rem;
   }
-  .preview-slide-card {
-    padding: 24px;
-  }
-  .cover-title {
-    font-size: 1.6rem;
-  }
-  .overview-title, .features-title, .showcase-title, .outro-title {
-    font-size: 1.2rem;
-  }
+
   .timeline-container {
     padding-left: 28px;
   }
