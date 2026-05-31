@@ -2,13 +2,16 @@ import express from 'express';
 import multer from 'multer';
 import { extractPdfText, extractMarkdownText } from '../ai/textExtractors.js';
 import { autoFillFromSources } from '../ai/autoFillService.js';
+import { MODELS } from '../ai/models.js';
 
 const router = express.Router();
 
-// Memory storage — files are NOT persisted beyond request
+const GEMINI_KEY = process.env.GEMINI_API_KEY || '';
+const GROQ_KEY   = process.env.GROQ_API_KEY   || '';
+
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 } // 10 MB
+  limits: { fileSize: 10 * 1024 * 1024 }
 });
 
 const uploadFields = upload.fields([
@@ -16,12 +19,25 @@ const uploadFields = upload.fields([
   { name: 'screenshotFile', maxCount: 1 }
 ]);
 
+router.get('/models', (_req, res) => {
+  const available = MODELS.filter(m => {
+    if (m.provider === 'gemini') return !!GEMINI_KEY;
+    if (m.provider === 'groq')   return !!GROQ_KEY;
+    return false;
+  });
+  res.json({ models: available.map(m => ({ id: m.id, label: m.label, provider: m.provider })) });
+});
+
 router.post('/auto-fill', uploadFields, async (req, res) => {
   try {
     const brief = (req.body.brief || '').trim();
+    const modelId = (req.body.model || '').trim();
     const files = req.files || {};
 
-    // ── Text extraction ──────────────────────────────────────
+    if (!modelId) {
+      return res.status(400).json({ error: 'Model ID is required.' });
+    }
+
     let docText = '';
     if (files.docFile && files.docFile[0]) {
       const file = files.docFile[0];
@@ -29,22 +45,16 @@ router.post('/auto-fill', uploadFields, async (req, res) => {
       if (mime === 'application/pdf') {
         docText = await extractPdfText(file.buffer);
       } else {
-        // Treat as markdown / plain text
         docText = extractMarkdownText(file.buffer);
       }
     }
-
-    // screenshot is stored in memory during request only (MVP — no OCR)
-    // files.screenshotFile is available but not processed in MVP
 
     if (!brief && !docText) {
       return res.status(400).json({ error: 'Provide at least a brief or a document file.' });
     }
 
-    // ── AI extraction ────────────────────────────────────────
-    const result = await autoFillFromSources({ brief, docText });
+    const result = await autoFillFromSources({ brief, docText }, modelId);
 
-    // ── Coverage stats ───────────────────────────────────────
     const emptyFields = [];
     let total = 0;
     let filled = 0;
