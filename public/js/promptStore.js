@@ -460,172 +460,162 @@ luxury art direction,
 sharp focus,
 high-end presentation quality.`,
 
-  5: `Create a premium futuristic Instagram carousel closing slide for a modern UI/UX portfolio presentation.
+  5: `Create a premium cinematic futuristic Instagram carousel closing slide for a modern digital creator portfolio brand.
 
 Canvas size:
-1080x1350 portrait.
+1080x1080 square.
 
 Style:
-minimal futuristic luxury aesthetic, cinematic SaaS branding, elegant tech presentation, premium portfolio outro screen, inspired by Apple keynote visuals, Linear, Stripe, futuristic AI interfaces, and Behance featured presentations.
+minimal luxury futuristic editorial design, cinematic typography poster, premium tech branding, modern creator outro screen, inspired by high-end Behance presentations, luxury fashion campaigns, Apple keynote minimalism, brutalist futuristic typography, and cinematic sci-fi poster aesthetics.
+
+Overall direction:
+extremely minimal composition with strong negative space and ultra-clean visual hierarchy.
+Avoid overly complex HUD interfaces or excessive sci-fi UI elements.
+The design should feel mature, premium, elegant, and cinematic rather than flashy.
 
 Background:
-deep black cinematic background with:
-- subtle grain texture
-- soft blue ambient glow on the left
-- soft green ambient glow on the right
-- atmospheric vignette
-- minimal futuristic particles
-- dark luxury mood
+deep matte black cinematic background with:
+- subtle heavy grain texture
+- atmospheric bloom lighting
+- soft white cinematic light leaks on the left and right edges
+- subtle foggy glow
+- minimal floating dust particles
+- soft vignette
+- analog cinematic texture
+- dark premium mood
 
-Main composition:
-centered symmetrical layout with elegant spacing and strong visual hierarchy.
-
-Background element:
-create a giant subtle circular outline behind the main content, resembling:
-- futuristic HUD interface
-- cinematic presentation frame
-- sci-fi system UI
-
-The circle should be:
-- very thin
-- subtle
-- low opacity
-- softly glowing
+Avoid:
+- large HUD circles
+- busy interface graphics
+- excessive futuristic overlays
+- complex dashboard visuals
+- colorful gradients
+- neon overload
 
 Top badge:
-small futuristic capsule badge centered at the top.
+small centered futuristic capsule badge.
 
 Badge text:
 "{{TOP_BADGE_TEXT}}"
 
-Examples:
-"THANK YOU"
-"FINAL SLIDE"
-"END OF SHOWCASE"
-
 Badge style:
-- rounded capsule
-- thin subtle border
-- small neon green indicator dot
-- uppercase editorial typography
-- elegant spacing
+- ultra minimal
+- thin white outline
+- tiny white indicator dot
+- subtle glow
+- uppercase spacing
+- clean editorial typography
+- futuristic luxury aesthetic
 
 Main hero typography:
-large oversized bold geometric sans-serif typography.
+large centered ultra-bold futuristic geometric sans-serif typography.
 
 Headline text:
 "{{MAIN_HEADLINE}}"
 
-Examples:
-"Built with Passion."
-"Designed for Impact."
-"Crafted with Vision."
-"Made for the Future."
-
 Typography style:
-- metallic silver gradient
-- cinematic luxury typography
-- ultra-bold
-- centered alignment
-- oversized scale
-- modern editorial spacing
+- matte white finish
+- minimal metallic reflection
+- subtle bloom glow
+- sharp geometric edges
+- brutalist futuristic typography
+- strong readability
+- centered stacked composition
+- clean spacing
+- slightly condensed structure
 
-Divider section:
-place a thin horizontal divider below the headline with:
-- subtle glow
-- tiny neon waveform pulse in the center
-- futuristic signal aesthetic
+Avoid:
+- chrome texture
+- reflective silver material
+- glossy metallic effects
 
 Description text:
-centered minimal paragraph below the divider.
+centered minimal paragraph below the headline.
 
-Description placeholder:
+Text:
 "{{DESCRIPTION_TEXT}}"
 
-Example:
-"Every feature. Every line of code.
-Crafted to solve real problems and deliver real impact."
+Highlight:
+"maximum"
 
-Highlight one important keyword using neon green.
+Description style:
+- clean modern sans-serif
+- subtle white typography
+- balanced spacing
+- editorial alignment
+- premium startup presentation aesthetic
 
 Creator card:
-centered premium glassmorphism identity card.
-
-Card contains:
-- creator logo placeholder
-- creator name
-- creator role or label
-- small neon status indicator
-
-Creator placeholders:
-"{{CREATOR_NAME}}"
-"{{CREATOR_ROLE}}"
-
-Examples:
-"Alex Morgan"
-"UI/UX Designer"
-"Frontend Developer"
-"Creative Engineer"
+large centered minimal futuristic identity card.
 
 Card style:
 - dark transparent glass
 - subtle reflections
-- soft border
-- futuristic luxury UI
+- ultra soft border
+- realistic glass texture
+- cinematic transparency
+- minimal UI details
 - rounded corners
-- cinematic glow
+- soft bloom highlights
+- elegant luxury interface
+
+Card contents:
+- large creator logo on the left
+- creator name
+- creator role
+- small informational subtext
+
+Creator text:
+"{{CREATOR_NAME}}"
+"{{CREATOR_ROLE}}"
+
+Subtext:
+"EXPLORE MORE PROJECT (LINK IN BIO OR FAYDEV.MY.ID)"
+
+Card composition:
+- clean spacing
+- larger logo emphasis
+- modern premium hierarchy
+- minimal distractions
+- elegant readability
 
 CTA section:
-create 2 futuristic CTA rows below the creator card.
+two centered futuristic CTA rows below the creator card.
 
 CTA 1:
-icon + text + glowing horizontal line
+globe icon + text + thin glowing connector line
 
-Text placeholder:
+Text:
 "{{CTA_TEXT_1}}"
 
 CTA 2:
-icon + text + glowing horizontal line
+github icon + text + thin glowing connector line
 
-Text placeholder:
+Text:
 "{{CTA_TEXT_2}}"
 
-Examples:
-"Follow for more projects"
-"Open for collaboration"
-"Available for freelance"
-"Let's build something together"
-
 CTA style:
-- minimal futuristic icons
-- subtle neon green glow
-- thin glowing connector lines
-- clean spacing
-- elegant modern UI aesthetic
-
-Social section:
-place minimal monochrome social media icons at the bottom center.
-
-Style:
-- circular outline buttons
-- minimal luxury design
-- subtle glow
-- evenly spaced
-- monochrome futuristic styling
+- monochrome minimal icons
+- ultra thin lines
+- subtle white glow
+- elegant spacing
+- premium futuristic editorial style
+- minimal UI aesthetic
 
 Lighting:
 use:
-- soft blue ambient glow
-- subtle green neon accents
-- cinematic bloom
-- dark atmospheric shadows
-- premium futuristic reflections
+- soft cinematic bloom
+- subtle white atmospheric glow
+- extremely restrained neon usage
+- cinematic shadows
+- analog film texture
+- soft reflections
 
-Overall mood:
-cinematic portfolio ending screen, luxury creator branding, futuristic UI showcase outro, elegant tech presentation, premium Behance-quality visual design.
+Mood:
+luxury futuristic poster, premium creator branding, cinematic minimalist technology presentation, modern sci-fi editorial artwork, elegant digital identity system.
 
 Quality:
-ultra detailed, cinematic composition, elegant typography, sophisticated art direction, premium lighting, futuristic branding aesthetic, clean visual hierarchy.`
+ultra detailed, premium typography composition, sophisticated art direction, cinematic lighting, luxury branding aesthetic, Behance-quality presentation, clean modern futuristic visual hierarchy.`
 };
 
 // =========================================================
