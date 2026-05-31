@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
-import { getModelOrThrow } from '../server/ai/autoFillService.js';
 
 async function testGetModelOrThrow() {
+  const { getModelOrThrow } = await import('../server/ai/autoFillService.js');
   const model = getModelOrThrow('gemini-2.5-flash');
   assert.equal(model.id, 'gemini-2.5-flash');
   assert.equal(model.label, 'Gemini 2.5 Flash');
@@ -11,6 +11,7 @@ async function testGetModelOrThrow() {
 }
 
 async function testGetModelOrThrowMissingId() {
+  const { getModelOrThrow } = await import('../server/ai/autoFillService.js');
   assert.throws(
     () => getModelOrThrow(null),
     /No model selected/,
@@ -25,6 +26,7 @@ async function testGetModelOrThrowMissingId() {
 }
 
 async function testGetModelOrThrowUnknownId() {
+  const { getModelOrThrow } = await import('../server/ai/autoFillService.js');
   assert.throws(
     () => getModelOrThrow('nonexistent-model'),
     /Unknown model ID/,
@@ -34,6 +36,9 @@ async function testGetModelOrThrowUnknownId() {
 }
 
 async function main() {
+  const hadKey = !!process.env.GEMINI_API_KEY;
+  if (!hadKey) process.env.GEMINI_API_KEY = 'test-key-for-test';
+
   try {
     await testGetModelOrThrow();
     await testGetModelOrThrowMissingId();
@@ -42,6 +47,8 @@ async function main() {
   } catch (err) {
     console.error('\n❌ Test failed:', err.message);
     process.exit(1);
+  } finally {
+    if (!hadKey) delete process.env.GEMINI_API_KEY;
   }
 }
 

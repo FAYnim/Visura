@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
-import { buildPrompt, normalizeOutput, SCHEMA } from './promptBuilder.js';
+import { buildPrompt, normalizeOutput } from './promptBuilder.js';
 import { MODELS } from './models.js';
 
 const GEMINI_KEY = process.env.GEMINI_API_KEY || '';
