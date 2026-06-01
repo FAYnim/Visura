@@ -4,6 +4,8 @@
 
 'use strict';
 
+import { getDecryptedByokKey, hasByokKey } from './byok.js';
+
 const SLIDE_KEY_MAP = {
   slide1: 1,
   slide2: 2,
@@ -203,6 +205,15 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
       formData.append('brief', brief);
       formData.append('model', model);
       if (file) formData.append('docFile', file);
+
+      /* ---- BYOK: attach decrypted key if stored for this provider's model ---- */
+      const selectedOption = modelSelect.options[modelSelect.selectedIndex];
+      const provider = selectedOption?.dataset?.provider ||
+        (model.startsWith('gemini') ? 'gemini' : model.startsWith('llama') ? 'groq' : null);
+      if (provider && hasByokKey(provider)) {
+        const byokKey = await getDecryptedByokKey(provider);
+        if (byokKey) formData.append('byokKey', byokKey);
+      }
 
       const res = await fetch('/api/auto-fill', {
         method: 'POST',
