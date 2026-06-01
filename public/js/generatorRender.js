@@ -7,6 +7,17 @@
 import { compileTemplate, compilePlainText } from './generatorTemplates.js';
 
 export function renderPreview({ state, previewOutput, previewTitle, previewCharCount }) {
+  // Caption mode — render plain text with <br> for \n
+  if (state.activeSlide === 'caption') {
+    const captionText = state.caption || '';
+    previewOutput.innerHTML = captionText
+      ? captionText.replace(/\n/g, '<br>')
+      : '<span style="opacity:0.4;font-style:italic;">Caption will appear here after AI Auto-Fill...</span>';
+    previewCharCount.textContent = `${captionText.length.toLocaleString()} chars`;
+    previewTitle.textContent = 'Caption';
+    return;
+  }
+
   const compiled = compileTemplate(state.activeSlide, state);
   previewOutput.innerHTML = compiled;
 
@@ -16,3 +27,4 @@ export function renderPreview({ state, previewOutput, previewTitle, previewCharC
   const slideNames = { 1: 'Slide 1', 2: 'Slide 2', 3: 'Slide 3', 4: 'Slide 4', 5: 'Slide 5' };
   previewTitle.textContent = `${slideNames[state.activeSlide]} Prompt`;
 }
+

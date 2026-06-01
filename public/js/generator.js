@@ -96,19 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Slide tab click handlers
   document.querySelectorAll('.slide-tab').forEach(tab => {
-    tab.addEventListener('click', () => switchSlideBase({
-      state: STATE,
-      renderPreview,
-      slideNum: parseInt(tab.dataset.slide)
-    }));
+    tab.addEventListener('click', () => {
+      const raw = tab.dataset.slide;
+      const slideNum = raw === 'caption' ? 'caption' : parseInt(raw);
+      switchSlideBase({ state: STATE, renderPreview, slideNum });
+    });
     tab.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        switchSlideBase({
-          state: STATE,
-          renderPreview,
-          slideNum: parseInt(tab.dataset.slide)
-        });
+        const raw = tab.dataset.slide;
+        const slideNum = raw === 'caption' ? 'caption' : parseInt(raw);
+        switchSlideBase({ state: STATE, renderPreview, slideNum });
       }
     });
   });

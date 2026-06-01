@@ -33,3 +33,4 @@ build/
 
 # Environment variables (API keys — never commit)
 .env
+.superpowers

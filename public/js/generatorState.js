@@ -42,7 +42,8 @@ export const STATE = {
       TOP_BADGE_TEXT: '', MAIN_HEADLINE: '', DESCRIPTION_TEXT: '',
       CREATOR_ROLE: '', CTA_TEXT_1: '', CTA_TEXT_2: ''
     }
-  }
+  },
+  caption: ''
 };
 
 export function resetSlides(state = STATE) {
@@ -51,4 +52,5 @@ export function resetSlides(state = STATE) {
       state.slides[slide][key] = '';
     });
   });
+  state.caption = '';
 }

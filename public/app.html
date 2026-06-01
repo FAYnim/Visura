@@ -94,6 +94,9 @@
     <button class="slide-tab" role="tab" data-slide="5" aria-selected="false" tabindex="-1" id="tab-slide-5">
       Slide 5
     </button>
+    <button class="slide-tab" role="tab" data-slide="caption" aria-selected="false" tabindex="-1" id="tab-caption">
+      Caption
+    </button>
   </nav>
 
   <!-- =====================================================
@@ -517,6 +520,32 @@
           <div class="field">
             <label class="field-label" for="s5-cta-2">CTA Line 2 <span class="var-hint">{{CTA_TEXT_2}}</span></label>
             <input type="text" id="s5-cta-2" data-slide="5" data-key="CTA_TEXT_2" placeholder="e.g. Available for freelance" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           FORM PANEL: CAPTION — Instagram Storytelling Caption
+           ----------------------------------------------- -->
+      <div class="form-panel" data-slide="caption" role="tabpanel" aria-labelledby="tab-caption">
+        <div class="form-section-header">
+          <div class="form-slide-badge"><i class="fa-solid fa-comment-dots" style="margin-right: 6px;"></i> Instagram Caption</div>
+          <h2 class="form-slide-title">Caption — Storytelling</h2>
+          <p class="form-slide-desc">A professional storytelling Instagram caption for your project carousel. Auto-filled by AI or edit manually. Copy and paste directly to Instagram.</p>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label" for="caption-text">
+              Caption Text
+              <span class="var-hint">{{caption.TEXT}}</span>
+            </label>
+            <textarea
+              id="caption-text"
+              data-slide="caption"
+              rows="8"
+              placeholder="Auto-filled by AI... or write your own storytelling caption here."
+            ></textarea>
           </div>
         </div>
       </div>

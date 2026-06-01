@@ -23,6 +23,7 @@ RULES:
 5. For slide4 BRAND_STATEMENT: use dramatic format like "BUILT FOR DEVELOPERS.\\nDESIGNED FOR IMPACT."
 6. Infer the project name, category, and key features from the text.
 7. If the text doesn't have enough info for a field, use a sensible creative default.
+8. Generate a storytelling Instagram caption under caption.TEXT. Describe the project in a professional storytelling tone (100-200 words). Use \\n for line breaks. The caption must be a single string.
 
 JSON SCHEMA TO FILL:
 ${JSON.stringify(SCHEMA, null, 2)}`;
