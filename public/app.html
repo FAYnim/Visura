@@ -54,7 +54,7 @@
       <div class="sidebar-bottom">
         <!-- Profile & Settings Area -->
         <div class="sidebar-profile-section">
-          <a href="/settings" id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Buka Pengaturan Profil" title="Pengaturan Profil">
+          <a href="/settings" id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Open Profile Settings" title="Profile Settings">
             <div class="avatar-container">
               <img src="/img/avatar.png" alt="Profile" class="profile-avatar-img" />
             </div>
@@ -629,6 +629,17 @@
               <span class="autofill-file-name" id="af-file-name">No file selected</span>
             </div>
           </div>
+        </div>
+
+        <!-- AI Model Selection -->
+        <div class="autofill-field">
+          <label class="autofill-label" for="af-model">
+            <i class="fa-solid fa-microchip"></i>
+            AI Model
+          </label>
+          <select id="af-model" class="autofill-select">
+            <option value="">Loading models...</option>
+          </select>
         </div>
 
       </div>

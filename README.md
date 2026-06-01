@@ -23,7 +23,7 @@ Showcasing digital products and design portfolios on Instagram is highly effecti
 ## Key Features
 
 - **5-Slide Generator** with distinct prompt templates for the Cover, Overview, Features Grid, Showcase, and Outro slides.
-- **AI Auto-Fill** — automatically populate all fields from a text brief or Markdown/PDF documentation file using LLMs (Google Gemini).
+- **AI Auto-Fill** — automatically populate all fields from a text brief or Markdown/PDF documentation file using a choice of LLMs (Gemini or Groq).
 - **Live Preview** with syntax highlighting comparing placeholders and filled values.
 - **One-Click Copy** to clipboard with sleek toast feedback.
 - **Prompt History** saved locally with quick search capabilities.
@@ -58,20 +58,19 @@ npm install
 
 ### AI Auto-Fill Setup (Optional)
 
-The AI Auto-Fill feature supports two LLM providers with an **automatic fallback** mechanism. Create a `.env` file in the root directory and specify one or both:
+The AI Auto-Fill feature supports multiple models across multiple providers. Create a `.env` file in the root directory with one or both:
 
 ```bash
-GEMINI_API_KEY=AIza...   # Google Gemini (primary provider)
-GROQ_API_KEY=gsk_...     # Groq (fallback provider)
+GEMINI_API_KEY=AIza...   # Required for Gemini models
+GROQ_API_KEY=gsk_...     # Required for Groq models
 ```
 
-**Fallback order:**
-1. **Gemini** is used first if `GEMINI_API_KEY` is present.
-2. **Groq** is used as a fallback if Gemini fails, or if only `GROQ_API_KEY` is present.
-3. Each provider gets one **retry** attempt with a repair prompt before shifting to the next.
+Models are registered in `server/ai/models.js`. Only models whose provider has a configured API key appear in the frontend dropdown. The chosen model persists in localStorage.
+
+Each model gets one **retry** attempt (with a repair prompt) if the initial JSON response is malformed.
 
 > [!IMPORTANT]
-> Without any API key set, the **AI Auto-Fill** button will throw an error alert. The prompt generator will continue to work perfectly fine without an API key.
+> Without any API key set, the **AI Auto-Fill** button will show an error. The prompt generator works fine without an API key.
 
 Then, start the development server:
 
@@ -98,6 +97,7 @@ npm test
 2. *(Optional)* Click **AI Auto-Fill** and:
    - Provide a project brief inside the textarea, and/or
    - Upload a Markdown/PDF project document (≤ 10 MB).
+   - Select an AI model from the dropdown.
    - Click **Extract with AI** and wait for 10–30 seconds.
    - Review the coverage summary, then click **Apply to All Slides**.
 3. Fill or edit the fields on the active slide form.
@@ -121,13 +121,14 @@ npm test
 │   ├── routes/
 │   │   └── autoFill.js       # Express route handler for POST /api/auto-fill
 │   └── ai/
-│       ├── autoFillService.js # Google Gemini + Groq fallback integration
+│       ├── autoFillService.js # Model-based LLM caller (Gemini / Groq)
+│       ├── models.js          # Model registry config
 │       ├── promptBuilder.js   # System/user prompt generator & parsing schema
 │       ├── schema.js          # JSON schema for AI Auto-Fill outputs
 │       └── textExtractors.js  # Text extraction utilities for Markdown & PDF files
 ├── tests/
 │   ├── autoFillSchema.test.js  # Minimal validation schema test (run via `npm test`)
-│   └── autoFillFallback.test.js # Gemini -> Groq fallback unit tests
+│   └── autoFillFallback.test.js # Model selection unit tests
 └── public/
     ├── index.html            # Marketing Landing Page (story-led layout)
     ├── app.html              # Core Slide Generator Page (moved from index.html)

@@ -4,7 +4,6 @@
 
 'use strict';
 
-// Slide key map: backend uses slide1..slide5, STATE uses 1..5
 const SLIDE_KEY_MAP = {
   slide1: 1,
   slide2: 2,
@@ -13,7 +12,9 @@ const SLIDE_KEY_MAP = {
   slide5: 5
 };
 
-let _lastAutoFillData = null; // holds last successful AI response for Regenerate
+const MODEL_STORAGE_KEY = 'visura_last_model';
+
+let _lastAutoFillData = null;
 
 export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
   const btnOpen         = document.getElementById('btn-ai-fill');
@@ -30,6 +31,8 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
   const dropzone        = document.getElementById('af-dropzone');
   const fileNameEl      = document.getElementById('af-file-name');
 
+  const modelSelect     = document.getElementById('af-model');
+
   const progressEl      = document.getElementById('autofill-progress');
   const progressMsg     = document.getElementById('autofill-progress-msg');
   const resultEl        = document.getElementById('autofill-result');
@@ -40,12 +43,17 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
   const errorEl         = document.getElementById('autofill-error');
   const errorMsg        = document.getElementById('autofill-error-msg');
 
-  // ── Open / Close ────────────────────────────────────────
+  const FALLBACK_MODELS = [
+    { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash' },
+    { id: 'llama-3.3-70b',    label: 'LLaMA 3.3 70B' },
+  ];
+
   function openModal() {
     modal.removeAttribute('hidden');
     backdrop.classList.add('visible');
     document.body.style.overflow = 'hidden';
     briefTextarea.focus();
+    loadModels();
   }
 
   function closeModal() {
@@ -54,17 +62,42 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     document.body.style.overflow = '';
   }
 
+  async function loadModels() {
+    modelSelect.disabled = true;
+    modelSelect.innerHTML = '<option value="">Loading models...</option>';
+    try {
+      const res = await fetch('/api/models');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const { models } = await res.json();
+      if (models && models.length > 0) {
+        modelSelect.innerHTML = models.map(m =>
+          `<option value="${m.id}">${m.label}</option>`
+        ).join('');
+      } else {
+        throw new Error('No models available');
+      }
+    } catch {
+      modelSelect.innerHTML = FALLBACK_MODELS.map(m =>
+        `<option value="${m.id}">${m.label}</option>`
+      ).join('');
+    }
+    const saved = localStorage.getItem(MODEL_STORAGE_KEY);
+    if (saved) {
+      const option = modelSelect.querySelector(`option[value="${saved}"]`);
+      if (option) option.selected = true;
+    }
+    modelSelect.disabled = false;
+  }
+
   btnOpen.addEventListener('click', openModal);
   btnClose.addEventListener('click', closeModal);
   btnCancel.addEventListener('click', closeModal);
   backdrop.addEventListener('click', closeModal);
 
-  // Escape key
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal();
   });
 
-  // ── File input ──────────────────────────────────────────
   docFileInput.addEventListener('change', () => {
     const file = docFileInput.files[0];
     if (file) {
@@ -76,7 +109,6 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     }
   });
 
-  // Drag & drop
   dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
   dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
   dropzone.addEventListener('drop', e => {
@@ -88,7 +120,6 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     }
   });
 
-  // ── UI state helpers ────────────────────────────────────
   function setLoading(msg = 'Analyzing your content with AI...') {
     progressEl.removeAttribute('hidden');
     progressMsg.textContent = msg;
@@ -104,19 +135,15 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     progressEl.setAttribute('hidden', '');
     resultEl.removeAttribute('hidden');
     errorEl.setAttribute('hidden', '');
-
     const totalFields = Object.values(data).reduce((acc, s) => acc + Object.keys(s).length, 0);
     const filledCount = totalFields - emptyFields.length;
     resultStats.textContent = `${filledCount} of ${totalFields} fields filled (${coverage}% coverage)`;
-
-    // Animate coverage bar after a tick
     coverageFill.style.width = '0%';
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         coverageFill.style.width = `${coverage}%`;
       });
     });
-
     if (emptyFields.length > 0) {
       emptyFieldsEl.removeAttribute('hidden');
       emptyListEl.innerHTML = emptyFields.map(f =>
@@ -125,7 +152,6 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     } else {
       emptyFieldsEl.setAttribute('hidden', '');
     }
-
     btnRun.disabled = false;
     btnRun.setAttribute('hidden', '');
     btnApply.removeAttribute('hidden');
@@ -140,14 +166,18 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     btnRun.disabled = false;
     btnRun.removeAttribute('hidden');
     btnApply.setAttribute('hidden', '');
-    // Keep regenerate visible if we had a previous run
     if (_lastAutoFillData) btnRegenerate.removeAttribute('hidden');
   }
 
-  // ── API call ─────────────────────────────────────────────
   async function runAutoFill() {
     const brief = briefTextarea.value.trim();
     const file  = docFileInput.files[0];
+    const model = modelSelect.value;
+
+    if (!model) {
+      setError('Please select an AI model.');
+      return;
+    }
 
     if (!brief && !file) {
       setError('Please provide a project brief or upload a Markdown/PDF file.');
@@ -156,7 +186,6 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
 
     setLoading();
 
-    // Simulate progress messages
     const progressMessages = [
       'Analyzing your content with AI...',
       'Extracting key information...',
@@ -172,6 +201,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     try {
       const formData = new FormData();
       formData.append('brief', brief);
+      formData.append('model', model);
       if (file) formData.append('docFile', file);
 
       const res = await fetch('/api/auto-fill', {
@@ -188,6 +218,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
 
       const { data, coverage, emptyFields } = await res.json();
       _lastAutoFillData = data;
+      localStorage.setItem(MODEL_STORAGE_KEY, model);
 
       setResult(data, coverage, emptyFields);
     } catch (err) {
@@ -196,23 +227,18 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     }
   }
 
-  // ── Apply to state ───────────────────────────────────────
   function applyAutoFill() {
     if (!_lastAutoFillData) return;
-
     Object.keys(SLIDE_KEY_MAP).forEach(slideKey => {
       const slideNum = SLIDE_KEY_MAP[slideKey];
       const slideData = _lastAutoFillData[slideKey];
       if (!slideData || !state.slides[slideNum]) return;
-
       Object.keys(slideData).forEach(field => {
         if (state.slides[slideNum][field] !== undefined) {
           state.slides[slideNum][field] = slideData[field] || '';
         }
       });
     });
-
-    // Update all form inputs to reflect new STATE
     document.querySelectorAll('[data-key]').forEach(el => {
       const key   = el.dataset.key;
       const slide = parseInt(el.dataset.slide);
@@ -220,17 +246,11 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
         el.value = state.slides[slide][key];
       }
     });
-
-    // Re-render preview
     renderPreview();
-
-    // Close modal
     closeModal();
-
     showToast(`<i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-primary);"></i> AI Auto-Fill applied to all 5 slides!`);
   }
 
-  // ── Wire buttons ─────────────────────────────────────────
   btnRun.addEventListener('click', runAutoFill);
   btnApply.addEventListener('click', applyAutoFill);
   btnRegenerate.addEventListener('click', () => {

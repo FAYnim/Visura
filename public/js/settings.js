@@ -45,14 +45,14 @@ function saveGlobalSettings() {
 
   saveSettings(currentSettings);
   updateProfileWidget(currentSettings);
-  showToast(`<i class="fa-solid fa-check" style="color: var(--accent-primary);"></i> Pengaturan disimpan!`);
+  showToast(`<i class="fa-solid fa-check" style="color: var(--accent-primary);"></i> Settings saved!`);
 }
 
 // =========================================================
 // RESET SETTINGS
 // =========================================================
 function resetGlobalSettings() {
-  const confirmClear = confirm('Apakah Anda yakin ingin menyetel ulang seluruh pengaturan global ke default?');
+  const confirmClear = confirm('Are you sure you want to reset all global settings to default?');
   if (confirmClear) {
     currentSettings = { ...SETTINGS_DEFAULTS };
 
@@ -64,7 +64,7 @@ function resetGlobalSettings() {
 
     saveSettings(currentSettings);
     updateProfileWidget(currentSettings);
-    showToast(`<i class="fa-solid fa-rotate-left" style="color: var(--text-secondary);"></i> Pengaturan disetel ulang.`);
+    showToast(`<i class="fa-solid fa-rotate-left" style="color: var(--text-secondary);"></i> Settings reset.`);
   }
 }
 
