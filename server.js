@@ -43,6 +43,10 @@ app.get('/prompts', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'prompts.html'));
 });
 
+app.get('/byok', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'byok.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`Visura running at http://localhost:${PORT}`);
 });

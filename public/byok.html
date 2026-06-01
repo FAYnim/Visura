@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visura — API Keys (BYOK)</title>
+  <meta name="description" content="Manage your own Gemini and Groq API keys for AI Auto-Fill in Visura. Keys are encrypted and stored locally in your browser." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/logo/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/logo/favicon-16x16.png" />
+  <link rel="icon" href="/img/logo/favicon.ico" />
+  <link rel="manifest" href="/img/logo/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- =====================================================
+       HEADER — Branding
+       ===================================================== -->
+  <header class="app-header" role="banner">
+    <div class="header-brand">
+      <img src="/img/logo/android-chrome-192x192.png" alt="Visura Logo" class="brand-logo" />
+      <span class="brand-name">Visura</span>
+    </div>
+    <button id="sidebar-toggle-mobile" class="header-toggle-btn" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <div class="app-body">
+    <!-- =====================================================
+         SIDEBAR — Main App Navigation
+         ===================================================== -->
+    <aside class="app-sidebar" aria-label="Main navigation">
+      <div class="sidebar-top">
+        <nav class="sidebar-menu" role="navigation">
+          <a class="sidebar-btn" href="/app" id="tab-generator">
+            <span class="btn-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt Generator</span>
+          </a>
+          <a class="sidebar-btn" href="/riwayat" id="tab-riwayat">
+            <span class="btn-text"><i class="fa-solid fa-clock-rotate-left"></i> History</span>
+          </a>
+          <a class="sidebar-btn" href="/prompts" id="tab-prompts">
+            <span class="btn-text"><i class="fa-solid fa-layer-group"></i> Prompt Manager</span>
+          </a>
+          <a class="sidebar-btn active" href="/byok" id="tab-byok" aria-current="page">
+            <span class="btn-text"><i class="fa-solid fa-key"></i> API Keys</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-profile-section">
+          <a href="/settings" id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Open Profile Settings" title="Profile Settings">
+            <div class="avatar-container">
+              <img src="/img/avatar.png" alt="Profile" class="profile-avatar-img" />
+            </div>
+            <div class="profile-info-text">
+              <span class="profile-name">Settings</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =====================================================
+         CONTENT WORKSPACE
+         ===================================================== -->
+    <div class="app-content">
+      <div id="view-byok" class="app-view active">
+        <div class="byok-container">
+
+          <!-- Page Header -->
+          <header class="byok-header">
+            <div class="byok-title-group">
+              <h1 class="byok-title">
+                <i class="fa-solid fa-key byok-title-icon"></i>
+                API Keys <span class="byok-title-badge">BYOK</span>
+              </h1>
+              <p class="byok-desc">Bring your own Gemini or Groq API key for AI Auto-Fill. Keys are encrypted with AES-GCM and stored only in your browser — never sent to any server except the provider's API.</p>
+            </div>
+            <div class="byok-security-badge">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>AES-GCM Encrypted</span>
+            </div>
+          </header>
+
+          <!-- Info Banner -->
+          <div class="byok-info-banner" id="byok-info-banner">
+            <i class="fa-solid fa-circle-info byok-info-icon"></i>
+            <div class="byok-info-text">
+              <strong>How it works:</strong> Your API key is encrypted in-browser using Web Crypto AES-GCM before being saved to <code>localStorage</code>. When you use AI Auto-Fill, the key is decrypted client-side and sent directly to the AI provider — your key is <em>never stored</em> on Visura's server.
+            </div>
+            <button class="byok-info-close" id="byok-info-close" aria-label="Dismiss info banner">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- Provider Cards Grid -->
+          <div class="byok-cards-grid">
+
+            <!-- Gemini Card -->
+            <div class="byok-card" id="byok-card-gemini">
+              <div class="byok-card-header">
+                <div class="byok-provider-info">
+                  <div class="byok-provider-icon byok-provider-icon--gemini">
+                    <i class="fa-solid fa-gem"></i>
+                  </div>
+                  <div>
+                    <h2 class="byok-provider-name">Google Gemini</h2>
+                    <p class="byok-provider-sub">Gemini 2.5 Flash · gemini.google.com</p>
+                  </div>
+                </div>
+                <div class="byok-status-badge" id="byok-status-gemini">
+                  <span class="byok-status-dot byok-status-dot--empty"></span>
+                  <span class="byok-status-label">Not set</span>
+                </div>
+              </div>
+
+              <div class="byok-card-body">
+                <div class="byok-field">
+                  <label class="byok-field-label" for="byok-input-gemini">
+                    API Key
+                    <span class="byok-field-hint">Starts with <code>AIza</code></span>
+                  </label>
+                  <div class="byok-input-wrap">
+                    <input
+                      type="password"
+                      id="byok-input-gemini"
+                      class="byok-input"
+                      placeholder="AIzaSy..."
+                      autocomplete="off"
+                      spellcheck="false"
+                      data-provider="gemini"
+                      data-prefix="AIza"
+                    />
+                    <button class="byok-toggle-visibility" aria-label="Toggle key visibility" data-target="byok-input-gemini">
+                      <i class="fa-regular fa-eye"></i>
+                    </button>
+                  </div>
+                  <p class="byok-validation-msg" id="byok-validation-gemini" hidden></p>
+                </div>
+              </div>
+
+              <div class="byok-card-actions">
+                <button class="btn btn-primary byok-btn-save" id="byok-save-gemini" data-provider="gemini">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Key
+                </button>
+                <button class="btn btn-secondary byok-btn-clear" id="byok-clear-gemini" data-provider="gemini" hidden>
+                  <i class="fa-solid fa-trash-can"></i> Clear
+                </button>
+              </div>
+            </div>
+
+            <!-- Groq Card -->
+            <div class="byok-card" id="byok-card-groq">
+              <div class="byok-card-header">
+                <div class="byok-provider-info">
+                  <div class="byok-provider-icon byok-provider-icon--groq">
+                    <i class="fa-solid fa-bolt"></i>
+                  </div>
+                  <div>
+                    <h2 class="byok-provider-name">Groq</h2>
+                    <p class="byok-provider-sub">LLaMA 3.3 70B · console.groq.com</p>
+                  </div>
+                </div>
+                <div class="byok-status-badge" id="byok-status-groq">
+                  <span class="byok-status-dot byok-status-dot--empty"></span>
+                  <span class="byok-status-label">Not set</span>
+                </div>
+              </div>
+
+              <div class="byok-card-body">
+                <div class="byok-field">
+                  <label class="byok-field-label" for="byok-input-groq">
+                    API Key
+                    <span class="byok-field-hint">Starts with <code>gsk_</code></span>
+                  </label>
+                  <div class="byok-input-wrap">
+                    <input
+                      type="password"
+                      id="byok-input-groq"
+                      class="byok-input"
+                      placeholder="gsk_..."
+                      autocomplete="off"
+                      spellcheck="false"
+                      data-provider="groq"
+                      data-prefix="gsk_"
+                    />
+                    <button class="byok-toggle-visibility" aria-label="Toggle key visibility" data-target="byok-input-groq">
+                      <i class="fa-regular fa-eye"></i>
+                    </button>
+                  </div>
+                  <p class="byok-validation-msg" id="byok-validation-groq" hidden></p>
+                </div>
+              </div>
+
+              <div class="byok-card-actions">
+                <button class="btn btn-primary byok-btn-save" id="byok-save-groq" data-provider="groq">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Key
+                </button>
+                <button class="btn btn-secondary byok-btn-clear" id="byok-clear-groq" data-provider="groq" hidden>
+                  <i class="fa-solid fa-trash-can"></i> Clear
+                </button>
+              </div>
+            </div>
+
+          </div><!-- /byok-cards-grid -->
+
+        </div><!-- /byok-container -->
+      </div><!-- /view-byok -->
+    </div><!-- /app-content -->
+  </div><!-- /app-body -->
+
+  <!-- Glassmorphic overlay backdrop for mobile sidebar drawer -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- =====================================================
+       TOAST NOTIFICATION
+       ===================================================== -->
+  <div class="toast" id="app-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="module" src="/js/byok.js"></script>
+</body>
+</html>

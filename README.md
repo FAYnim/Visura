@@ -37,6 +37,7 @@ Showcasing digital products and design portfolios on Instagram is highly effecti
 - **History:** `http://localhost:3000/riwayat`
 - **Settings:** `http://localhost:3000/settings`
 - **Prompt Manager:** `http://localhost:3000/prompts`
+- **BYOK (API Keys):** `http://localhost:3000/byok`
 
 > [!NOTE]
 > This application does not upload screenshots; the generated prompts assume you will add actual screenshots when generating images in your favorite AI image generator.
@@ -58,19 +59,27 @@ npm install
 
 ### AI Auto-Fill Setup (Optional)
 
-The AI Auto-Fill feature supports multiple models across multiple providers. Create a `.env` file in the root directory with one or both:
+The AI Auto-Fill feature supports multiple models across multiple providers. You can choose one of two options:
+
+**Option A — BYOK (Recommended for local use):**
+- Open **/byok** and save your Gemini/Groq API key.
+- Keys are **encrypted with AES-GCM** and stored locally in your browser.
+- The key is decrypted client-side and sent directly to the provider during Auto-Fill.
+
+**Option B — Environment Variables:**
+Create a `.env` file in the root directory with one or both:
 
 ```bash
 GEMINI_API_KEY=AIza...   # Required for Gemini models
 GROQ_API_KEY=gsk_...     # Required for Groq models
 ```
 
-Models are registered in `server/ai/models.js`. Only models whose provider has a configured API key appear in the frontend dropdown. The chosen model persists in localStorage.
+Models are registered in `server/ai/models.js`. Only models whose provider has a configured API key (or a BYOK key) appear in the frontend dropdown. The chosen model persists in localStorage.
 
 Each model gets one **retry** attempt (with a repair prompt) if the initial JSON response is malformed.
 
 > [!IMPORTANT]
-> Without any API key set, the **AI Auto-Fill** button will show an error. The prompt generator works fine without an API key.
+> If no BYOK or ENV key is set, the **AI Auto-Fill** button will show an error. The prompt generator works fine without an API key.
 
 Then, start the development server:
 
@@ -128,13 +137,16 @@ npm test
 │       └── textExtractors.js  # Text extraction utilities for Markdown & PDF files
 ├── tests/
 │   ├── autoFillSchema.test.js  # Minimal validation schema test (run via `npm test`)
-│   └── autoFillFallback.test.js # Model selection unit tests
+│   ├── autoFillFallback.test.js # Model selection unit tests
+│   ├── byokCrypto.test.js       # BYOK encryption + prefix validation tests
+│   └── byokAutoFillFallback.test.js # BYOK override tests
 └── public/
     ├── index.html            # Marketing Landing Page (story-led layout)
     ├── app.html              # Core Slide Generator Page (moved from index.html)
     ├── prompts.html          # Batch Prompt Manager & Template Editor
     ├── riwayat.html          # Copy History Viewer
     ├── settings.html         # Global Creator Settings (Name & Role)
+    ├── byok.html             # BYOK (API Keys) management page
     ├── css/
     │   ├── styles.css        # Core app UI & cinematic dark theme system
     │   └── landing.css       # Premium marketing landing page styles & reveals
@@ -152,7 +164,8 @@ npm test
     │   ├── prompts.js            # Batch prompt manager UI
     │   ├── settingsDefaults.js   # Shared defaults creator info
     │   ├── riwayat.js            # History management & search engine
-    │   └── settings.js           # Creator profile form management logic
+    │   ├── settings.js           # Creator profile form management logic
+    │   └── byok.js                # BYOK encryption + localStorage helpers
     └── img/
         ├── avatar.png        # Default creator profile picture
         └── logo/             # Favicons & logo asset bundle

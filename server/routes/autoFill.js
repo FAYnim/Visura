@@ -25,6 +25,7 @@ router.post('/auto-fill', uploadFields, async (req, res) => {
   try {
     const brief = (req.body.brief || '').trim();
     const modelId = (req.body.model || '').trim();
+    const byokKey = (req.body.byokKey || '').trim() || null;
     const files = req.files || {};
 
     if (!modelId) {
@@ -46,7 +47,7 @@ router.post('/auto-fill', uploadFields, async (req, res) => {
       return res.status(400).json({ error: 'Provide at least a brief or a document file.' });
     }
 
-    const result = await autoFillFromSources({ brief, docText }, modelId);
+    const result = await autoFillFromSources({ brief, docText }, modelId, byokKey);
 
     const emptyFields = [];
     let total = 0;
