@@ -288,9 +288,7 @@ async function handleSave(provider) {
     const payload   = await encryptText(key, cryptoKey);
     saveProviderPayload(provider, payload);
 
-    /* Clear input for security */
-    input.value = '';
-    /* Reset visibility toggle to password */
+    /* Keep input value stored and reset visibility toggle to password */
     input.type = 'password';
     const toggleBtn = input.closest('.byok-input-wrap')?.querySelector('.byok-toggle-visibility i');
     if (toggleBtn) {
@@ -394,10 +392,19 @@ function initInfoBanner() {
    ========================================================= */
 
 async function init() {
-  /* Load current status for each provider */
+  /* Load current status and stored key for each provider */
   for (const provider of ['gemini', 'groq']) {
     const has = hasByokKey(provider);
     updateStatusBadge(provider, has);
+    if (has) {
+      const decrypted = await getDecryptedByokKey(provider);
+      if (decrypted) {
+        const input = document.getElementById(`byok-input-${provider}`);
+        if (input) {
+          input.value = decrypted;
+        }
+      }
+    }
   }
 
   /* Wire Save buttons */
