@@ -5,6 +5,13 @@
 'use strict';
 
 import { getDecryptedByokKey, hasByokKey } from './byok.js';
+import {
+  loadQuota,
+  incrementQuota,
+  getRemainingQuota,
+  hasQuotaRemaining,
+  getDailyLimit
+} from './autoFillQuota.js';
 
 const SLIDE_KEY_MAP = {
   slide1: 1,
@@ -34,6 +41,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
   const fileNameEl      = document.getElementById('af-file-name');
 
   const modelSelect     = document.getElementById('af-model');
+  const quotaEl         = document.getElementById('autofill-quota');
 
   const progressEl      = document.getElementById('autofill-progress');
   const progressMsg     = document.getElementById('autofill-progress-msg');
@@ -46,9 +54,44 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
   const errorMsg        = document.getElementById('autofill-error-msg');
 
   const FALLBACK_MODELS = [
-    { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash' },
-    { id: 'llama-3.3-70b',    label: 'LLaMA 3.3 70B' },
+    { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash', provider: 'gemini' },
+    { id: 'llama-3.3-70b',    label: 'LLaMA 3.3 70B',    provider: 'groq'   },
   ];
+
+  /* ---- BYOK detection for currently selected model ---- */
+  function isByokProvider() {
+    const selectedOption = modelSelect.options[modelSelect.selectedIndex];
+    const model    = modelSelect.value || '';
+    const provider = selectedOption?.dataset?.provider ||
+      (model.startsWith('gemini') ? 'gemini' : model.startsWith('llama') ? 'groq' : null);
+    return provider ? hasByokKey(provider) : false;
+  }
+
+  /* ---- Quota UI update ---- */
+  function updateQuotaUI() {
+    if (!quotaEl) return;
+
+    if (isByokProvider()) {
+      /* BYOK: no quota restriction — hide the indicator */
+      quotaEl.setAttribute('hidden', '');
+      btnRun.disabled = false;
+      return;
+    }
+
+    quotaEl.removeAttribute('hidden');
+    const remaining = getRemainingQuota();
+    const limit     = getDailyLimit();
+
+    if (remaining <= 0) {
+      quotaEl.className = 'autofill-quota autofill-quota--exhausted';
+      quotaEl.innerHTML = `<i class="fa-solid fa-ban"></i> Daily quota exhausted (${limit}/${limit} used). Resets tomorrow or use your own API key.`;
+      btnRun.disabled = true;
+    } else {
+      quotaEl.className = `autofill-quota${remaining === 1 ? ' autofill-quota--warning' : ''}`;
+      quotaEl.innerHTML = `<i class="fa-solid fa-hourglass-half"></i> <strong>${remaining}</strong> of ${limit} free requests remaining today.`;
+      btnRun.disabled = false;
+    }
+  }
 
   function openModal() {
     modal.removeAttribute('hidden');
@@ -56,6 +99,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     document.body.style.overflow = 'hidden';
     briefTextarea.focus();
     loadModels();
+    updateQuotaUI();
   }
 
   function closeModal() {
@@ -72,15 +116,17 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const { models } = await res.json();
       if (models && models.length > 0) {
-        modelSelect.innerHTML = models.map(m =>
-          `<option value="${m.id}">${m.label}</option>`
-        ).join('');
+        modelSelect.innerHTML = models.map(m => {
+          const provider = m.provider ||
+            (m.id.startsWith('gemini') ? 'gemini' : m.id.startsWith('llama') ? 'groq' : '');
+          return `<option value="${m.id}" data-provider="${provider}">${m.label}</option>`;
+        }).join('');
       } else {
         throw new Error('No models available');
       }
     } catch {
       modelSelect.innerHTML = FALLBACK_MODELS.map(m =>
-        `<option value="${m.id}">${m.label}</option>`
+        `<option value="${m.id}" data-provider="${m.provider}">${m.label}</option>`
       ).join('');
     }
     const saved = localStorage.getItem(MODEL_STORAGE_KEY);
@@ -89,6 +135,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
       if (option) option.selected = true;
     }
     modelSelect.disabled = false;
+    updateQuotaUI();
   }
 
   btnOpen.addEventListener('click', openModal);
@@ -186,6 +233,24 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
       return;
     }
 
+    /* ---- BYOK detection ---- */
+    const selectedOption = modelSelect.options[modelSelect.selectedIndex];
+    const provider = selectedOption?.dataset?.provider ||
+      (model.startsWith('gemini') ? 'gemini' : model.startsWith('llama') ? 'groq' : null);
+    const usingByok = provider ? hasByokKey(provider) : false;
+
+    /* ---- Quota check (developer key only) ---- */
+    if (!usingByok) {
+      if (!hasQuotaRemaining()) {
+        setError(`Daily quota exhausted (${getDailyLimit()}/${getDailyLimit()} requests used). Resets tomorrow, or add your own API key under "API Keys".`);
+        updateQuotaUI();
+        return;
+      }
+      /* Count this attempt before the request, regardless of outcome (REQ-003) */
+      incrementQuota();
+      updateQuotaUI();
+    }
+
     setLoading();
 
     const progressMessages = [
@@ -206,11 +271,8 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
       formData.append('model', model);
       if (file) formData.append('docFile', file);
 
-      /* ---- BYOK: attach decrypted key if stored for this provider's model ---- */
-      const selectedOption = modelSelect.options[modelSelect.selectedIndex];
-      const provider = selectedOption?.dataset?.provider ||
-        (model.startsWith('gemini') ? 'gemini' : model.startsWith('llama') ? 'groq' : null);
-      if (provider && hasByokKey(provider)) {
+      /* ---- BYOK: attach decrypted key if stored for this provider ---- */
+      if (usingByok) {
         const byokKey = await getDecryptedByokKey(provider);
         if (byokKey) formData.append('byokKey', byokKey);
       }
@@ -272,4 +334,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     resultEl.setAttribute('hidden', '');
     runAutoFill();
   });
+
+  /* Update quota UI whenever user changes model (BYOK toggle) */
+  modelSelect.addEventListener('change', updateQuotaUI);
 }

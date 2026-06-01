@@ -2532,9 +2532,66 @@ a:focus {
   border-radius: 2px;
 }
 
+/* ---- Quota Status Banner ---- */
+.autofill-quota {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 24px 0;
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-family: var(--font-ui);
+  line-height: 1.4;
+  background: rgba(0, 200, 255, 0.05);
+  border: 1px solid rgba(0, 200, 255, 0.15);
+  color: rgba(140, 220, 255, 0.8);
+  transition: all var(--transition-base);
+}
+
+.autofill-quota[hidden] { display: none; }
+
+.autofill-quota i {
+  font-size: 12px;
+  flex-shrink: 0;
+  color: rgba(100, 200, 255, 0.7);
+}
+
+.autofill-quota strong {
+  font-weight: 700;
+  color: rgba(160, 235, 255, 0.95);
+}
+
+/* 1 request remaining — amber warning */
+.autofill-quota--warning {
+  background: rgba(255, 180, 0, 0.05);
+  border-color: rgba(255, 180, 0, 0.2);
+  color: rgba(255, 210, 80, 0.85);
+}
+
+.autofill-quota--warning i {
+  color: rgba(255, 190, 60, 0.8);
+}
+
+.autofill-quota--warning strong {
+  color: rgba(255, 220, 100, 0.95);
+}
+
+/* 0 requests remaining — red exhausted */
+.autofill-quota--exhausted {
+  background: rgba(255, 70, 70, 0.06);
+  border-color: rgba(255, 80, 80, 0.25);
+  color: rgba(255, 140, 140, 0.9);
+}
+
+.autofill-quota--exhausted i {
+  color: rgba(255, 100, 100, 0.8);
+}
+
 /* =========================================================
    BYOK — Bring Your Own Key Page
    ========================================================= */
+
 
 /* ---- Container ---- */
 .byok-container {
