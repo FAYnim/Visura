@@ -10,7 +10,6 @@ Add a **BYOK** feature for AI Auto-Fill (Gemini + Groq) so users can store their
 - Provide light **prefix validation** for each provider.
 
 ## Non-Goals
-- No encryption of localStorage keys.
 - No server-side storage/caching of keys.
 - No multi-key management per provider (single active key only).
 
@@ -35,26 +34,33 @@ Add a **BYOK** feature for AI Auto-Fill (Gemini + Groq) so users can store their
 - Empty input blocks save with inline error.
 
 ## Data Model / Storage
-`localStorage.byokKeys` (JSON object):
+`localStorage.byokKeys` (JSON object, encrypted values):
 ```json
 {
-  "gemini": "AIza...",
-  "groq": "gsk_..."
+  "gemini": "enc:BASE64(...)" ,
+  "groq": "enc:BASE64(...)"
 }
 ```
 
+**Encryption:**
+- Encrypt values before storing using **Web Crypto (AES-GCM)**.
+- Use a locally stored symmetric key in `localStorage.byokCryptoKey` (base64).
+- No user passphrase prompt (automatic encryption/decryption).
+- If key missing or corrupt, show error and require re-save.
+
 ## Data Flow
-1. User opens `/byok` → load `localStorage.byokKeys` → update status + input.
-2. **Save** → validate prefix → persist in localStorage → status = “Saved”.
+1. User opens `/byok` → load encrypted keys + crypto key → update status.
+2. **Save** → validate prefix → encrypt → persist in localStorage → status = “Saved”.
 3. **Clear** → remove provider key → status = “Not set”.
 4. **AI Auto-Fill**:
-   - If key exists for selected provider → use it for auth.
+   - If encrypted key exists for selected provider → decrypt → use for auth.
    - If not → fallback to existing ENV-based server key.
 
 ## Error Handling
 - Empty input → inline error “Key tidak boleh kosong”.
 - Prefix mismatch → inline error “Format key tidak valid”.
 - localStorage unavailable → show error message on BYOK page.
+- Encryption/decryption failure → show error and require re-save.
 - API error from provider does **not** delete stored key automatically.
 
 ## Testing
