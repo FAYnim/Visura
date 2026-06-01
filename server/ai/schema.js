@@ -59,6 +59,9 @@ const SCHEMA = {
     CREATOR_ROLE: '',
     CTA_TEXT_1: '',
     CTA_TEXT_2: ''
+  },
+  caption: {
+    TEXT: ''
   }
 };
 
