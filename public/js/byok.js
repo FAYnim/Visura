@@ -348,18 +348,33 @@ function initMobileSidebar() {
   const overlay   = document.getElementById('sidebar-overlay');
   if (!toggleBtn || !sidebar || !overlay) return;
 
+  const toggleIcon = toggleBtn.querySelector('i');
+
   function openSidebar() {
-    sidebar.classList.add('mobile-open');
-    overlay.classList.add('visible');
+    sidebar.classList.add('mobile-active');
+    overlay.classList.add('active');
+    if (toggleIcon) {
+      toggleIcon.className = 'fa-solid fa-xmark';
+    }
     document.body.style.overflow = 'hidden';
   }
   function closeSidebar() {
-    sidebar.classList.remove('mobile-open');
-    overlay.classList.remove('visible');
+    sidebar.classList.remove('mobile-active');
+    overlay.classList.remove('active');
+    if (toggleIcon) {
+      toggleIcon.className = 'fa-solid fa-bars';
+    }
     document.body.style.overflow = '';
   }
 
-  toggleBtn.addEventListener('click', openSidebar);
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = sidebar.classList.contains('mobile-active');
+    if (isOpen) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  });
   overlay.addEventListener('click', closeSidebar);
 }
 
