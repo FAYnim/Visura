@@ -21,6 +21,11 @@ assert.equal(
 );
 
 assert.equal(
+  isCaptionDocumentFileSupported({ mimetype: 'application/octet-stream', originalname: 'brief.md' }),
+  false
+);
+
+assert.equal(
   isCaptionDocumentFileSupported({ mimetype: 'text/markdown', originalname: 'brief.markdown' }),
   true
 );

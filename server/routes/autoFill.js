@@ -17,7 +17,7 @@ const uploadFields = upload.fields([
   { name: 'screenshotFile', maxCount: 1 }
 ]);
 
-const CAPTION_MARKDOWN_MIMES = ['text/markdown', 'text/plain', 'application/octet-stream'];
+const CAPTION_MARKDOWN_MIMES = ['text/markdown', 'text/plain'];
 
 function isCaptionDocumentFileSupported(file) {
   const mime = file.mimetype || '';
