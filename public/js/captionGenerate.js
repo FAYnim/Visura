@@ -213,6 +213,12 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
 
     const provider = getSelectedProvider();
     const usingByok = provider ? hasByokKey(provider) : false;
+    const byokKey = usingByok ? await getDecryptedByokKey(provider) : null;
+
+    if (usingByok && !byokKey) {
+      setError('Unable to use saved API key. Reconnect your API key or choose developer quota.');
+      return;
+    }
 
     if (!usingByok) {
       if (!hasQuotaRemaining()) {
@@ -246,8 +252,7 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
       if (file) formData.append('docFile', file);
 
       if (usingByok) {
-        const byokKey = await getDecryptedByokKey(provider);
-        if (byokKey) formData.append('byokKey', byokKey);
+        formData.append('byokKey', byokKey);
       }
 
       const res = await fetch('/api/generate-caption', {
