@@ -103,7 +103,7 @@ router.post('/generate-caption', uploadFields, async (req, res) => {
 
     const result = await generateCaptionFromSources({ brief, docText }, modelId, byokKey);
 
-    return res.json(result);
+    return res.json({ caption: result.caption });
   } catch (err) {
     console.error('[generate-caption] Error:', err);
     return res.status(500).json({ error: err.message || 'Internal server error during caption generation.' });
