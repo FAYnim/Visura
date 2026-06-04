@@ -539,10 +539,16 @@
 
         <div class="field-group">
           <div class="field">
-            <label class="field-label" for="caption-text">
-              Caption Text
-              <span class="var-hint">{{caption.TEXT}}</span>
-            </label>
+            <div class="field-label-row">
+              <label class="field-label" for="caption-text">
+                Caption Text
+                <span class="var-hint">{{caption.TEXT}}</span>
+              </label>
+              <button class="btn-ai-fill" id="btn-generate-caption" type="button" aria-label="Open Generate Caption panel">
+                <i class="fa-solid fa-comment-dots"></i>
+                Generate Caption
+              </button>
+            </div>
             <textarea
               id="caption-text"
               data-slide="caption"
@@ -733,6 +739,114 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <div class="autofill-backdrop" id="caption-backdrop" aria-hidden="true"></div>
+
+  <div class="autofill-modal" id="caption-modal" role="dialog" aria-modal="true" aria-labelledby="caption-modal-title" hidden>
+    <div class="autofill-modal-inner">
+      <div class="autofill-header">
+        <div class="autofill-header-left">
+          <span class="autofill-badge">
+            <i class="fa-solid fa-comment-dots"></i>
+            Generate Caption
+          </span>
+          <h2 class="autofill-title" id="caption-modal-title">Generate Instagram Caption</h2>
+          <p class="autofill-subtitle">Provide a brief and/or upload a Markdown/PDF file. The AI will generate a structured storytelling caption for your Instagram carousel.</p>
+        </div>
+        <button class="autofill-close" id="caption-close" aria-label="Close Generate Caption panel">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="autofill-notice">
+        <i class="fa-solid fa-shield-halved"></i>
+        Data dikirim ke API LLM eksternal untuk diproses. File tidak disimpan permanen.
+      </div>
+
+      <div class="autofill-inputs">
+        <div class="autofill-field">
+          <label class="autofill-label" for="caption-brief">
+            <i class="fa-solid fa-align-left"></i>
+            Project Brief
+            <span class="autofill-optional">Optional if file uploaded</span>
+          </label>
+          <textarea id="caption-brief" class="autofill-textarea" placeholder="Describe your project: name, purpose, features, audience, tone, CTA..." rows="5"></textarea>
+        </div>
+
+        <div class="autofill-field">
+          <label class="autofill-label">
+            <i class="fa-solid fa-file-arrow-up"></i>
+            Document File
+            <span class="autofill-optional">Markdown or PDF, max 10 MB</span>
+          </label>
+          <div class="autofill-dropzone" id="caption-dropzone">
+            <input type="file" id="caption-doc-file" accept=".md,.pdf,text/markdown,application/pdf" class="autofill-file-input" aria-label="Upload Markdown or PDF file" />
+            <div class="autofill-dropzone-inner">
+              <i class="fa-solid fa-cloud-arrow-up autofill-upload-icon"></i>
+              <span class="autofill-dropzone-text">Drag & drop or <span class="autofill-browse">browse</span></span>
+              <span class="autofill-file-name" id="caption-file-name">No file selected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="autofill-field">
+          <label class="autofill-label" for="caption-model">
+            <i class="fa-solid fa-microchip"></i>
+            AI Model
+          </label>
+          <select id="caption-model" class="autofill-select">
+            <option value="">Loading models...</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="autofill-progress" id="caption-progress" hidden>
+        <div class="autofill-progress-bar">
+          <div class="autofill-progress-fill" id="caption-progress-fill"></div>
+        </div>
+        <div class="autofill-progress-text">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          <span id="caption-progress-msg">Writing your caption...</span>
+        </div>
+      </div>
+
+      <div class="autofill-result" id="caption-result" hidden>
+        <div class="autofill-result-header">
+          <i class="fa-solid fa-circle-check autofill-result-icon"></i>
+          <div>
+            <div class="autofill-result-title">Caption Ready</div>
+            <div class="autofill-result-stats" id="caption-result-stats"></div>
+          </div>
+        </div>
+        <div class="autofill-empty-list" id="caption-result-preview"></div>
+      </div>
+
+      <div class="autofill-error" id="caption-error" hidden>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span id="caption-error-msg">Something went wrong. Please try again.</span>
+      </div>
+
+      <div class="autofill-quota" id="caption-quota" hidden></div>
+
+      <div class="autofill-footer">
+        <button class="autofill-btn-secondary" id="caption-cancel">Cancel</button>
+        <div class="autofill-footer-right">
+          <button class="autofill-btn-secondary" id="caption-regenerate" hidden>
+            <i class="fa-solid fa-rotate-right"></i>
+            Regenerate
+          </button>
+          <button class="autofill-btn-apply" id="caption-apply" hidden>
+            <i class="fa-solid fa-check"></i>
+            Apply Caption
+          </button>
+          <button class="autofill-btn-primary" id="caption-run">
+            <i class="fa-solid fa-comment-dots"></i>
+            Generate Caption
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
