@@ -73,22 +73,18 @@ function validateSchema(payload) {
 validateSchema({ slide1: {}, slide2: {}, slide3: {}, slide4: {}, slide5: {} });
 console.log('✓ validateSchema helper works');
 
-// ── Test 9: SCHEMA has caption and caption.TEXT ───────────────────────────────
-assert(SCHEMA.caption !== undefined, 'SCHEMA missing key: caption');
-assert('TEXT' in SCHEMA.caption, 'SCHEMA.caption missing key: TEXT');
-console.log('✓ SCHEMA has caption and caption.TEXT keys');
+// ── Test 9: SCHEMA excludes caption ───────────────────────────────────────────
+assert(SCHEMA.caption === undefined, 'SCHEMA should not include caption');
+console.log('✓ SCHEMA excludes caption');
 
-// ── Test 10: normalizeOutput trims caption.TEXT ───────────────────────────────
+// ── Test 10: normalizeOutput ignores caption from raw output ──────────────────
 const mockWithCaption = {
   slide1: {}, slide2: {}, slide3: {}, slide4: {}, slide5: {},
   caption: { TEXT: '  A great storytelling caption...  ' }
 };
 const normalizedWithCaption = normalizeOutput(mockWithCaption);
-assert(
-  normalizedWithCaption.caption.TEXT === 'A great storytelling caption...',
-  `normalizeOutput should trim caption.TEXT, got: "${normalizedWithCaption.caption.TEXT}"`
-);
-console.log('✓ normalizeOutput trims caption.TEXT correctly');
+assert(normalizedWithCaption.caption === undefined, 'normalizeOutput should ignore caption');
+console.log('✓ normalizeOutput ignores caption correctly');
 
 console.log('\n✅ All tests passed!');
 
