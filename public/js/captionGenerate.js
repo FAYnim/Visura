@@ -43,6 +43,9 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
     { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash', provider: 'gemini' },
     { id: 'llama-3.3-70b',    label: 'LLaMA 3.3 70B',    provider: 'groq'   },
   ];
+  const ALLOWED_FILE_TYPES = ['text/markdown', 'application/pdf'];
+  const ALLOWED_FILE_EXTENSIONS = ['.md', '.pdf'];
+  const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
   function getSelectedProvider() {
     const selectedOption = modelSelect.options[modelSelect.selectedIndex];
@@ -95,26 +98,58 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
     document.body.style.overflow = '';
   }
 
+  function resetFileInput() {
+    docFileInput.value = '';
+    fileNameEl.textContent = 'No file selected';
+    dropzone.classList.remove('has-file');
+  }
+
+  function validateFile(file) {
+    const lowerName = file.name.toLowerCase();
+    const hasAllowedExtension = ALLOWED_FILE_EXTENSIONS.some(ext => lowerName.endsWith(ext));
+    const hasAllowedType = ALLOWED_FILE_TYPES.includes(file.type);
+
+    if (!hasAllowedExtension && !hasAllowedType) {
+      return 'Please upload a Markdown or PDF file.';
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      return 'File must be 10 MB or smaller.';
+    }
+
+    return '';
+  }
+
+  function setModelOptions(models) {
+    modelSelect.replaceChildren();
+    models.forEach(m => {
+      const option = document.createElement('option');
+      option.value = m.id;
+      option.dataset.provider = m.provider ||
+        (m.id.startsWith('gemini') ? 'gemini' : m.id.startsWith('llama') ? 'groq' : '');
+      option.textContent = m.label;
+      modelSelect.appendChild(option);
+    });
+  }
+
   async function loadModels() {
     modelSelect.disabled = true;
-    modelSelect.innerHTML = '<option value="">Loading models...</option>';
+    modelSelect.replaceChildren();
+    const loadingOption = document.createElement('option');
+    loadingOption.value = '';
+    loadingOption.textContent = 'Loading models...';
+    modelSelect.appendChild(loadingOption);
     try {
       const res = await fetch('/api/models');
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const { models } = await res.json();
       if (models && models.length > 0) {
-        modelSelect.innerHTML = models.map(m => {
-          const provider = m.provider ||
-            (m.id.startsWith('gemini') ? 'gemini' : m.id.startsWith('llama') ? 'groq' : '');
-          return `<option value="${m.id}" data-provider="${provider}">${m.label}</option>`;
-        }).join('');
+        setModelOptions(models);
       } else {
         throw new Error('No models available');
       }
     } catch {
-      modelSelect.innerHTML = FALLBACK_MODELS.map(m =>
-        `<option value="${m.id}" data-provider="${m.provider}">${m.label}</option>`
-      ).join('');
+      setModelOptions(FALLBACK_MODELS);
     }
     const saved = localStorage.getItem(MODEL_STORAGE_KEY);
     if (saved) {
@@ -260,11 +295,16 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
   docFileInput.addEventListener('change', () => {
     const file = docFileInput.files[0];
     if (file) {
+      const error = validateFile(file);
+      if (error) {
+        resetFileInput();
+        setError(error);
+        return;
+      }
       fileNameEl.textContent = file.name;
       dropzone.classList.add('has-file');
     } else {
-      fileNameEl.textContent = 'No file selected';
-      dropzone.classList.remove('has-file');
+      resetFileInput();
     }
   });
 
@@ -274,6 +314,13 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
     e.preventDefault();
     dropzone.classList.remove('dragover');
     if (e.dataTransfer.files.length) {
+      const file = e.dataTransfer.files[0];
+      const error = validateFile(file);
+      if (error) {
+        resetFileInput();
+        setError(error);
+        return;
+      }
       docFileInput.files = e.dataTransfer.files;
       docFileInput.dispatchEvent(new Event('change'));
     }
