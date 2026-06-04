@@ -73,11 +73,9 @@ function validateSchema(payload) {
 validateSchema({ slide1: {}, slide2: {}, slide3: {}, slide4: {}, slide5: {} });
 console.log('✓ validateSchema helper works');
 
-// ── Test 9: SCHEMA excludes caption ───────────────────────────────────────────
 assert(SCHEMA.caption === undefined, 'SCHEMA should not include caption');
 console.log('✓ SCHEMA excludes caption');
 
-// ── Test 10: normalizeOutput ignores caption from raw output ──────────────────
 const mockWithCaption = {
   slide1: {}, slide2: {}, slide3: {}, slide4: {}, slide5: {},
   caption: { TEXT: '  A great storytelling caption...  ' }

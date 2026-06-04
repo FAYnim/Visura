@@ -319,13 +319,9 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
         el.value = state.slides[slide][key];
       }
     });
-    // Populate caption from auto-fill response
-    state.caption = _lastAutoFillData.caption?.TEXT || '';
-    const captionEl = document.getElementById('caption-text');
-    if (captionEl) captionEl.value = state.caption;
     renderPreview();
     closeModal();
-    showToast(`<i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-primary);"></i> AI Auto-Fill applied to all 5 slides + caption!`);
+    showToast(`<i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-primary);"></i> AI Auto-Fill applied to all 5 slides!`);
   }
 
   btnRun.addEventListener('click', runAutoFill);
