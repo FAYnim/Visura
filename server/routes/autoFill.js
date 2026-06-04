@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import { extractPdfText, extractMarkdownText } from '../ai/textExtractors.js';
 import { autoFillFromSources, isProviderAvailable } from '../ai/autoFillService.js';
+import { generateCaptionFromSources } from '../ai/captionService.js';
 import { MODELS } from '../ai/models.js';
 
 const router = express.Router();
@@ -71,6 +72,41 @@ router.post('/auto-fill', uploadFields, async (req, res) => {
   } catch (err) {
     console.error('[auto-fill] Error:', err);
     return res.status(500).json({ error: err.message || 'Internal server error during AI extraction.' });
+  }
+});
+
+router.post('/generate-caption', uploadFields, async (req, res) => {
+  try {
+    const brief = (req.body.brief || '').trim();
+    const modelId = (req.body.model || '').trim();
+    const byokKey = (req.body.byokKey || '').trim() || null;
+    const files = req.files || {};
+
+    if (!modelId) {
+      return res.status(400).json({ error: 'Model ID is required.' });
+    }
+
+    let docText = '';
+    if (files.docFile && files.docFile[0]) {
+      const file = files.docFile[0];
+      const mime = file.mimetype || '';
+      if (mime === 'application/pdf') {
+        docText = await extractPdfText(file.buffer);
+      } else {
+        docText = extractMarkdownText(file.buffer);
+      }
+    }
+
+    if (!brief && !docText) {
+      return res.status(400).json({ error: 'Provide at least a brief or a document file.' });
+    }
+
+    const result = await generateCaptionFromSources({ brief, docText }, modelId, byokKey);
+
+    return res.json(result);
+  } catch (err) {
+    console.error('[generate-caption] Error:', err);
+    return res.status(500).json({ error: err.message || 'Internal server error during caption generation.' });
   }
 });
 
