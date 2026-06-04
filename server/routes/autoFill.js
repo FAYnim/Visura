@@ -17,14 +17,14 @@ const uploadFields = upload.fields([
   { name: 'screenshotFile', maxCount: 1 }
 ]);
 
-const CAPTION_DOCUMENT_MIMES = ['application/pdf', 'text/markdown', 'text/plain'];
-const CAPTION_DOCUMENT_EXTENSIONS = ['.md', '.markdown', '.pdf'];
+const CAPTION_MARKDOWN_MIMES = ['text/markdown', 'text/plain', 'application/octet-stream'];
 
 function isCaptionDocumentFileSupported(file) {
   const mime = file.mimetype || '';
   const name = (file.originalname || '').toLowerCase();
-  return CAPTION_DOCUMENT_MIMES.includes(mime) ||
-    CAPTION_DOCUMENT_EXTENSIONS.some(ext => name.endsWith(ext));
+  const isPdf = name.endsWith('.pdf') && mime === 'application/pdf';
+  const isMarkdown = (name.endsWith('.md') || name.endsWith('.markdown')) && CAPTION_MARKDOWN_MIMES.includes(mime);
+  return isPdf || isMarkdown;
 }
 
 router.get('/models', (_req, res) => {

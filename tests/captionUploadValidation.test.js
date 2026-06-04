@@ -12,17 +12,27 @@ assert.equal(
 
 assert.equal(
   isCaptionDocumentFileSupported({ mimetype: 'text/plain', originalname: 'brief.txt' }),
+  false
+);
+
+assert.equal(
+  isCaptionDocumentFileSupported({ mimetype: 'text/plain', originalname: 'brief.md' }),
   true
 );
 
 assert.equal(
-  isCaptionDocumentFileSupported({ mimetype: 'application/octet-stream', originalname: 'brief.markdown' }),
+  isCaptionDocumentFileSupported({ mimetype: 'text/markdown', originalname: 'brief.markdown' }),
   true
 );
 
 assert.equal(
-  isCaptionDocumentFileSupported({ mimetype: 'application/pdf', originalname: 'brief.bin' }),
+  isCaptionDocumentFileSupported({ mimetype: 'application/pdf', originalname: 'brief.pdf' }),
   true
+);
+
+assert.equal(
+  isCaptionDocumentFileSupported({ mimetype: 'application/octet-stream', originalname: 'brief.pdf' }),
+  false
 );
 
 if (!hadGeminiKey) delete process.env.GEMINI_API_KEY;
