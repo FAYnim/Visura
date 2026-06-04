@@ -17,6 +17,16 @@ const uploadFields = upload.fields([
   { name: 'screenshotFile', maxCount: 1 }
 ]);
 
+const CAPTION_DOCUMENT_MIMES = ['application/pdf', 'text/markdown', 'text/plain'];
+const CAPTION_DOCUMENT_EXTENSIONS = ['.md', '.markdown', '.pdf'];
+
+function isCaptionDocumentFileSupported(file) {
+  const mime = file.mimetype || '';
+  const name = (file.originalname || '').toLowerCase();
+  return CAPTION_DOCUMENT_MIMES.includes(mime) ||
+    CAPTION_DOCUMENT_EXTENSIONS.some(ext => name.endsWith(ext));
+}
+
 router.get('/models', (_req, res) => {
   const available = MODELS.filter(m => isProviderAvailable(m.provider));
   res.json({ models: available.map(m => ({ id: m.id, label: m.label, provider: m.provider })) });
@@ -90,6 +100,9 @@ router.post('/generate-caption', uploadFields, async (req, res) => {
     if (files.docFile && files.docFile[0]) {
       const file = files.docFile[0];
       const mime = file.mimetype || '';
+      if (!isCaptionDocumentFileSupported(file)) {
+        return res.status(400).json({ error: 'Unsupported document file. Upload a Markdown or PDF file.' });
+      }
       if (mime === 'application/pdf') {
         docText = await extractPdfText(file.buffer);
       } else {
@@ -110,4 +123,5 @@ router.post('/generate-caption', uploadFields, async (req, res) => {
   }
 });
 
+export { isCaptionDocumentFileSupported };
 export default router;
