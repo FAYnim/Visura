@@ -1563,6 +1563,64 @@ a:focus {
   font-weight: 400;
 }
 
+/* Initial prompt preview loader */
+.preview-panel.is-loading {
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  color: #a3a3a3;
+  background: #131313;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 180ms ease, visibility 180ms ease;
+  z-index: 2;
+}
+
+.preview-loader-spinner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-top-color: #ffffff;
+  animation: previewLoaderSpin 800ms linear infinite;
+}
+
+.preview-loader-text {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.preview-panel:not(.is-loading) .preview-loader {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preview-panel.is-loading .preview-output {
+  opacity: 0;
+}
+
+.preview-panel:not(.is-loading) .preview-output {
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+@keyframes previewLoaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* 6. Clean minimal scrollbars */
 .forms-column::-webkit-scrollbar,
 .preview-output::-webkit-scrollbar {
