@@ -3055,3 +3055,58 @@ a:focus {
     grid-template-columns: 1fr;
   }
 }
+
+/* Caption generation inline loading state */
+.caption-output-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 180px;
+  justify-content: center;
+}
+
+.caption-loading-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.caption-skeleton-line {
+  position: relative;
+  overflow: hidden;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.22);
+}
+
+.caption-skeleton-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.62),
+    transparent
+  );
+  animation: captionSkeletonShimmer 1.35s ease-in-out infinite;
+}
+
+.caption-skeleton-line:nth-child(1) { width: 42%; }
+.caption-skeleton-line:nth-child(2) { width: 100%; }
+.caption-skeleton-line:nth-child(3) { width: 92%; }
+.caption-skeleton-line:nth-child(4) { width: 74%; }
+
+.caption-loading-status {
+  color: var(--text-muted, #64748b);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@keyframes captionSkeletonShimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
