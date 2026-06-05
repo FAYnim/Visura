@@ -23,6 +23,7 @@ import { bindInputs, switchSlide as switchSlideBase } from './generatorBindings.
 import { addToHistory } from './generatorHistory.js';
 import { handleCopy as handleCopyBase, handleReset as handleResetBase } from './generatorClipboard.js';
 import { initAutoFill } from './autoFill.js';
+import { initCaptionGenerate } from './captionGenerate.js';
 
 'use strict';
 
@@ -117,6 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── AI Auto-Fill ──────────────────────────────────────────
   initAutoFill({
+    state: STATE,
+    renderPreview,
+    showToast,
+    escapeHtml
+  });
+
+  initCaptionGenerate({
     state: STATE,
     renderPreview,
     showToast,

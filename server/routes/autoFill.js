@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import { extractPdfText, extractMarkdownText } from '../ai/textExtractors.js';
 import { autoFillFromSources, isProviderAvailable } from '../ai/autoFillService.js';
+import { generateCaptionFromSources } from '../ai/captionService.js';
 import { MODELS } from '../ai/models.js';
 
 const router = express.Router();
@@ -15,6 +16,16 @@ const uploadFields = upload.fields([
   { name: 'docFile', maxCount: 1 },
   { name: 'screenshotFile', maxCount: 1 }
 ]);
+
+const CAPTION_MARKDOWN_MIMES = ['text/markdown', 'text/plain'];
+
+function isCaptionDocumentFileSupported(file) {
+  const mime = file.mimetype || '';
+  const name = (file.originalname || '').toLowerCase();
+  const isPdf = name.endsWith('.pdf') && mime === 'application/pdf';
+  const isMarkdown = (name.endsWith('.md') || name.endsWith('.markdown')) && CAPTION_MARKDOWN_MIMES.includes(mime);
+  return isPdf || isMarkdown;
+}
 
 router.get('/models', (_req, res) => {
   const available = MODELS.filter(m => isProviderAvailable(m.provider));
@@ -74,4 +85,43 @@ router.post('/auto-fill', uploadFields, async (req, res) => {
   }
 });
 
+router.post('/generate-caption', uploadFields, async (req, res) => {
+  try {
+    const brief = (req.body.brief || '').trim();
+    const modelId = (req.body.model || '').trim();
+    const byokKey = (req.body.byokKey || '').trim() || null;
+    const files = req.files || {};
+
+    if (!modelId) {
+      return res.status(400).json({ error: 'Model ID is required.' });
+    }
+
+    let docText = '';
+    if (files.docFile && files.docFile[0]) {
+      const file = files.docFile[0];
+      const mime = file.mimetype || '';
+      if (!isCaptionDocumentFileSupported(file)) {
+        return res.status(400).json({ error: 'Unsupported document file. Upload a Markdown or PDF file.' });
+      }
+      if (mime === 'application/pdf') {
+        docText = await extractPdfText(file.buffer);
+      } else {
+        docText = extractMarkdownText(file.buffer);
+      }
+    }
+
+    if (!brief && !docText) {
+      return res.status(400).json({ error: 'Provide at least a brief or a document file.' });
+    }
+
+    const result = await generateCaptionFromSources({ brief, docText }, modelId, byokKey);
+
+    return res.json({ caption: result.caption });
+  } catch (err) {
+    console.error('[generate-caption] Error:', err);
+    return res.status(500).json({ error: err.message || 'Internal server error during caption generation.' });
+  }
+});
+
+export { isCaptionDocumentFileSupported };
 export default router;

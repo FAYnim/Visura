@@ -107,4 +107,11 @@ function isProviderAvailable(provider, byokKey = null) {
   return false;
 }
 
-export { autoFillFromSources, getModelOrThrow, isProviderAvailable };
+export {
+  autoFillFromSources,
+  callGemini,
+  callGroq,
+  callWithRepair,
+  getModelOrThrow,
+  isProviderAvailable
+};
