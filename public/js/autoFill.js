@@ -138,7 +138,10 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     updateQuotaUI();
   }
 
-  btnOpen.addEventListener('click', openModal);
+  btnOpen.addEventListener('click', () => {
+    if (state.activeSlide === 'caption') return;
+    openModal();
+  });
   btnClose.addEventListener('click', closeModal);
   btnCancel.addEventListener('click', closeModal);
   backdrop.addEventListener('click', closeModal);

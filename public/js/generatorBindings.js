@@ -18,6 +18,15 @@ export function switchSlide({ state, renderPreview, slideNum }) {
     panel.classList.toggle('active', isActive);
   });
 
+  const autoFillBtn = document.getElementById('btn-ai-fill');
+  const isCaption = slideNum === 'caption';
+  if (autoFillBtn) {
+    autoFillBtn.setAttribute('aria-label', isCaption ? 'Open Generate Caption panel' : 'Open AI Auto-Fill panel');
+    autoFillBtn.innerHTML = isCaption
+      ? '<i class="fa-solid fa-comment-dots"></i><span>Generate Caption</span>'
+      : '<i class="fa-solid fa-wand-magic-sparkles"></i><span>AI Auto-Fill</span>';
+  }
+
   renderPreview();
 }
 

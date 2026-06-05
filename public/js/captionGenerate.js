@@ -13,7 +13,7 @@ const MODEL_STORAGE_KEY = 'visura_last_model';
 let _lastCaption = '';
 
 export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtml }) {
-  const btnOpen       = document.getElementById('btn-generate-caption');
+  const btnOpen       = document.getElementById('btn-ai-fill') || document.getElementById('btn-generate-caption');
   const modal         = document.getElementById('caption-modal');
   const backdrop      = document.getElementById('caption-backdrop');
   const btnClose      = document.getElementById('caption-close');
@@ -288,7 +288,10 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
     showToast(`<i class="fa-solid fa-comment-dots" style="color: var(--accent-primary);"></i> Caption applied!`);
   }
 
-  btnOpen.addEventListener('click', openModal);
+  btnOpen.addEventListener('click', () => {
+    if (state.activeSlide !== 'caption') return;
+    openModal();
+  });
   btnClose.addEventListener('click', closeModal);
   btnCancel.addEventListener('click', closeModal);
   backdrop.addEventListener('click', closeModal);
