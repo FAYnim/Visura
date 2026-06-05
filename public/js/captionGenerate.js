@@ -12,6 +12,14 @@ const MODEL_STORAGE_KEY = 'visura_last_model';
 
 let _lastCaption = '';
 
+const CAPTION_LOADING_MESSAGES = [
+  'Membaca slide...',
+  'Merangkai hook...',
+  'Menyiapkan caption terbaik...'
+];
+
+let captionLoadingInterval = null;
+
 export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtml }) {
   const btnOpen       = document.getElementById('btn-ai-fill') || document.getElementById('btn-generate-caption');
   const modal         = document.getElementById('caption-modal');
@@ -38,6 +46,7 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
   const resultPreview = document.getElementById('caption-result-preview');
   const errorEl       = document.getElementById('caption-error');
   const errorMsg      = document.getElementById('caption-error-msg');
+  const captionOutputEl = document.getElementById('preview-output');
 
   const FALLBACK_MODELS = [
     { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash', provider: 'gemini' },
@@ -160,6 +169,45 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
     updateQuotaUI();
   }
 
+  function stopCaptionOutputLoading() {
+    if (captionLoadingInterval) {
+      clearInterval(captionLoadingInterval);
+      captionLoadingInterval = null;
+    }
+  }
+
+  function renderCaptionOutputLoading(message) {
+    if (!captionOutputEl) return;
+
+    captionOutputEl.innerHTML = `
+      <div class="caption-output-loading" role="status" aria-live="polite">
+        <div class="caption-loading-skeleton" aria-hidden="true">
+          <div class="caption-skeleton-line"></div>
+          <div class="caption-skeleton-line"></div>
+          <div class="caption-skeleton-line"></div>
+          <div class="caption-skeleton-line"></div>
+        </div>
+        <div class="caption-loading-status">${escapeHtml(message)}</div>
+      </div>
+    `;
+  }
+
+  function startCaptionOutputLoading() {
+    stopCaptionOutputLoading();
+
+    let messageIndex = 0;
+    renderCaptionOutputLoading(CAPTION_LOADING_MESSAGES[messageIndex]);
+
+    captionLoadingInterval = setInterval(() => {
+      messageIndex = (messageIndex + 1) % CAPTION_LOADING_MESSAGES.length;
+      renderCaptionOutputLoading(CAPTION_LOADING_MESSAGES[messageIndex]);
+    }, 2200);
+  }
+
+  function clearCaptionOutput() {
+    if (captionOutputEl) captionOutputEl.innerHTML = '';
+  }
+
   function setLoading(msg = 'Writing your structured storytelling caption...') {
     progressEl.removeAttribute('hidden');
     progressMsg.textContent = msg;
@@ -173,6 +221,7 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
   }
 
   function setResult(caption) {
+    stopCaptionOutputLoading();
     progressEl.setAttribute('hidden', '');
     progressFill.style.width = '100%';
     resultEl.removeAttribute('hidden');
@@ -186,6 +235,7 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
   }
 
   function setError(msg) {
+    stopCaptionOutputLoading();
     progressEl.setAttribute('hidden', '');
     resultEl.setAttribute('hidden', '');
     errorEl.removeAttribute('hidden');
@@ -230,20 +280,9 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
       updateQuotaUI();
     }
 
-    setLoading();
-
-    const progressMessages = [
-      'Reading your project context...',
-      'Finding the story angle...',
-      'Writing your Instagram caption...',
-      'Polishing tone and structure...'
-    ];
-    let msgIdx = 0;
-    const msgInterval = setInterval(() => {
-      msgIdx = (msgIdx + 1) % progressMessages.length;
-      progressMsg.textContent = progressMessages[msgIdx];
-      progressFill.style.width = `${Math.min(90, 35 + msgIdx * 15)}%`;
-    }, 4000);
+    setLoading('Generating caption...');
+    closeModal();
+    startCaptionOutputLoading();
 
     try {
       const formData = new FormData();
@@ -260,8 +299,6 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
         body: formData
       });
 
-      clearInterval(msgInterval);
-
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
         throw new Error(errBody.error || `Request failed with status ${res.status}`);
@@ -272,9 +309,16 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
       _lastCaption = caption.trim();
       localStorage.setItem(MODEL_STORAGE_KEY, model);
       setResult(_lastCaption);
+      state.caption = _lastCaption;
+      const captionEl = document.getElementById('caption-text');
+      if (captionEl) captionEl.value = state.caption;
+      renderPreview();
+      showToast(`<i class="fa-solid fa-comment-dots" style="color: var(--accent-primary);"></i> Caption generated!`);
     } catch (err) {
-      clearInterval(msgInterval);
-      setError(err.message || 'Unknown error. Please try again.');
+      const message = err.message || 'Unknown error. Please try again.';
+      setError(message);
+      clearCaptionOutput();
+      showToast(`<i class="fa-solid fa-triangle-exclamation" style="color: var(--danger, #ef4444);"></i> ${escapeHtml(message)}`);
     }
   }
 
