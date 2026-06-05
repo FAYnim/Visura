@@ -25,6 +25,14 @@ const MODEL_STORAGE_KEY = 'visura_last_model';
 
 let _lastAutoFillData = null;
 
+const AUTOFILL_LOADING_MESSAGES = [
+  'Membaca brief...',
+  'Menyusun slide...',
+  'Menyiapkan konten terbaik...'
+];
+
+let autoFillLoadingInterval = null;
+
 export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
   const btnOpen         = document.getElementById('btn-ai-fill');
   const modal           = document.getElementById('autofill-modal');
@@ -52,6 +60,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
   const emptyListEl     = document.getElementById('autofill-empty-list');
   const errorEl         = document.getElementById('autofill-error');
   const errorMsg        = document.getElementById('autofill-error-msg');
+  const previewOutputEl = document.getElementById('preview-output');
 
   const FALLBACK_MODELS = [
     { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash', provider: 'gemini' },
@@ -172,6 +181,45 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     }
   });
 
+  function stopAutoFillOutputLoading() {
+    if (autoFillLoadingInterval) {
+      clearInterval(autoFillLoadingInterval);
+      autoFillLoadingInterval = null;
+    }
+  }
+
+  function renderAutoFillOutputLoading(message) {
+    if (!previewOutputEl) return;
+
+    previewOutputEl.innerHTML = `
+      <div class="caption-output-loading" role="status" aria-live="polite">
+        <div class="caption-loading-skeleton" aria-hidden="true">
+          <div class="caption-skeleton-line"></div>
+          <div class="caption-skeleton-line"></div>
+          <div class="caption-skeleton-line"></div>
+          <div class="caption-skeleton-line"></div>
+        </div>
+        <div class="caption-loading-status">${escapeHtml(message)}</div>
+      </div>
+    `;
+  }
+
+  function startAutoFillOutputLoading() {
+    stopAutoFillOutputLoading();
+
+    let messageIndex = 0;
+    renderAutoFillOutputLoading(AUTOFILL_LOADING_MESSAGES[messageIndex]);
+
+    autoFillLoadingInterval = setInterval(() => {
+      messageIndex = (messageIndex + 1) % AUTOFILL_LOADING_MESSAGES.length;
+      renderAutoFillOutputLoading(AUTOFILL_LOADING_MESSAGES[messageIndex]);
+    }, 2200);
+  }
+
+  function clearPreviewOutput() {
+    if (previewOutputEl) previewOutputEl.innerHTML = '';
+  }
+
   function setLoading(msg = 'Analyzing your content with AI...') {
     progressEl.removeAttribute('hidden');
     progressMsg.textContent = msg;
@@ -184,6 +232,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
   }
 
   function setResult(data, coverage, emptyFields) {
+    stopAutoFillOutputLoading();
     progressEl.setAttribute('hidden', '');
     resultEl.removeAttribute('hidden');
     errorEl.setAttribute('hidden', '');
@@ -211,6 +260,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
   }
 
   function setError(msg) {
+    stopAutoFillOutputLoading();
     progressEl.setAttribute('hidden', '');
     resultEl.setAttribute('hidden', '');
     errorEl.removeAttribute('hidden');
@@ -254,19 +304,9 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
       updateQuotaUI();
     }
 
-    setLoading();
-
-    const progressMessages = [
-      'Analyzing your content with AI...',
-      'Extracting key information...',
-      'Building slide copy...',
-      'Finalizing output...'
-    ];
-    let msgIdx = 0;
-    const msgInterval = setInterval(() => {
-      msgIdx = (msgIdx + 1) % progressMessages.length;
-      progressMsg.textContent = progressMessages[msgIdx];
-    }, 4000);
+    setLoading('Generating slide content...');
+    closeModal();
+    startAutoFillOutputLoading();
 
     try {
       const formData = new FormData();
@@ -285,8 +325,6 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
         body: formData
       });
 
-      clearInterval(msgInterval);
-
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
         throw new Error(errBody.error || `Request failed with status ${res.status}`);
@@ -297,9 +335,30 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
       localStorage.setItem(MODEL_STORAGE_KEY, model);
 
       setResult(data, coverage, emptyFields);
+      Object.keys(SLIDE_KEY_MAP).forEach(slideKey => {
+        const slideNum = SLIDE_KEY_MAP[slideKey];
+        const slideData = _lastAutoFillData[slideKey];
+        if (!slideData || !state.slides[slideNum]) return;
+        Object.keys(slideData).forEach(field => {
+          if (state.slides[slideNum][field] !== undefined) {
+            state.slides[slideNum][field] = slideData[field] || '';
+          }
+        });
+      });
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.dataset.key;
+        const slide = parseInt(el.dataset.slide);
+        if (state.slides[slide] && state.slides[slide][key] !== undefined) {
+          el.value = state.slides[slide][key];
+        }
+      });
+      renderPreview();
+      showToast(`<i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-primary);"></i> AI Auto-Fill generated!`);
     } catch (err) {
-      clearInterval(msgInterval);
-      setError(err.message || 'Unknown error. Please try again.');
+      const message = err.message || 'Unknown error. Please try again.';
+      setError(message);
+      clearPreviewOutput();
+      showToast(`<i class="fa-solid fa-triangle-exclamation" style="color: var(--danger, #ef4444);"></i> ${escapeHtml(message)}`);
     }
   }
 
