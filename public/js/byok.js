@@ -7,6 +7,9 @@
     - localStorage.byokKeys       → JSON { gemini: { iv, ct }, groq: { iv, ct } }
   ========================================================= */
 
+import { loadSettings, updateProfileWidget } from './common.js';
+import { SETTINGS_DEFAULTS } from './settingsDefaults.js';
+
 'use strict';
 
 /* ---- Storage key constants ---- */
@@ -407,6 +410,8 @@ function initInfoBanner() {
    ========================================================= */
 
 async function init() {
+  updateProfileWidget(loadSettings(SETTINGS_DEFAULTS));
+
   /* Load current status and stored key for each provider */
   for (const provider of ['gemini', 'groq']) {
     const has = hasByokKey(provider);
