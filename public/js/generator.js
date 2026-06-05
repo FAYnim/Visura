@@ -30,16 +30,38 @@ import { initCaptionGenerate } from './captionGenerate.js';
 // =========================================================
 // DOM REFERENCES
 // =========================================================
+let previewPanel;
+let previewLoader;
 let previewOutput;
 let previewTitle;
 let previewCharCount;
 let copyBtn;
 let resetBtn;
 
+function finishInitialPreviewLoading(startedAt) {
+  const minimumDurationMs = 320;
+  const elapsedMs = performance.now() - startedAt;
+  const remainingMs = Math.max(0, minimumDurationMs - elapsedMs);
+
+  window.setTimeout(() => {
+    if (previewPanel) {
+      previewPanel.classList.remove('is-loading');
+    }
+
+    if (previewLoader) {
+      previewLoader.setAttribute('aria-hidden', 'true');
+    }
+  }, remainingMs);
+}
+
 // =========================================================
 // INIT
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
+  const previewLoadingStartedAt = performance.now();
+
+  previewPanel     = document.querySelector('.preview-panel');
+  previewLoader    = document.getElementById('preview-loader');
   previewOutput    = document.getElementById('preview-output');
   previewTitle     = document.getElementById('preview-title');
   previewCharCount = document.getElementById('preview-char-count');
@@ -132,5 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Initial render
-  switchSlideBase({ state: STATE, renderPreview, slideNum: 1 });
+  try {
+    switchSlideBase({ state: STATE, renderPreview, slideNum: 1 });
+  } finally {
+    finishInitialPreviewLoading(previewLoadingStartedAt);
+  }
 });
