@@ -280,20 +280,9 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
       updateQuotaUI();
     }
 
-    setLoading();
-
-    const progressMessages = [
-      'Reading your project context...',
-      'Finding the story angle...',
-      'Writing your Instagram caption...',
-      'Polishing tone and structure...'
-    ];
-    let msgIdx = 0;
-    const msgInterval = setInterval(() => {
-      msgIdx = (msgIdx + 1) % progressMessages.length;
-      progressMsg.textContent = progressMessages[msgIdx];
-      progressFill.style.width = `${Math.min(90, 35 + msgIdx * 15)}%`;
-    }, 4000);
+    setLoading('Generating caption...');
+    closeModal();
+    startCaptionOutputLoading();
 
     try {
       const formData = new FormData();
@@ -310,8 +299,6 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
         body: formData
       });
 
-      clearInterval(msgInterval);
-
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
         throw new Error(errBody.error || `Request failed with status ${res.status}`);
@@ -322,9 +309,16 @@ export function initCaptionGenerate({ state, renderPreview, showToast, escapeHtm
       _lastCaption = caption.trim();
       localStorage.setItem(MODEL_STORAGE_KEY, model);
       setResult(_lastCaption);
+      state.caption = _lastCaption;
+      const captionEl = document.getElementById('caption-text');
+      if (captionEl) captionEl.value = state.caption;
+      renderPreview();
+      showToast(`<i class="fa-solid fa-comment-dots" style="color: var(--accent-primary);"></i> Caption generated!`);
     } catch (err) {
-      clearInterval(msgInterval);
-      setError(err.message || 'Unknown error. Please try again.');
+      const message = err.message || 'Unknown error. Please try again.';
+      setError(message);
+      clearCaptionOutput();
+      showToast(`<i class="fa-solid fa-triangle-exclamation" style="color: var(--danger, #ef4444);"></i> ${escapeHtml(message)}`);
     }
   }
 
