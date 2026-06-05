@@ -579,7 +579,11 @@
       </div>
 
       <!-- Code Editor Style Preview Panel -->
-      <div class="preview-panel" role="region" aria-label="Generated prompt preview" aria-live="polite">
+      <div class="preview-panel is-loading" role="region" aria-label="Generated prompt preview" aria-live="polite">
+        <div class="preview-loader" id="preview-loader" role="status" aria-live="polite">
+          <span class="preview-loader-spinner" aria-hidden="true"></span>
+          <span class="preview-loader-text">Loading prompt...</span>
+        </div>
         <div class="preview-output" id="preview-output" tabindex="0" aria-label="Generated prompt text" role="textbox" aria-readonly="true"></div>
       </div>
 
