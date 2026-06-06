@@ -56,9 +56,19 @@ const btnDeleteBatch    = document.getElementById('btn-delete-batch');
 const inputBatchName    = document.getElementById('input-batch-name');
 const inputBatchDesc    = document.getElementById('input-batch-desc');
 const defaultNotice     = document.getElementById('default-batch-notice');
+const batchSkeleton     = document.getElementById('batch-skeleton');
 
 // =========================================================
 // HELPERS
+// =========================================================
+function showSkeleton() {
+  batchSkeleton.hidden = false;
+  batchList.hidden = true;
+}
+function hideSkeleton() {
+  batchSkeleton.hidden = true;
+  batchList.hidden = false;
+}
 // =========================================================
 
 /** Returns the full list including the virtual default batch at front. */
@@ -326,20 +336,23 @@ function handleSaveBatch() {
 // CREATE BATCH
 // =========================================================
 function handleCreateBatch() {
-  const name = `New Batch ${STATE.batches.length + 1}`;
-  const newBatch = createPromptBatch(name, '', null);
-  STATE.batches.push(newBatch);
-  persistBatches();
-  renderBatchList();
-  selectBatch(newBatch.id);
-
-  // Focus name field
+  showSkeleton();
   setTimeout(() => {
-    inputBatchName.select();
-    inputBatchName.focus();
-  }, 50);
+    const name = `New Batch ${STATE.batches.length + 1}`;
+    const newBatch = createPromptBatch(name, '', null);
+    STATE.batches.push(newBatch);
+    persistBatches();
+    renderBatchList();
+    hideSkeleton();
+    selectBatch(newBatch.id);
 
-  showToast(`<i class="fa-solid fa-plus" style="color:var(--accent-primary);"></i> New batch created. Fill in the name and edit prompts as needed.`);
+    setTimeout(() => {
+      inputBatchName.select();
+      inputBatchName.focus();
+    }, 50);
+
+    showToast(`<i class="fa-solid fa-plus" style="color:var(--accent-primary);"></i> New batch created. Fill in the name and edit prompts as needed.`);
+  }, 200);
 }
 
 // =========================================================
@@ -352,13 +365,17 @@ function handleDuplicateBatch() {
   const source = getBatchById(id);
   if (!source) return;
 
-  const newBatch = createPromptBatch(`${source.name} (Duplicate)`, source.description, source);
-  STATE.batches.push(newBatch);
-  persistBatches();
-  renderBatchList();
-  selectBatch(newBatch.id);
+  showSkeleton();
+  setTimeout(() => {
+    const newBatch = createPromptBatch(`${source.name} (Duplicate)`, source.description, source);
+    STATE.batches.push(newBatch);
+    persistBatches();
+    renderBatchList();
+    hideSkeleton();
+    selectBatch(newBatch.id);
 
-  showToast(`<i class="fa-solid fa-copy" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(source.name)}</strong>" duplicated successfully.`);
+    showToast(`<i class="fa-solid fa-copy" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(source.name)}</strong>" duplicated successfully.`);
+  }, 200);
 }
 
 // =========================================================
@@ -368,21 +385,23 @@ function handleActivateBatch() {
   const id = STATE.selectedId;
   if (!id) return;
 
-  if (id === 'default') {
-    STATE.activeId = null; // null = use default
-  } else {
-    STATE.activeId = id;
-  }
+  showSkeleton();
+  setTimeout(() => {
+    if (id === 'default') {
+      STATE.activeId = null;
+    } else {
+      STATE.activeId = id;
+    }
 
-  persistBatches();
-  renderBatchList();
+    persistBatches();
+    renderBatchList();
+    hideSkeleton();
+    selectBatch(id);
 
-  // Refresh activate button
-  selectBatch(id);
-
-  const batch = getBatchById(id);
-  const batchName = batch ? batch.name : id;
-  showToast(`<i class="fa-solid fa-circle-check" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(batchName)}</strong>" set as active for the generator.`);
+    const batch = getBatchById(id);
+    const batchName = batch ? batch.name : id;
+    showToast(`<i class="fa-solid fa-circle-check" style="color:var(--accent-primary);"></i> Batch "<strong>${escapeHtml(batchName)}</strong>" set as active for the generator.`);
+  }, 200);
 }
 
 // =========================================================
@@ -397,6 +416,8 @@ function handleDeleteBatch() {
 
   if (!confirm(`Are you sure you want to delete batch "${batch.name}"? This action cannot be undone.`)) return;
 
+  showSkeleton();
+
   // If deleted batch was active, reset to default
   if (STATE.activeId === id) STATE.activeId = null;
 
@@ -404,13 +425,16 @@ function handleDeleteBatch() {
   STATE.selectedId = null;
 
   persistBatches();
-  renderBatchList();
 
-  // Hide editor
-  editorNoSelection.hidden = false;
-  editorContent.hidden = true;
+  setTimeout(() => {
+    renderBatchList();
+    hideSkeleton();
 
-  showToast(`<i class="fa-regular fa-trash-can" style="color:var(--text-muted);"></i> Batch deleted.`);
+    editorNoSelection.hidden = false;
+    editorContent.hidden = true;
+
+    showToast(`<i class="fa-regular fa-trash-can" style="color:var(--text-muted);"></i> Batch deleted.`);
+  }, 200);
 }
 
 
@@ -437,8 +461,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Init sidebar
   initSidebar();
 
-  // Render list
-  renderBatchList();
+  // Render list with skeleton delay
+  setTimeout(() => {
+    renderBatchList();
+    hideSkeleton();
+  }, 300);
 
   // Wire buttons
   btnCreateBatch.addEventListener('click', handleCreateBatch);
