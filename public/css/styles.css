@@ -912,6 +912,61 @@ a:focus {
   padding-bottom: 40px;
 }
 
+.history-skeleton-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.history-skeleton-line {
+  display: block;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.14) 42%,
+    rgba(255, 255, 255, 0.06) 84%
+  );
+  background-size: 220% 100%;
+  animation: history-skeleton-shimmer 1.15s ease-in-out infinite;
+}
+
+.history-skeleton-title {
+  width: 46%;
+  height: 14px;
+  margin-bottom: 4px;
+}
+
+.history-skeleton-text {
+  width: 100%;
+}
+
+.history-skeleton-text-short {
+  width: 74%;
+}
+
+.history-skeleton-footer {
+  width: 34%;
+  height: 10px;
+  margin-top: 8px;
+}
+
+@keyframes history-skeleton-shimmer {
+  0% {
+    background-position: 120% 0;
+  }
+  100% {
+    background-position: -120% 0;
+  }
+}
+
 /* History Card Component */
 .history-card {
   background: var(--bg-card);
