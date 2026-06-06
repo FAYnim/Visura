@@ -1865,6 +1865,31 @@ a:focus {
   text-overflow: ellipsis;
 }
 
+.profile-name-loading {
+  display: inline-block;
+  width: 92px;
+  height: 13px;
+  border-radius: 999px;
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.16) 42%,
+    rgba(255, 255, 255, 0.08) 84%
+  );
+  background-size: 220% 100%;
+  animation: profile-name-shimmer 1.15s ease-in-out infinite;
+}
+
+@keyframes profile-name-shimmer {
+  0% {
+    background-position: 120% 0;
+  }
+  100% {
+    background-position: -120% 0;
+  }
+}
+
 .profile-title {
   font-size: 9.5px;
   color: var(--text-muted);

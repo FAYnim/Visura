@@ -121,6 +121,7 @@ export function updateProfileWidget(settings) {
 
   if (profileNameEl) {
     profileNameEl.textContent = settings.CREATOR_NAME?.trim() || 'John Doe';
+    profileNameEl.classList.remove('profile-name-loading');
   }
   if (profileTitleEl) {
     profileTitleEl.textContent = settings.CREATOR_ROLE?.trim() || 'Settings';
