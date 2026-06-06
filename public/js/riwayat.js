@@ -56,6 +56,8 @@ function renderHistory(searchQuery = '') {
   const historyListContainer = document.getElementById('history-list');
   if (!historyListContainer) return;
 
+  historyListContainer.removeAttribute('aria-busy');
+
   const query = searchQuery.trim().toLowerCase();
 
   const filtered = history.filter(item => {
@@ -239,6 +241,13 @@ function clearHistorySearch() {
 }
 
 // =========================================================
+// INITIAL RENDER DELAY
+// =========================================================
+function renderInitialHistory() {
+  setTimeout(() => renderHistory(), 300);
+}
+
+// =========================================================
 // INIT
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -265,5 +274,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initial render
-  renderHistory();
+  renderInitialHistory();
 });
