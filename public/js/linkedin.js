@@ -37,10 +37,6 @@ function showToast(message) {
   toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2400);
 }
 
-function setStatus(message, type = '') {
-  els.status.textContent = message;
-  els.status.className = `linkedin-status${type ? ` ${type}` : ''}`;
-}
 
 function setGeneratedState(enabled) {
   els.copyBtn.disabled = !enabled;
@@ -74,7 +70,7 @@ async function loadModels() {
     if (!Array.isArray(models) || !models.length) throw new Error('No models available');
     setModelOptions(models);
   } catch (err) {
-    setStatus(err.message || 'Failed to load models.', 'error');
+
   } finally {
     els.model.disabled = false;
   }
@@ -114,7 +110,7 @@ async function loadStyles() {
     renderStyles();
   } catch (err) {
     els.styleStatus.textContent = 'Failed to load styles';
-    setStatus(err.message || 'Failed to load LinkedIn styles.', 'error');
+
   }
 }
 
@@ -131,12 +127,12 @@ function validateFile(file) {
   const name = file.name.toLowerCase();
   const hasAllowedExtension = ALLOWED_FILE_EXTENSIONS.some(extension => name.endsWith(extension));
   if (!hasAllowedExtension) {
-    setStatus('Unsupported file. Upload .md, .markdown, or .pdf only.', 'error');
+
     els.output.textContent = 'Unsupported file. Upload .md, .markdown, or .pdf only.';
     return false;
   }
   if (file.size > MAX_FILE_SIZE) {
-    setStatus('File too large. Upload a document 10 MB or smaller.', 'error');
+
     els.output.textContent = 'File too large. Upload a document 10 MB or smaller.';
     return false;
   }
@@ -146,18 +142,18 @@ function validateFile(file) {
 function validateInput() {
   const file = els.docFile.files[0];
   if (!els.brief.value.trim() && !file) {
-    setStatus('Add a brief or upload a Markdown/PDF file.', 'error');
+
     return false;
   }
   if (!validateFile(file)) {
     return false;
   }
   if (!selectedStyleId) {
-    setStatus('Choose a LinkedIn style.', 'error');
+
     return false;
   }
   if (!els.model.value) {
-    setStatus('Choose a model.', 'error');
+
     return false;
   }
   return true;
@@ -169,7 +165,7 @@ async function generatePost() {
   generatedPost = '';
   generatedMeta = null;
   setGeneratedState(false);
-  setStatus('Generating LinkedIn post...', 'loading');
+
   els.output.textContent = 'Generating...';
   els.generateBtn.disabled = true;
 
@@ -203,11 +199,11 @@ async function generatePost() {
 
     els.output.textContent = generatedPost || 'No post returned.';
     setGeneratedState(Boolean(generatedPost));
-    setStatus('Generated successfully.', 'success');
+
   } catch (err) {
     const message = err.message || 'Failed to generate post.';
     els.output.textContent = message;
-    setStatus(message, 'error');
+
   } finally {
     els.generateBtn.disabled = false;
   }
