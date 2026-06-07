@@ -45,6 +45,22 @@ function isLinkedinLanguageSupported(language) {
   return SUPPORTED_LINKEDIN_LANGUAGES.includes(language);
 }
 
+function validateLinkedinGenerateRequest({ brief = '', docText = '', styleId = '', language = '', modelId = '' } = {}) {
+  if (!modelId || !MODELS.some(model => model.id === modelId)) {
+    return 'Valid model ID is required.';
+  }
+  if (!styleId || !listLinkedinTemplates().some(style => style.id === styleId)) {
+    return 'Valid LinkedIn style is required.';
+  }
+  if (!isLinkedinLanguageSupported(language)) {
+    return 'Unsupported language. Choose Indonesia or English.';
+  }
+  if (!brief && !docText) {
+    return 'Provide at least a brief or a document file.';
+  }
+  return '';
+}
+
 router.get('/linkedin/styles', (_req, res) => {
   res.json({ styles: listLinkedinTemplates() });
 });
@@ -58,16 +74,9 @@ router.post('/linkedin/generate', handleLinkedinUpload, async (req, res) => {
     const byokKey = (req.body.byokKey || '').trim() || null;
     const files = req.files || {};
 
-    if (!modelId || !MODELS.some(model => model.id === modelId)) {
-      return res.status(400).json({ error: 'Valid model ID is required.' });
-    }
-
-    if (!styleId || !listLinkedinTemplates().some(style => style.id === styleId)) {
-      return res.status(400).json({ error: 'Valid LinkedIn style is required.' });
-    }
-
-    if (!isLinkedinLanguageSupported(language)) {
-      return res.status(400).json({ error: 'Unsupported language. Choose Indonesia or English.' });
+    const fieldError = validateLinkedinGenerateRequest({ brief: 'pending', docText: '', styleId, language, modelId });
+    if (fieldError) {
+      return res.status(400).json({ error: fieldError });
     }
 
     let docText = '';
@@ -104,5 +113,5 @@ router.post('/linkedin/generate', handleLinkedinUpload, async (req, res) => {
   }
 });
 
-export { isLinkedinDocumentFileSupported, isLinkedinLanguageSupported };
+export { isLinkedinDocumentFileSupported, isLinkedinLanguageSupported, validateLinkedinGenerateRequest };
 export default router;

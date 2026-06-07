@@ -1,12 +1,9 @@
 import { getDecryptedByokKey } from './byok.js';
+import { copyLinkedinPost, createLinkedinHistoryEntry, prependLinkedinHistory } from './linkedinActions.js';
 
 const HISTORY_KEY = 'linkedinPostHistory';
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_FILE_EXTENSIONS = ['.md', '.markdown', '.pdf'];
-const FALLBACK_MODELS = [
-  { id: 'gemini-1.5-flash', label: 'Gemini 1.5 Flash', provider: 'gemini' },
-  { id: 'llama-3.1-8b-instant', label: 'Llama 3.1 8B Instant', provider: 'groq' }
-];
 
 const els = {
   brief: document.getElementById('brief'),
@@ -69,13 +66,13 @@ function setModelOptions(models) {
 async function loadModels() {
   els.model.disabled = true;
   try {
-    const res = await fetch('/api/models');
+    const res = await fetch('/api/models?includeUnavailable=1');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const { models } = await res.json();
     if (!Array.isArray(models) || !models.length) throw new Error('No models available');
     setModelOptions(models);
-  } catch {
-    setModelOptions(FALLBACK_MODELS);
+  } catch (err) {
+    setStatus(err.message || 'Failed to load models.', 'error');
   } finally {
     els.model.disabled = false;
   }
@@ -206,18 +203,19 @@ async function generatePost() {
     setGeneratedState(Boolean(generatedPost));
     setStatus('Generated successfully.', 'success');
   } catch (err) {
-    els.output.textContent = 'Generation failed.';
-    setStatus(err.message || 'Failed to generate post.', 'error');
+    const message = err.message || 'Failed to generate post.';
+    els.output.textContent = message;
+    setStatus(message, 'error');
   } finally {
     els.generateBtn.disabled = false;
   }
 }
 
 async function copyPost() {
-  if (!generatedPost) return;
   try {
-    await navigator.clipboard.writeText(generatedPost);
-    showToast('Copied to clipboard');
+    if (await copyLinkedinPost({ post: generatedPost })) {
+      showToast('Copied to clipboard');
+    }
   } catch {
     showToast('Copy failed. Select and copy manually.');
   }
@@ -232,13 +230,8 @@ function saveHistory() {
     } catch {
       history = [];
     }
-    history.unshift({
-      id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-      timestamp: new Date().toISOString(),
-      post: generatedPost,
-      ...generatedMeta
-    });
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 50)));
+    const entry = createLinkedinHistoryEntry({ post: generatedPost, meta: generatedMeta });
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(prependLinkedinHistory(history, entry)));
     showToast('Saved to history');
   } catch {
     showToast('Save failed. Browser storage unavailable.');
