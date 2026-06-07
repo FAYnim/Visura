@@ -52,10 +52,15 @@ async function generateLinkedinPostFromSources({
   const projectInfo = combineProjectInfo({ brief, docText });
   const template = loadLinkedinTemplate(styleId);
   const { systemPrompt, userPrompt } = buildLinkedinPrompt({ template, projectInfo, language });
-  const model = getModelOrThrow(modelId, byokKey);
+  const model = getModelOrThrow(modelId, byokKey || 'linkedin-key-check');
   const envKey = model.provider === 'gemini' ? process.env.GEMINI_API_KEY : process.env.GROQ_API_KEY;
-  const apiKey = byokKey || envKey || '';
-  const raw = await aiCaller({ systemPrompt, userPrompt, model, apiKey });
+  const effectiveKey = byokKey || envKey;
+
+  if (!effectiveKey) {
+    throw new Error(`No API key available for ${model.provider}. Configure it in Settings → API Keys or set the ENV variable.`);
+  }
+
+  const raw = await aiCaller({ systemPrompt, userPrompt, model, apiKey: effectiveKey });
   const { post } = normalizeLinkedinOutput(raw);
 
   return {

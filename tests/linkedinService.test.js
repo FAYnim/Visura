@@ -63,4 +63,33 @@ await assert.rejects(
   /Project information is required/
 );
 
+const originalGeminiKey = process.env.GEMINI_API_KEY;
+let missingKeyAiCallerCalled = false;
+try {
+  delete process.env.GEMINI_API_KEY;
+
+  await assert.rejects(
+    () => generateLinkedinPostFromSources({
+      brief: 'Valid brief',
+      docText: '',
+      styleId: 'builder-story',
+      language: 'Indonesia',
+      modelId: 'gemini-2.5-flash',
+      aiCaller: async () => {
+        missingKeyAiCallerCalled = true;
+        return { post: 'Should not run' };
+      }
+    }),
+    /No API key available/
+  );
+
+  assert.equal(missingKeyAiCallerCalled, false);
+} finally {
+  if (originalGeminiKey === undefined) {
+    delete process.env.GEMINI_API_KEY;
+  } else {
+    process.env.GEMINI_API_KEY = originalGeminiKey;
+  }
+}
+
 console.log('\n✅ LinkedIn service tests passed!');
