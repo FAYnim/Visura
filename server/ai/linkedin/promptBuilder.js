@@ -26,11 +26,11 @@ function buildLinkedinPrompt({ template, projectInfo, language }) {
 
   const systemPrompt = `You are an expert LinkedIn content strategist.
 
-Return ONLY valid JSON exactly matching this shape: { "post": "" }
+Return ONLY valid JSON following the output format specified in the template below.
 
 Rules:
 1. Write one final post only.
-2. Preserve line breaks when they improve readability.
+2. Preserve line breaks when they improve readability (use escaped \\n).
 3. Make the post clear, credible, and suitable for LinkedIn.
 4. Use only the provided project information; make no unsupported claims.
 5. Do not include markdown fences, explanations, alternatives, or extra JSON keys.`;

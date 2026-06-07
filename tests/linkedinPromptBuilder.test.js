@@ -21,8 +21,8 @@ const { systemPrompt, userPrompt } = buildLinkedinPrompt({
 });
 
 assert.match(systemPrompt, /expert LinkedIn content strategist/);
-assert.match(systemPrompt, /\{ "post": "" \}/);
 assert.match(systemPrompt, /Return ONLY valid JSON/);
+assert.match(systemPrompt, /output format specified in the template/);
 assert.match(systemPrompt, /one final post/i);
 assert.match(systemPrompt, /preserve line breaks/i);
 assert.match(systemPrompt, /no unsupported claims/i);

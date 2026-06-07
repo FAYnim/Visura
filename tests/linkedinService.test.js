@@ -35,8 +35,8 @@ assert.deepEqual(result, {
   post: 'Hari ini kami membangun Visura.\nDari dokumen jadi cerita produk.',
   style: {
     id: 'builder-story',
-    name: 'Builder Story',
-    description: 'Personal build journey with clear project context and outcome.'
+    name: 'Build in Public',
+    description: 'Transparent build progress, milestones, challenges, and future plans.'
   },
   language: 'Indonesia'
 });
