@@ -34,7 +34,7 @@ Showcasing digital products and design portfolios on Instagram is highly effecti
 
 - **Marketing Landing Page:** `http://localhost:3000/`
 - **Prompt Generator:** `http://localhost:3000/app`
-- **History:** `http://localhost:3000/riwayat`
+- **History:** `http://localhost:3000/history`
 - **Settings:** `http://localhost:3000/settings`
 - **Prompt Manager:** `http://localhost:3000/prompts`
 - **BYOK (API Keys):** `http://localhost:3000/byok`
@@ -144,7 +144,7 @@ npm test
     ├── index.html            # Marketing Landing Page (story-led layout)
     ├── app.html              # Core Slide Generator Page (moved from index.html)
     ├── prompts.html          # Batch Prompt Manager & Template Editor
-    ├── riwayat.html          # Copy History Viewer
+    ├── history.html          # Copy History Viewer
     ├── settings.html         # Global Creator Settings (Name & Role)
     ├── byok.html             # BYOK (API Keys) management page
     ├── css/
@@ -163,7 +163,7 @@ npm test
     │   ├── promptStore.js        # Default presets + placeholder validations
     │   ├── prompts.js            # Batch prompt manager UI
     │   ├── settingsDefaults.js   # Shared defaults creator info
-    │   ├── riwayat.js            # History management & search engine
+    │   ├── history.js            # History management & search engine
     │   ├── settings.js           # Creator profile form management logic
     │   └── byok.js                # BYOK encryption + localStorage helpers
     └── img/

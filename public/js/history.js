@@ -1,5 +1,5 @@
 /* =========================================================
-   Visura — History Page Logic (riwayat.js)
+   Visura — History Page Logic (history.js)
    ========================================================= */
 
 import {

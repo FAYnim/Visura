@@ -47,7 +47,7 @@ The frontend consists of the new `/byok` settings view and integration inside th
 
 - **Routing & Views**: 
   - Backend serves `/byok` route mapping to [public/byok.html](file:///c:/xampp/htdocs/faydev/visura/public/byok.html) in [server.js](file:///c:/xampp/htdocs/faydev/visura/server.js#L46-L48).
-  - Navigation links in the sidebar are configured in [public/byok.html](file:///c:/xampp/htdocs/faydev/visura/public/byok.html#L48-L50), [public/app.html](file:///c:/xampp/htdocs/faydev/visura/public/app.html), [public/prompts.html](file:///c:/xampp/htdocs/faydev/visura/public/prompts.html), [public/riwayat.html](file:///c:/xampp/htdocs/faydev/visura/public/riwayat.html), and [public/settings.html](file:///c:/xampp/htdocs/faydev/visura/public/settings.html).
+  - Navigation links in the sidebar are configured in [public/byok.html](file:///c:/xampp/htdocs/faydev/visura/public/byok.html#L48-L50), [public/app.html](file:///c:/xampp/htdocs/faydev/visura/public/app.html), [public/prompts.html](file:///c:/xampp/htdocs/faydev/visura/public/prompts.html), [public/history.html](file:///c:/xampp/htdocs/faydev/visura/public/history.html), and [public/settings.html](file:///c:/xampp/htdocs/faydev/visura/public/settings.html).
 - **Initialization (`init` in [public/js/byok.js](file:///c:/xampp/htdocs/faydev/visura/public/js/byok.js#L394-L444))**:
   - Automatically checks `localStorage` for Gemini and Groq payloads via `hasByokKey()`.
   - Updates card styling and status badges dynamically using `updateStatusBadge()`.

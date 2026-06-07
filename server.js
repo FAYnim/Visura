@@ -31,8 +31,8 @@ app.get('/app', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'app.html'));
 });
 
-app.get('/riwayat', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'riwayat.html'));
+app.get('/history', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'history.html'));
 });
 
 app.get('/settings', (req, res) => {
