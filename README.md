@@ -96,7 +96,7 @@ Next, open `http://localhost:3000` in your web browser.
 
 ### Running Tests
 
-This application includes a schema validation test suite to verify the output data formats returned by the AI Auto-Fill engine. You can execute these tests via:
+This application includes automated test suites covering AI output schema validation, model selection, upload validation, LinkedIn template loading, prompt building, generation service, and route handling. Execute via:
 
 ```bash
 npm test
@@ -122,7 +122,7 @@ For the **LinkedIn Post Generator** at `/linkedin`:
 1. Paste a project brief, and/or upload Markdown/PDF documentation (≤ 10 MB).
 2. Select a post style, language, and AI model.
 3. Click **Generate LinkedIn Post** and review the result.
-4. Click **Copy** or **Save** to store it in **History**.
+4. Click **Copy** to save the post to your clipboard.
 
 > [!TIP]
 > Use **History** as a prompt library for iterating on different visual styles of your carousel projects.
@@ -149,10 +149,13 @@ For the **LinkedIn Post Generator** at `/linkedin`:
 ├── tests/
 │   ├── autoFillSchema.test.js  # Minimal validation schema test (run via `npm test`)
 │   ├── autoFillFallback.test.js # Model selection unit tests
-│   ├── linkedinTemplateLoader.test.js # LinkedIn template loading tests
-│   ├── linkedinPromptBuilder.test.js  # LinkedIn prompt builder tests
-│   ├── linkedinService.test.js        # LinkedIn service tests
-│   └── linkedinUploadValidation.test.js # LinkedIn upload validation tests
+    │   ├── linkedinTemplateLoader.test.js   # LinkedIn template loading tests
+    │   ├── linkedinPromptBuilder.test.js    # LinkedIn prompt builder tests
+    │   ├── linkedinService.test.js          # LinkedIn service tests
+    │   ├── linkedinUploadValidation.test.js # LinkedIn upload validation tests
+    │   ├── linkedinRouteValidation.test.js  # LinkedIn API route validation tests
+    │   ├── linkedinActions.test.js          # LinkedIn copy/history action tests
+    │   └── modelsRoute.test.js              # Model route helper tests
 └── public/
     ├── index.html            # Marketing Landing Page (story-led layout)
     ├── app.html              # Core Slide Generator Page (moved from index.html)
@@ -175,6 +178,7 @@ For the **LinkedIn Post Generator** at `/linkedin`:
     │   ├── generatorState.js     # Runtime state & default presets
     │   ├── generatorTemplates.js # Prompt template compiler
     │   ├── linkedin.js           # LinkedIn Post Generator UI flows
+    │   ├── linkedinActions.js    # LinkedIn clipboard & history helpers
     │   ├── promptStore.js        # Default presets + placeholder validations
     │   ├── prompts.js            # Batch prompt manager UI
     │   ├── settingsDefaults.js   # Shared defaults creator info
