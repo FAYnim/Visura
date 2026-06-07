@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visura — LinkedIn Post Generator</title>
+  <meta name="description" content="Generate premium LinkedIn posts from briefs, Markdown, and PDF documents." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/logo/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/logo/favicon-16x16.png" />
+  <link rel="icon" href="/img/logo/favicon.ico" />
+  <link rel="manifest" href="/img/logo/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body class="linkedin-page">
+  <header class="linkedin-header">
+    <div class="linkedin-brand">
+      <img src="/img/logo/android-chrome-192x192.png" alt="Visura Logo" class="brand-logo" />
+      <div>
+        <p class="linkedin-kicker">Visura</p>
+        <h1>LinkedIn Post Generator</h1>
+      </div>
+    </div>
+    <a href="/app" class="linkedin-back-link">Back to /app</a>
+  </header>
+
+  <main class="linkedin-main">
+    <section class="linkedin-top-grid" aria-label="LinkedIn generator controls">
+      <article class="linkedin-card linkedin-input-card">
+        <div class="linkedin-card-head">
+          <p class="linkedin-section-label">Source</p>
+          <h2>Project Material</h2>
+        </div>
+        <label class="linkedin-upload-zone" for="doc-file" id="upload-zone">
+          <input id="doc-file" type="file" accept=".md,.markdown,.pdf,text/markdown,text/plain,application/pdf" />
+          <span class="linkedin-upload-title" id="upload-label">Upload MD/PDF</span>
+          <span class="linkedin-upload-hint">Optional document source, max 10 MB</span>
+        </label>
+        <label class="linkedin-field" for="brief">
+          <span>Brief</span>
+          <textarea id="brief" rows="12" placeholder="Describe project context, product features, audience, result, launch story, or key points..."></textarea>
+        </label>
+      </article>
+
+      <article class="linkedin-card linkedin-control-card">
+        <div class="linkedin-card-head">
+          <p class="linkedin-section-label">Generation</p>
+          <h2>Post Settings</h2>
+        </div>
+        <div class="linkedin-form-row">
+          <label class="linkedin-field" for="language">
+            <span>Language</span>
+            <select id="language">
+              <option value="Indonesia">Indonesia</option>
+              <option value="English">English</option>
+            </select>
+          </label>
+          <label class="linkedin-field" for="model">
+            <span>Model</span>
+            <select id="model">
+              <option value="">Loading models...</option>
+            </select>
+          </label>
+        </div>
+        <div class="linkedin-style-head">
+          <span>Style</span>
+          <small id="style-status">Loading styles...</small>
+        </div>
+        <div class="linkedin-style-grid" id="style-grid" aria-live="polite"></div>
+        <button class="btn btn-primary linkedin-generate-btn" id="generate-btn" type="button">Generate Post</button>
+        <p class="linkedin-status" id="status" role="status" aria-live="polite"></p>
+      </article>
+    </section>
+
+    <section class="linkedin-card linkedin-output-card" aria-label="Generated LinkedIn post">
+      <div class="linkedin-output-head">
+        <div>
+          <p class="linkedin-section-label">Output</p>
+          <h2>Generated Post</h2>
+        </div>
+        <div class="linkedin-output-actions">
+          <button class="btn btn-secondary" id="copy-btn" type="button" disabled>Copy</button>
+          <button class="btn btn-secondary" id="save-btn" type="button" disabled>Save History</button>
+        </div>
+      </div>
+      <pre class="linkedin-output" id="output">Your LinkedIn post will appear here.</pre>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/js/linkedin.js"></script>
+</body>
+</html>
