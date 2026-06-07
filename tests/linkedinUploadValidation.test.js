@@ -3,7 +3,10 @@ import assert from 'node:assert/strict';
 const hadGeminiKey = !!process.env.GEMINI_API_KEY;
 if (!hadGeminiKey) process.env.GEMINI_API_KEY = 'test-key-for-test';
 
-const { isLinkedinDocumentFileSupported } = await import('../server/routes/linkedin.js');
+const {
+  isLinkedinDocumentFileSupported,
+  isLinkedinLanguageSupported
+} = await import('../server/routes/linkedin.js');
 
 assert.equal(
   isLinkedinDocumentFileSupported({ mimetype: 'application/octet-stream', originalname: 'payload.exe' }),
@@ -34,6 +37,11 @@ assert.equal(
   isLinkedinDocumentFileSupported({ mimetype: 'application/octet-stream', originalname: 'brief.pdf' }),
   false
 );
+
+assert.equal(isLinkedinLanguageSupported('Indonesia'), true);
+assert.equal(isLinkedinLanguageSupported('English'), true);
+assert.equal(isLinkedinLanguageSupported('Spanish'), false);
+assert.equal(isLinkedinLanguageSupported(''), false);
 
 if (!hadGeminiKey) delete process.env.GEMINI_API_KEY;
 

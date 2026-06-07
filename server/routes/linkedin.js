@@ -3,6 +3,7 @@ import multer from 'multer';
 import { extractPdfText, extractMarkdownText } from '../ai/textExtractors.js';
 import { MODELS } from '../ai/models.js';
 import { generateLinkedinPostFromSources } from '../ai/linkedin/service.js';
+import { SUPPORTED_LINKEDIN_LANGUAGES } from '../ai/linkedin/promptBuilder.js';
 import { listLinkedinTemplates } from '../ai/linkedin/templateLoader.js';
 
 const router = express.Router();
@@ -16,6 +17,20 @@ const uploadFields = upload.fields([
   { name: 'docFile', maxCount: 1 }
 ]);
 
+function handleLinkedinUpload(req, res, next) {
+  uploadFields(req, res, err => {
+    if (!err) {
+      return next();
+    }
+
+    if (err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({ error: 'Document file must be 10 MB or smaller.' });
+    }
+
+    return res.status(400).json({ error: err.message || 'Invalid upload.' });
+  });
+}
+
 const LINKEDIN_MARKDOWN_MIMES = ['text/markdown', 'text/plain'];
 
 function isLinkedinDocumentFileSupported(file) {
@@ -26,11 +41,15 @@ function isLinkedinDocumentFileSupported(file) {
   return isPdf || isMarkdown;
 }
 
+function isLinkedinLanguageSupported(language) {
+  return SUPPORTED_LINKEDIN_LANGUAGES.includes(language);
+}
+
 router.get('/linkedin/styles', (_req, res) => {
   res.json({ styles: listLinkedinTemplates() });
 });
 
-router.post('/linkedin/generate', uploadFields, async (req, res) => {
+router.post('/linkedin/generate', handleLinkedinUpload, async (req, res) => {
   try {
     const brief = (req.body.brief || '').trim();
     const styleId = (req.body.styleId || '').trim();
@@ -47,8 +66,8 @@ router.post('/linkedin/generate', uploadFields, async (req, res) => {
       return res.status(400).json({ error: 'Valid LinkedIn style is required.' });
     }
 
-    if (!language) {
-      return res.status(400).json({ error: 'Language is required.' });
+    if (!isLinkedinLanguageSupported(language)) {
+      return res.status(400).json({ error: 'Unsupported language. Choose Indonesia or English.' });
     }
 
     let docText = '';
@@ -85,5 +104,5 @@ router.post('/linkedin/generate', uploadFields, async (req, res) => {
   }
 });
 
-export { isLinkedinDocumentFileSupported };
+export { isLinkedinDocumentFileSupported, isLinkedinLanguageSupported };
 export default router;
