@@ -24,6 +24,7 @@ Showcasing digital products and design portfolios on Instagram is highly effecti
 
 - **5-Slide Generator** with distinct prompt templates for the Cover, Overview, Features Grid, Showcase, and Outro slides.
 - **AI Auto-Fill** — automatically populate all fields from a text brief or Markdown/PDF documentation file using a choice of LLMs (Gemini or Groq).
+- **LinkedIn Post Generator** — generate one LinkedIn-ready post from pasted project info or Markdown/PDF documentation using selectable post styles and language.
 - **Live Preview** with syntax highlighting comparing placeholders and filled values.
 - **One-Click Copy** to clipboard with sleek toast feedback.
 - **Prompt History** saved locally with quick search capabilities.
@@ -34,6 +35,7 @@ Showcasing digital products and design portfolios on Instagram is highly effecti
 
 - **Marketing Landing Page:** `http://localhost:3000/`
 - **Prompt Generator:** `http://localhost:3000/app`
+- **LinkedIn Post Generator:** `http://localhost:3000/linkedin`
 - **History:** `http://localhost:3000/history`
 - **Settings:** `http://localhost:3000/settings`
 - **Prompt Manager:** `http://localhost:3000/prompts`
