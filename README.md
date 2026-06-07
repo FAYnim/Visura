@@ -117,6 +117,13 @@ npm test
 6. Open **History** to manage previously copied prompts.
 7. Configure your creator name and role under **Settings**.
 
+For the **LinkedIn Post Generator** at `/linkedin`:
+
+1. Paste a project brief, and/or upload Markdown/PDF documentation (≤ 10 MB).
+2. Select a post style, language, and AI model.
+3. Click **Generate LinkedIn Post** and review the result.
+4. Click **Copy** or **Save** to store it in **History**.
+
 > [!TIP]
 > Use **History** as a prompt library for iterating on different visual styles of your carousel projects.
 
@@ -130,8 +137,10 @@ npm test
 ├── server.js                 # Express entry point (initializes HTTP server)
 ├── server/
 │   ├── routes/
-│   │   └── autoFill.js       # Express route handler for POST /api/auto-fill
+│   │   ├── autoFill.js       # Express route handler for POST /api/auto-fill
+│   │   └── linkedin.js       # Express route handler for POST /api/linkedin/generate
 │   └── ai/
+│       ├── linkedin/         # LinkedIn prompt templates, loader, builder, and service
 │       ├── autoFillService.js # Model-based LLM caller (Gemini / Groq)
 │       ├── models.js          # Model registry config
 │       ├── promptBuilder.js   # System/user prompt generator & parsing schema
@@ -140,11 +149,14 @@ npm test
 ├── tests/
 │   ├── autoFillSchema.test.js  # Minimal validation schema test (run via `npm test`)
 │   ├── autoFillFallback.test.js # Model selection unit tests
-│   ├── byokCrypto.test.js       # BYOK encryption + prefix validation tests
-│   └── byokAutoFillFallback.test.js # BYOK override tests
+│   ├── linkedinTemplateLoader.test.js # LinkedIn template loading tests
+│   ├── linkedinPromptBuilder.test.js  # LinkedIn prompt builder tests
+│   ├── linkedinService.test.js        # LinkedIn service tests
+│   └── linkedinUploadValidation.test.js # LinkedIn upload validation tests
 └── public/
     ├── index.html            # Marketing Landing Page (story-led layout)
     ├── app.html              # Core Slide Generator Page (moved from index.html)
+    ├── linkedin.html         # LinkedIn Post Generator Page
     ├── prompts.html          # Batch Prompt Manager & Template Editor
     ├── history.html          # Copy History Viewer
     ├── settings.html         # Global Creator Settings (Name & Role)
@@ -162,6 +174,7 @@ npm test
     │   ├── generatorRender.js    # Preview rendering & counters
     │   ├── generatorState.js     # Runtime state & default presets
     │   ├── generatorTemplates.js # Prompt template compiler
+    │   ├── linkedin.js           # LinkedIn Post Generator UI flows
     │   ├── promptStore.js        # Default presets + placeholder validations
     │   ├── prompts.js            # Batch prompt manager UI
     │   ├── settingsDefaults.js   # Shared defaults creator info
