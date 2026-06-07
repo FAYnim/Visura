@@ -8,20 +8,16 @@ const __dirname = path.dirname(__filename);
 const templatesDir = path.join(__dirname, 'templates');
 
 function parseFrontmatter(content) {
-  if (!content.startsWith('---\n')) {
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+
+  if (!match) {
     throw new Error('Template frontmatter is required');
   }
 
-  const endIndex = content.indexOf('\n---\n', 4);
-  if (endIndex === -1) {
-    throw new Error('Template frontmatter is required');
-  }
-
-  const frontmatter = content.slice(4, endIndex);
-  const body = content.slice(endIndex + 5).trim();
+  const [, frontmatter, body] = match;
   const metadata = {};
 
-  for (const line of frontmatter.split('\n')) {
+  for (const line of frontmatter.split(/\r?\n/)) {
     const separatorIndex = line.indexOf(':');
     if (separatorIndex === -1) continue;
 
@@ -30,10 +26,16 @@ function parseFrontmatter(content) {
     metadata[key] = value;
   }
 
-  return { ...metadata, body };
+  return { ...metadata, body: body.trim() };
 }
 
 function validateLinkedinTemplate(template) {
+  for (const field of ['id', 'name', 'description', 'body']) {
+    if (typeof template[field] !== 'string' || !template[field].trim()) {
+      throw new Error(`Template "${template.id || 'unknown'}" is missing required field: ${field}`);
+    }
+  }
+
   for (const placeholder of REQUIRED_LINKEDIN_PLACEHOLDERS) {
     if (!template.body.includes(placeholder)) {
       throw new Error(`Template "${template.id}" is missing placeholder: ${placeholder}`);
@@ -62,7 +64,13 @@ function loadLinkedinTemplate(id) {
     throw new Error(`Unknown LinkedIn template: ${id}`);
   }
 
-  return parseLinkedinTemplate(fs.readFileSync(filePath, 'utf8'));
+  const template = parseLinkedinTemplate(fs.readFileSync(filePath, 'utf8'));
+
+  if (template.id !== id) {
+    throw new Error(`Template id mismatch: expected ${id}, got ${template.id}`);
+  }
+
+  return template;
 }
 
 function listLinkedinTemplates() {
