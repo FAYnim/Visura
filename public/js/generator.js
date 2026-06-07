@@ -21,7 +21,7 @@ import { compilePlainText } from './generatorTemplates.js';
 import { renderPreview as renderPreviewBase } from './generatorRender.js';
 import { bindInputs, switchSlide as switchSlideBase } from './generatorBindings.js';
 import { addToHistory } from './generatorHistory.js';
-import { handleCopy as handleCopyBase, handleReset as handleResetBase } from './generatorClipboard.js';
+import { handleCopy as handleCopyBase, handleSave as handleSaveBase, handleReset as handleResetBase } from './generatorClipboard.js';
 import { initAutoFill } from './autoFill.js';
 import { initCaptionGenerate } from './captionGenerate.js';
 
@@ -36,6 +36,7 @@ let previewOutput;
 let previewTitle;
 let previewCharCount;
 let copyBtn;
+let saveBtn;
 let resetBtn;
 
 function finishInitialPreviewLoading(startedAt) {
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
   previewTitle     = document.getElementById('preview-title');
   previewCharCount = document.getElementById('preview-char-count');
   copyBtn          = document.getElementById('btn-copy');
+  saveBtn          = document.getElementById('btn-save');
   resetBtn         = document.getElementById('btn-reset');
 
   const renderPreview = () => renderPreviewBase({
@@ -83,9 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const handleCopy = () => handleCopyBase({
     state: STATE,
     compilePlainText,
-    addToHistory: addToHistoryBound,
     showToast,
     copyBtn
+  });
+
+  const handleSave = () => handleSaveBase({
+    state: STATE,
+    compilePlainText,
+    addToHistory: addToHistoryBound,
+    showToast,
+    saveBtn
   });
 
   const handleReset = () => handleResetBase({
@@ -134,8 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Copy/Reset buttons
+  // Copy/Save/Reset buttons
   copyBtn.addEventListener('click', handleCopy);
+  saveBtn.addEventListener('click', handleSave);
   resetBtn.addEventListener('click', handleReset);
 
   // ── AI Auto-Fill ──────────────────────────────────────────

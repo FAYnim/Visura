@@ -4,47 +4,44 @@
 
 'use strict';
 
-export function handleCopy({ state, compilePlainText, addToHistory, showToast, copyBtn }) {
-  // Caption mode — copy state.caption directly
+function getActiveText(state, compilePlainText) {
   if (state.activeSlide === 'caption') {
-    const captionText = state.caption || '';
-    navigator.clipboard.writeText(captionText).then(() => {
-      const originalContent = copyBtn.innerHTML;
-      copyBtn.classList.add('copied');
-      copyBtn.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-check"></i></span> Copied!`;
-
-      showToast(`<i class="fa-solid fa-check" style="color: var(--text-primary);"></i> Caption copied!`);
-
-      addToHistory(captionText);
-
-      setTimeout(() => {
-        copyBtn.classList.remove('copied');
-        copyBtn.innerHTML = originalContent;
-      }, 2000);
-    }).catch(() => {
-      showToast(`<i class="fa-solid fa-triangle-exclamation" style="color: #ff6b6b;"></i> Failed to copy. Please try again.`);
-    });
-    return;
+    return state.caption || '';
   }
 
-  const plain = compilePlainText(state.activeSlide, state);
+  return compilePlainText(state.activeSlide, state);
+}
 
-  navigator.clipboard.writeText(plain).then(() => {
-    const originalContent = copyBtn.innerHTML;
-    copyBtn.classList.add('copied');
-    copyBtn.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-check"></i></span> Copied!`;
+function setButtonSuccess(button, label) {
+  const originalContent = button.innerHTML;
+  button.classList.add('copied');
+  button.innerHTML = `<span class="btn-icon"><i class="fa-solid fa-check"></i></span> ${label}`;
 
-    showToast(`<i class="fa-solid fa-check" style="color: var(--text-primary);"></i> Prompt copied to clipboard!`);
+  setTimeout(() => {
+    button.classList.remove('copied');
+    button.innerHTML = originalContent;
+  }, 2000);
+}
 
-    addToHistory(plain);
+export function handleCopy({ state, compilePlainText, showToast, copyBtn }) {
+  const text = getActiveText(state, compilePlainText);
+  const label = state.activeSlide === 'caption' ? 'Caption copied!' : 'Prompt copied to clipboard!';
 
-    setTimeout(() => {
-      copyBtn.classList.remove('copied');
-      copyBtn.innerHTML = originalContent;
-    }, 2000);
+  navigator.clipboard.writeText(text).then(() => {
+    setButtonSuccess(copyBtn, 'Copied!');
+    showToast(`<i class="fa-solid fa-check" style="color: var(--text-primary);"></i> ${label}`);
   }).catch(() => {
     showToast(`<i class="fa-solid fa-triangle-exclamation" style="color: #ff6b6b;"></i> Failed to copy. Please try again.`);
   });
+}
+
+export function handleSave({ state, compilePlainText, addToHistory, showToast, saveBtn }) {
+  const text = getActiveText(state, compilePlainText);
+  const label = state.activeSlide === 'caption' ? 'Caption saved to history!' : 'Prompt saved to history!';
+
+  addToHistory(text);
+  setButtonSuccess(saveBtn, 'Saved!');
+  showToast(`<i class="fa-solid fa-check" style="color: var(--text-primary);"></i> ${label}`);
 }
 
 export function handleReset({ state, renderPreview, showToast, resetSlides }) {
