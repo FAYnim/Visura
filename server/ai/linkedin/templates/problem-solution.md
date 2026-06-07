@@ -1,9 +1,9 @@
 ---
 id: problem-solution
-name: Problem Solution
+name: Problem to Solution
 description: Frames the project around a pain point, solution, and impact.
 ---
-Write a LinkedIn problem-solution post in {language}.
+Write a LinkedIn problem-to-solution post in {language}.
 
 Project information:
 {projectInfo}

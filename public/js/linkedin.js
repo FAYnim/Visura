@@ -1,5 +1,7 @@
 import { getDecryptedByokKey } from './byok.js';
+import { initSidebar, loadSettings, updateProfileWidget } from './common.js';
 import { copyLinkedinPost, createLinkedinHistoryEntry, prependLinkedinHistory } from './linkedinActions.js';
+import { SETTINGS_DEFAULTS } from './settingsDefaults.js';
 
 const HISTORY_KEY = 'linkedinPostHistory';
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -248,5 +250,7 @@ els.generateBtn.addEventListener('click', generatePost);
 els.copyBtn.addEventListener('click', copyPost);
 els.saveBtn.addEventListener('click', saveHistory);
 
+initSidebar();
+updateProfileWidget(loadSettings(SETTINGS_DEFAULTS));
 loadModels();
 loadStyles();

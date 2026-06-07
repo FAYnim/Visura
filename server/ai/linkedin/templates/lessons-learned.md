@@ -1,9 +1,9 @@
 ---
 id: lessons-learned
-name: Lessons Learned
-description: Reflective post centered on insights from building the project.
+name: Storytelling
+description: Narrative post with context, journey, value, and takeaway.
 ---
-Write a LinkedIn lessons-learned post in {language}.
+Write a LinkedIn storytelling post in {language}.
 
 Project information:
 {projectInfo}

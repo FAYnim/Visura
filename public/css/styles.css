@@ -3250,10 +3250,7 @@ a:focus {
 }
 
 .linkedin-page {
-  background:
-    radial-gradient(circle at 20% 0%, rgba(124, 58, 237, 0.16), transparent 34%),
-    radial-gradient(circle at 80% 18%, rgba(59, 130, 246, 0.1), transparent 28%),
-    #0d0d0d;
+  background: #0d0d0d;
   color: #ffffff;
 }
 

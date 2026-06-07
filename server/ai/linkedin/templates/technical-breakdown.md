@@ -1,9 +1,9 @@
 ---
 id: technical-breakdown
-name: Technical Breakdown
-description: Technical implementation story for engineers and product builders.
+name: Developer Portfolio
+description: Portfolio-style post for showcasing craft, stack, and outcomes.
 ---
-Write a LinkedIn technical breakdown in {language}.
+Write a LinkedIn developer portfolio post in {language}.
 
 Project information:
 {projectInfo}

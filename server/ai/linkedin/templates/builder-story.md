@@ -1,9 +1,9 @@
 ---
 id: builder-story
-name: Builder Story
-description: Personal build journey with clear project context and outcome.
+name: Build in Public
+description: Transparent build progress, decisions, and momentum.
 ---
-Write a LinkedIn post in {language} as a builder story.
+Write a LinkedIn build-in-public post in {language}.
 
 Project information:
 {projectInfo}
