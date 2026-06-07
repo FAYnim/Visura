@@ -1,9 +1,8 @@
 import { getDecryptedByokKey } from './byok.js';
 import { initSidebar, loadSettings, updateProfileWidget } from './common.js';
-import { copyLinkedinPost, createLinkedinHistoryEntry, prependLinkedinHistory } from './linkedinActions.js';
+import { copyLinkedinPost } from './linkedinActions.js';
 import { SETTINGS_DEFAULTS } from './settingsDefaults.js';
 
-const HISTORY_KEY = 'linkedinPostHistory';
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_FILE_EXTENSIONS = ['.md', '.markdown', '.pdf'];
 
@@ -17,10 +16,8 @@ const els = {
   styleGrid: document.getElementById('style-grid'),
   styleStatus: document.getElementById('style-status'),
   generateBtn: document.getElementById('generate-btn'),
-  status: document.getElementById('status'),
   output: document.getElementById('output'),
   copyBtn: document.getElementById('copy-btn'),
-  saveBtn: document.getElementById('save-btn'),
   toast: document.getElementById('toast')
 };
 
@@ -31,16 +28,15 @@ let generatedMeta = null;
 let toastTimer = null;
 
 function showToast(message) {
+  if (!els.toast) return;
   clearTimeout(toastTimer);
   els.toast.textContent = message;
   els.toast.classList.add('show');
   toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2400);
 }
 
-
 function setGeneratedState(enabled) {
-  els.copyBtn.disabled = !enabled;
-  els.saveBtn.disabled = !enabled;
+  if (els.copyBtn) els.copyBtn.disabled = !enabled;
 }
 
 function inferProvider(model) {
@@ -219,23 +215,6 @@ async function copyPost() {
   }
 }
 
-function saveHistory() {
-  if (!generatedPost || !generatedMeta) return;
-  try {
-    let history = [];
-    try {
-      history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-    } catch {
-      history = [];
-    }
-    const entry = createLinkedinHistoryEntry({ post: generatedPost, meta: generatedMeta });
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(prependLinkedinHistory(history, entry)));
-    showToast('Saved to history');
-  } catch {
-    showToast('Save failed. Browser storage unavailable.');
-  }
-}
-
 els.docFile.addEventListener('change', () => {
   const file = els.docFile.files[0];
   els.uploadLabel.textContent = file ? file.name : 'Upload MD/PDF';
@@ -244,7 +223,6 @@ els.docFile.addEventListener('change', () => {
 
 els.generateBtn.addEventListener('click', generatePost);
 els.copyBtn.addEventListener('click', copyPost);
-els.saveBtn.addEventListener('click', saveHistory);
 
 initSidebar();
 updateProfileWidget(loadSettings(SETTINGS_DEFAULTS));
