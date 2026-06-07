@@ -1,6 +1,8 @@
 import { getDecryptedByokKey } from './byok.js';
 
 const HISTORY_KEY = 'linkedinPostHistory';
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const ALLOWED_FILE_EXTENSIONS = ['.md', '.markdown', '.pdf'];
 const FALLBACK_MODELS = [
   { id: 'gemini-1.5-flash', label: 'Gemini 1.5 Flash', provider: 'gemini' },
   { id: 'llama-3.1-8b-instant', label: 'Llama 3.1 8B Instant', provider: 'groq' }
@@ -82,11 +84,18 @@ async function loadModels() {
 function renderStyles() {
   els.styleGrid.replaceChildren();
   styles.forEach(style => {
+    const isActive = style.id === selectedStyleId;
     const button = document.createElement('button');
+    const title = document.createElement('strong');
+    const description = document.createElement('span');
+
     button.type = 'button';
-    button.className = `linkedin-style-card${style.id === selectedStyleId ? ' active' : ''}`;
+    button.className = `linkedin-style-card${isActive ? ' active' : ''}`;
     button.dataset.styleId = style.id;
-    button.innerHTML = `<strong>${style.name || style.id}</strong><span>${style.description || 'LinkedIn writing style'}</span>`;
+    button.setAttribute('aria-pressed', String(isActive));
+    title.textContent = style.name || style.id;
+    description.textContent = style.description || 'LinkedIn writing style';
+    button.append(title, description);
     button.addEventListener('click', () => {
       selectedStyleId = style.id;
       renderStyles();
@@ -118,9 +127,30 @@ function selectedProvider() {
   return els.model.selectedOptions[0]?.dataset.provider || '';
 }
 
+function validateFile(file) {
+  if (!file) return true;
+  const name = file.name.toLowerCase();
+  const hasAllowedExtension = ALLOWED_FILE_EXTENSIONS.some(extension => name.endsWith(extension));
+  if (!hasAllowedExtension) {
+    setStatus('Unsupported file. Upload .md, .markdown, or .pdf only.', 'error');
+    els.output.textContent = 'Unsupported file. Upload .md, .markdown, or .pdf only.';
+    return false;
+  }
+  if (file.size > MAX_FILE_SIZE) {
+    setStatus('File too large. Upload a document 10 MB or smaller.', 'error');
+    els.output.textContent = 'File too large. Upload a document 10 MB or smaller.';
+    return false;
+  }
+  return true;
+}
+
 function validateInput() {
-  if (!els.brief.value.trim() && !els.docFile.files[0]) {
+  const file = els.docFile.files[0];
+  if (!els.brief.value.trim() && !file) {
     setStatus('Add a brief or upload a Markdown/PDF file.', 'error');
+    return false;
+  }
+  if (!validateFile(file)) {
     return false;
   }
   if (!selectedStyleId) {
@@ -185,26 +215,34 @@ async function generatePost() {
 
 async function copyPost() {
   if (!generatedPost) return;
-  await navigator.clipboard.writeText(generatedPost);
-  showToast('Copied to clipboard');
+  try {
+    await navigator.clipboard.writeText(generatedPost);
+    showToast('Copied to clipboard');
+  } catch {
+    showToast('Copy failed. Select and copy manually.');
+  }
 }
 
 function saveHistory() {
   if (!generatedPost || !generatedMeta) return;
-  let history = [];
   try {
-    history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+    let history = [];
+    try {
+      history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+    } catch {
+      history = [];
+    }
+    history.unshift({
+      id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      timestamp: new Date().toISOString(),
+      post: generatedPost,
+      ...generatedMeta
+    });
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 50)));
+    showToast('Saved to history');
   } catch {
-    history = [];
+    showToast('Save failed. Browser storage unavailable.');
   }
-  history.unshift({
-    id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-    timestamp: new Date().toISOString(),
-    post: generatedPost,
-    ...generatedMeta
-  });
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 50)));
-  showToast('Saved to history');
 }
 
 els.docFile.addEventListener('change', () => {
