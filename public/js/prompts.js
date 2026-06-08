@@ -20,7 +20,9 @@ import {
 import {
   DEFAULT_PROMPT_BATCH,
   DEFAULT_PROMPTS,
+  STOCK_PROMPT_BATCHES,
   createPromptBatch,
+  isReadOnlyPromptBatch,
   normalizePromptBatches,
   validateSlideTemplate
 } from './promptStore.js';
@@ -73,13 +75,15 @@ function hideSkeleton() {
 
 /** Returns the full list including the virtual default batch at front. */
 function allBatches() {
-  return [DEFAULT_PROMPT_BATCH, ...STATE.batches];
+  return [DEFAULT_PROMPT_BATCH, ...STOCK_PROMPT_BATCHES, ...STATE.batches];
 }
 
 /** Returns batch object by id (including virtual default). */
 function getBatchById(id) {
   if (id === 'default') return DEFAULT_PROMPT_BATCH;
-  return STATE.batches.find(b => b.id === id) || null;
+  return STOCK_PROMPT_BATCHES.find(b => b.id === id)
+    || STATE.batches.find(b => b.id === id)
+    || null;
 }
 
 /** Returns whether a given batch id is the active one. */
@@ -144,11 +148,11 @@ function renderBatchList() {
 
     const createdLabel = batch.isDefault
       ? 'System'
-      : (batch.createdAt ? formatDate(batch.createdAt) : '');
+      : (batch.isStock ? 'Stock' : (batch.createdAt ? formatDate(batch.createdAt) : ''));
 
     li.innerHTML = `
       <div class="batch-item-icon">
-        <i class="fa-solid ${batch.isDefault ? 'fa-lock' : 'fa-layer-group'}"></i>
+        <i class="fa-solid ${isReadOnlyPromptBatch(batch) ? 'fa-lock' : 'fa-layer-group'}"></i>
       </div>
       <div class="batch-item-info">
         <div class="batch-item-name">${escapeHtml(batch.name)}</div>
@@ -175,14 +179,13 @@ function selectBatch(id) {
   editorNoSelection.hidden = true;
   editorContent.hidden = false;
 
-  editorTitle.textContent = batch.isDefault ? batch.name : `Edit: ${batch.name}`;
+  editorTitle.textContent = isReadOnlyPromptBatch(batch) ? batch.name : `Edit: ${batch.name}`;
 
   // Fill meta fields
   inputBatchName.value = batch.name;
   inputBatchDesc.value = batch.description || '';
 
-  // Lock fields if default
-  const isReadOnly = batch.isDefault;
+  const isReadOnly = isReadOnlyPromptBatch(batch);
   inputBatchName.disabled = isReadOnly;
   inputBatchDesc.disabled = isReadOnly;
   btnSaveBatch.disabled = isReadOnly;
@@ -292,10 +295,10 @@ function validateAllSlides() {
 // =========================================================
 function handleSaveBatch() {
   const id = STATE.selectedId;
-  if (!id || id === 'default') return;
+  if (!id) return;
 
   const batch = getBatchById(id);
-  if (!batch) return;
+  if (!batch || isReadOnlyPromptBatch(batch)) return;
 
   // Validate
   if (!validateAllSlides()) {
@@ -409,10 +412,10 @@ function handleActivateBatch() {
 // =========================================================
 function handleDeleteBatch() {
   const id = STATE.selectedId;
-  if (!id || id === 'default') return;
+  if (!id) return;
 
   const batch = getBatchById(id);
-  if (!batch) return;
+  if (!batch || isReadOnlyPromptBatch(batch)) return;
 
   if (!confirm(`Are you sure you want to delete batch "${batch.name}"? This action cannot be undone.`)) return;
 
