@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visura — LinkedIn Post Generator</title>
+  <meta name="description" content="Generate premium LinkedIn posts from briefs, Markdown, and PDF documents." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/logo/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/logo/favicon-16x16.png" />
+  <link rel="icon" href="/img/logo/favicon.ico" />
+  <link rel="manifest" href="/img/logo/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <header class="app-header" role="banner">
+    <div class="header-brand">
+      <img src="/img/logo/android-chrome-192x192.png" alt="Visura Logo" class="brand-logo" />
+      <span class="brand-name">Visura</span>
+    </div>
+    <button id="sidebar-toggle-mobile" class="header-toggle-btn" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <div class="app-body">
+    <aside class="app-sidebar" aria-label="Main navigation">
+      <div class="sidebar-top">
+        <nav class="sidebar-menu" role="navigation">
+          <div class="sidebar-menu-group">
+            <span class="sidebar-menu-label">Carousel</span>
+            <a class="sidebar-btn" href="/app" id="tab-generator">
+              <span class="btn-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt Generator</span>
+            </a>
+            <a class="sidebar-btn" href="/prompts" id="tab-prompts">
+              <span class="btn-text"><i class="fa-solid fa-layer-group"></i> Prompt Manager</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-group">
+            <span class="sidebar-menu-label">LinkedIn</span>
+            <a class="sidebar-btn active" href="/linkedin" id="tab-linkedin" aria-current="page">
+              <span class="btn-text"><i class="fa-brands fa-linkedin"></i> LinkedIn Generator</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-group">
+            <span class="sidebar-menu-label">Other</span>
+            <a class="sidebar-btn" href="/history" id="tab-history">
+              <span class="btn-text"><i class="fa-solid fa-clock-rotate-left"></i> History</span>
+            </a>
+            <a class="sidebar-btn" href="/byok" id="tab-byok">
+              <span class="btn-text"><i class="fa-solid fa-key"></i> API Keys</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-profile-section">
+          <a href="/settings" id="btn-settings-profile" class="sidebar-profile-btn" aria-label="Open Profile Settings" title="Profile Settings">
+            <div class="avatar-container">
+              <img src="/img/avatar.png" alt="Profile" class="profile-avatar-img" />
+            </div>
+            <div class="profile-info-text">
+              <span class="profile-name profile-name-loading" aria-label="Loading profile name"></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="app-content">
+      <div id="view-linkedin" class="app-view active">
+        <main class="linkedin-page linkedin-main">
+          <section class="linkedin-top-grid" aria-label="LinkedIn generator controls">
+            <article class="linkedin-card linkedin-input-card">
+              <div class="linkedin-card-head">
+                <p class="linkedin-section-label">Source</p>
+
+              </div>
+              <label class="linkedin-upload-zone" for="doc-file" id="upload-zone">
+                <input id="doc-file" type="file" accept=".md,.markdown,.pdf,text/markdown,text/plain,application/pdf" />
+                <span class="linkedin-upload-title" id="upload-label">Upload MD/PDF</span>
+                <span class="linkedin-upload-hint">Optional document source, max 10 MB</span>
+              </label>
+              <label class="linkedin-field" for="brief">
+                <span>Brief</span>
+                <textarea id="brief" rows="12" placeholder="Describe project context, product features, audience, result, launch story, or key points..."></textarea>
+              </label>
+            </article>
+
+            <article class="linkedin-card linkedin-control-card">
+              <div class="linkedin-card-head">
+                <p class="linkedin-section-label">Post Settings</p>
+
+              </div>
+              <div class="linkedin-form-row">
+                <label class="linkedin-field" for="language">
+                  <span>Language</span>
+                  <select id="language">
+                    <option value="English">English</option>
+                    <option value="Indonesia">Indonesia</option>
+                  </select>
+                </label>
+                <label class="linkedin-field" for="model">
+                  <span>Model</span>
+                  <select id="model">
+                    <option value="">Loading models...</option>
+                  </select>
+                </label>
+              </div>
+              <div class="linkedin-style-head">
+                <span>Style</span>
+                <small id="style-status">Loading styles...</small>
+              </div>
+              <div class="linkedin-style-grid" id="style-grid" aria-live="polite"></div>
+              <button class="btn btn-primary linkedin-generate-btn" id="generate-btn" type="button">Generate Post</button>
+            </article>
+          </section>
+
+          <section class="linkedin-card linkedin-output-card" aria-label="Generated LinkedIn post">
+            <div class="linkedin-output-head">
+              <div>
+                <p class="linkedin-section-label">Output</p>
+                <h2>Generated Post</h2>
+              </div>
+              <div class="linkedin-output-actions">
+                <button class="btn btn-secondary" id="copy-btn" type="button" disabled>Copy</button>
+              </div>
+            </div>
+            <pre class="linkedin-output" id="output">Your LinkedIn post will appear here.</pre>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/js/linkedin.js"></script>
+</body>
+</html>

@@ -5,6 +5,11 @@ import { autoFillFromSources, isProviderAvailable } from '../ai/autoFillService.
 import { generateCaptionFromSources } from '../ai/captionService.js';
 import { MODELS } from '../ai/models.js';
 
+function getModelsForResponse(includeUnavailable = false) {
+  const models = includeUnavailable ? MODELS : MODELS.filter(m => isProviderAvailable(m.provider));
+  return models.map(m => ({ id: m.id, label: m.label, provider: m.provider }));
+}
+
 const router = express.Router();
 
 const upload = multer({
@@ -27,9 +32,9 @@ function isCaptionDocumentFileSupported(file) {
   return isPdf || isMarkdown;
 }
 
-router.get('/models', (_req, res) => {
-  const available = MODELS.filter(m => isProviderAvailable(m.provider));
-  res.json({ models: available.map(m => ({ id: m.id, label: m.label, provider: m.provider })) });
+router.get('/models', (req, res) => {
+  const includeUnavailable = req.query.includeUnavailable === '1' || req.query.includeUnavailable === 'true';
+  res.json({ models: getModelsForResponse(includeUnavailable) });
 });
 
 router.post('/auto-fill', uploadFields, async (req, res) => {
@@ -123,5 +128,5 @@ router.post('/generate-caption', uploadFields, async (req, res) => {
   }
 });
 
-export { isCaptionDocumentFileSupported };
+export { getModelsForResponse, isCaptionDocumentFileSupported };
 export default router;
