@@ -3,31 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Visura — Premium Instagram Carousel Portfolio Prompt Generator</title>
-  <meta name="description" content="Generate cinematic, multi-slide Instagram carousel prompts. Fill, preview, and generate premium AI prompts in real-time." />
+  <title>Visura — Portfolio Content Studio</title>
+  <meta name="description" content="Turn one project brief into professional content for Instagram, LinkedIn, captions, hashtags, and portfolio showcases." />
   <meta name="theme-color" content="#080808" />
-  
-  <!-- OG Metadata -->
-  <meta property="og:title" content="Visura — Premium Portfolio Prompt Generator" />
-  <meta property="og:description" content="Story-led prompt builder for gorgeous cinematic multi-slide Instagram carousels." />
+  <meta property="og:title" content="Visura — Portfolio Content Studio" />
+  <meta property="og:description" content="Generate platform-ready portfolio content from a single project brief." />
   <meta property="og:type" content="website" />
-  
-  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/img/logo/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/img/logo/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/img/logo/favicon-16x16.png" />
   <link rel="icon" href="/img/logo/favicon.ico" />
-  
-  <!-- CSS & Fonts -->
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="stylesheet" href="/css/landing.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
-
-  <!-- =====================================================
-       HEADER / NAVIGATION
-       ===================================================== -->
   <header class="landing-header">
     <div class="header-container">
       <div class="landing-brand">
@@ -35,187 +25,142 @@
         <span class="brand-tag">Studio</span>
       </div>
       <nav class="landing-nav" aria-label="Main Navigation">
-        <a href="#problem" class="nav-link">The Problem</a>
+        <a href="#problem" class="nav-link">Problem</a>
+        <a href="#outputs" class="nav-link">Outputs</a>
         <a href="#features" class="nav-link">Features</a>
-        <a href="#carousel-preview" class="nav-link">Preview</a>
         <a href="#how-it-works" class="nav-link">Process</a>
         <a href="#faq" class="nav-link">FAQ</a>
       </nav>
       <div class="header-actions">
-        <a href="/app" class="btn btn-primary cta-glow">
-          Try Demo <i class="fa-solid fa-arrow-right btn-icon-right"></i>
-        </a>
+        <a href="/app" class="btn btn-primary cta-glow">Start Creating <i class="fa-solid fa-arrow-right btn-icon-right"></i></a>
       </div>
-      <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+      <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle Navigation Menu"><i class="fa-solid fa-bars"></i></button>
     </div>
   </header>
 
-  <!-- Mobile Navigation Sidebar -->
   <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
   <aside class="mobile-nav-sidebar" id="mobile-nav-sidebar" aria-label="Mobile Navigation">
     <div class="mobile-nav-header">
       <span class="brand-text">Visura</span>
-      <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+      <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <nav class="mobile-nav-links">
-      <a href="#problem" class="mobile-nav-link">The Problem</a>
+      <a href="#problem" class="mobile-nav-link">Problem</a>
+      <a href="#outputs" class="mobile-nav-link">Outputs</a>
       <a href="#features" class="mobile-nav-link">Features</a>
-      <a href="#carousel-preview" class="mobile-nav-link">Preview</a>
       <a href="#how-it-works" class="mobile-nav-link">Process</a>
       <a href="#faq" class="mobile-nav-link">FAQ</a>
     </nav>
     <div class="mobile-nav-footer">
-      <a href="/app" class="btn btn-primary" style="width: 100%;">
-        Try Demo <i class="fa-solid fa-arrow-right btn-icon-right"></i>
-      </a>
+      <a href="/app" class="btn btn-primary" style="width: 100%;">Start Creating <i class="fa-solid fa-arrow-right btn-icon-right"></i></a>
     </div>
   </aside>
 
-  <!-- =====================================================
-       HERO SECTION
-       ===================================================== -->
   <section class="hero-section" id="hero">
     <div class="hero-background-effects">
       <div class="glow-orb glow-orb-1"></div>
       <div class="glow-orb glow-orb-2"></div>
     </div>
-    <div class="section-container hero-container">
-      <div class="hero-badge animate-fade-in">
-        <span class="badge-dot"></span>
-        <span class="badge-text">Studio Edition • 100% Free</span>
+    <div class="section-container hero-container output-hub-hero">
+      <div class="hero-copy">
+        <div class="hero-badge animate-fade-in">
+          <span class="badge-dot"></span>
+          <span class="badge-text">Portfolio Content Studio • 100% Free</span>
+        </div>
+        <h1 class="hero-headline animate-fade-in-up">Turn Your Projects Into <span class="gradient-text">Professional Content</span>.</h1>
+        <p class="hero-subtitle animate-fade-in-up-delay">Upload your project brief once and generate Instagram carousels, LinkedIn posts, captions, hashtags, and portfolio-ready content in seconds.</p>
+        <div class="hero-actions animate-fade-in-up-delay-2">
+          <a href="/app" class="btn btn-primary btn-lg cta-glow">Start Creating <i class="fa-solid fa-arrow-right btn-icon-right"></i></a>
+          <a href="#outputs" class="btn btn-secondary btn-lg">View Outputs <i class="fa-regular fa-eye btn-icon-right"></i></a>
+        </div>
+        <p class="hero-credit animate-fade-in-up-delay-2">Built for developers, designers, students, and indie builders.</p>
       </div>
-      <h1 class="hero-headline animate-fade-in-up">
-        Craft Cinematic Instagram <span class="gradient-text">Carousels</span> in Seconds.
-      </h1>
-      <p class="hero-subtitle animate-fade-in-up-delay">
-        The ultimate portfolio prompt builder for digital creators, designers, and developers. Generate structured multi-slide visual prompts tailored for Midjourney, Stable Diffusion, and DALL-E.
-      </p>
-      <div class="hero-actions animate-fade-in-up-delay-2">
-        <a href="/app" class="btn btn-primary btn-lg cta-glow">
-          Try Demo <i class="fa-solid fa-wand-magic-sparkles btn-icon-right"></i>
-        </a>
-        <a href="#carousel-preview" class="btn btn-secondary btn-lg">
-          View Example <i class="fa-regular fa-eye btn-icon-right"></i>
-        </a>
+      <div class="hero-output-visual animate-fade-in-up-delay-2" aria-label="One project brief becomes multiple content outputs">
+        <div class="input-brief-card">
+          <span class="visual-kicker">Input</span>
+          <h3>Project Brief</h3>
+          <p>PDF, Markdown, or pasted project details.</p>
+        </div>
+        <div class="visura-node">Visura</div>
+        <div class="output-card-grid">
+          <div class="output-mini-card"><i class="fa-brands fa-instagram"></i><span>Instagram Carousel</span></div>
+          <div class="output-mini-card"><i class="fa-brands fa-linkedin"></i><span>LinkedIn Post</span></div>
+          <div class="output-mini-card"><i class="fa-solid fa-align-left"></i><span>Caption</span></div>
+          <div class="output-mini-card"><i class="fa-solid fa-hashtag"></i><span>Hashtags</span></div>
+        </div>
       </div>
-      <p class="hero-credit animate-fade-in-up-delay-2">Crafted by <strong>FAYdev</strong></p>
     </div>
   </section>
 
-  <!-- =====================================================
-       PROBLEM SECTION
-       ===================================================== -->
   <section class="problem-section" id="problem">
     <div class="section-container">
-      <h2 class="section-title reveal">
-        Why is showcasing your digital products so hard?
-      </h2>
-      <p class="section-desc reveal">
-        Creating premium carousel portfolios on Instagram shouldn't require countless hours of trial and error.
-      </p>
-      
+      <h2 class="section-title reveal">Great projects often go unnoticed.</h2>
+      <p class="section-desc reveal">Not because the work is weak, but because turning it into clear, platform-ready content takes time and structure.</p>
       <div class="problem-grid">
-        <!-- Card 1 -->
         <div class="problem-card reveal">
-          <div class="problem-card-icon">
-            <i class="fa-solid fa-hourglass-half"></i>
-          </div>
-          <h3 class="problem-card-title">Tedious Prompting</h3>
-          <p class="problem-card-desc">
-            Writing elaborate image generation prompts manually for every single slide takes hours. One wrong word and the whole layout style breaks.
-          </p>
+          <div class="problem-card-icon"><i class="fa-solid fa-message"></i></div>
+          <h3 class="problem-card-title">Hard to Explain Clearly</h3>
+          <p class="problem-card-desc">Project details are easy to build, but harder to turn into concise stories people understand quickly.</p>
         </div>
-        <!-- Card 2 -->
         <div class="problem-card reveal reveal-delay-1">
-          <div class="problem-card-icon">
-            <i class="fa-solid fa-palette"></i>
-          </div>
-          <h3 class="problem-card-title">Inconsistent Style</h3>
-          <p class="problem-card-desc">
-            Keeping colors, lighting, and layout assets uniform across all 5 slides is practically impossible when prompting from scratch.
-          </p>
+          <div class="problem-card-icon"><i class="fa-solid fa-share-nodes"></i></div>
+          <h3 class="problem-card-title">Different Platforms, Different Formats</h3>
+          <p class="problem-card-desc">Instagram, LinkedIn, captions, and hashtags each need a different structure and tone.</p>
         </div>
-        <!-- Card 3 -->
         <div class="problem-card reveal reveal-delay-2">
-          <div class="problem-card-icon">
-            <i class="fa-solid fa-book-open"></i>
-          </div>
-          <h3 class="problem-card-title">Lack of Storytelling</h3>
-          <p class="problem-card-desc">
-            Great portfolios need narrative structure (Cover → Overview → Features → Mockup → Outro). Raw prompt builders don't pace the flow.
-          </p>
+          <div class="problem-card-icon"><i class="fa-solid fa-clock"></i></div>
+          <h3 class="problem-card-title">Publishing Takes Too Long</h3>
+          <p class="problem-card-desc">Without a repeatable workflow, good work stays unpublished because packaging it feels like another project.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- =====================================================
-       SOLUTION SECTION
-       ===================================================== -->
   <section class="solution-section" id="solution">
     <div class="section-container">
       <div class="solution-grid">
         <div class="solution-info reveal">
-          <h2 class="section-title text-left">
-            Meet Visura. The complete cinematic workflow.
-          </h2>
-          <p class="section-desc text-left">
-            Visura integrates premium, highly detailed design layouts with an automated builder, letting you focus on the story while we handle the prompting structure.
-          </p>
+          <h2 class="section-title text-left">One project brief. Multiple content assets.</h2>
+          <p class="section-desc text-left">Visura turns your project details into structured content for the places where builders share their work.</p>
           <ul class="solution-list">
-            <li>
-              <span class="list-icon"><i class="fa-solid fa-check"></i></span>
-              <span class="list-text"><strong>Paced 5-Slide Narrative:</strong> Built-in structural blueprints designed specifically for Instagram's swipe mechanic.</span>
-            </li>
-            <li>
-              <span class="list-icon"><i class="fa-solid fa-check"></i></span>
-              <span class="list-text"><strong>Interactive Live Editors:</strong> Edit variables and instantly review high-definition prompt configurations in real-time.</span>
-            </li>
-            <li>
-              <span class="list-icon"><i class="fa-solid fa-check"></i></span>
-              <span class="list-text"><strong>AI-Assisted Magic:</strong> Extract key insights from PDF or markdown documents and autofill all cards with one click.</span>
-            </li>
+            <li><span class="list-icon"><i class="fa-solid fa-check"></i></span><span class="list-text"><strong>Add your project once:</strong> Paste details manually or upload Markdown/PDF documentation.</span></li>
+            <li><span class="list-icon"><i class="fa-solid fa-check"></i></span><span class="list-text"><strong>Structure the story:</strong> Extract project goals, features, audience, and outcomes into reusable content inputs.</span></li>
+            <li><span class="list-icon"><i class="fa-solid fa-check"></i></span><span class="list-text"><strong>Publish faster:</strong> Generate content for Instagram, LinkedIn, captions, and hashtags without starting from scratch.</span></li>
           </ul>
         </div>
         <div class="solution-visual reveal reveal-delay-1">
-          <div class="mockup-frame">
+          <div class="mockup-frame output-mockup-frame">
             <div class="mockup-header">
-              <div class="mockup-dot"></div>
-              <div class="mockup-dot"></div>
-              <div class="mockup-dot"></div>
-              <span class="mockup-title">Visura Studio Interface</span>
+              <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+              <span class="mockup-title">Visura Output Studio</span>
             </div>
-            <div class="mockup-body">
+            <div class="mockup-body output-mockup-body">
               <div class="mockup-sidebar">
-                <div class="mockup-sidebar-item active"></div>
-                <div class="mockup-sidebar-item"></div>
-                <div class="mockup-sidebar-item"></div>
+                <div class="mockup-sidebar-item active"></div><div class="mockup-sidebar-item"></div><div class="mockup-sidebar-item"></div>
               </div>
               <div class="mockup-content">
                 <div class="mockup-tabs">
-                  <div class="mockup-tab active">Slide 1</div>
-                  <div class="mockup-tab">Slide 2</div>
-                  <div class="mockup-tab">Slide 3</div>
+                  <div class="mockup-tab active">Brief</div><div class="mockup-tab">Outputs</div><div class="mockup-tab">Copy</div>
                 </div>
                 <div class="mockup-editor">
                   <div class="mockup-field">
-                    <span class="mockup-field-label">BADGE TEXT</span>
-                    <div class="mockup-field-input" id="mockup-input-badge">AI ANALYTICS</div>
+                    <span class="mockup-field-label">SOURCE</span>
+                    <div class="mockup-field-input" id="mockup-input-badge">PROJECT BRIEF</div>
                   </div>
                   <div class="mockup-field">
-                    <span class="mockup-field-label">MAIN HEADLINE</span>
-                    <div class="mockup-field-input highlight" id="mockup-input-headline">Deep insights.<br>Engineered.</div>
+                    <span class="mockup-field-label">OUTPUT SET</span>
+                    <div class="mockup-field-input highlight" id="mockup-input-headline">One input.<br>Four outputs.</div>
                   </div>
+                </div>
+                <div class="output-stack-preview">
+                  <div><span>Instagram Carousel</span><strong>5-slide project showcase</strong></div>
+                  <div><span>LinkedIn Post</span><strong>Builder story format</strong></div>
+                  <div><span>Caption</span><strong>Short launch copy</strong></div>
+                  <div><span>Hashtags</span><strong>Relevant discovery tags</strong></div>
                 </div>
                 <div class="mockup-preview">
-                  <span class="mockup-preview-label">Generated Prompt</span>
-                  <div class="mockup-prompt" id="mockup-output-prompt">
-                    A cinematic dark studio scene, a glass interface reading <span class="prompt-var">"AI ANALYTICS"</span> and <span class="prompt-var">"Deep insights. Engineered."</span>, dramatic moody green lighting, volumetric smoke, high contrast, clean minimalist layout...
-                  </div>
+                  <span class="mockup-preview-label">Generated Output</span>
+                  <div class="mockup-prompt" id="mockup-output-prompt">Generate a launch-ready content set: <span class="prompt-var">Instagram carousel</span>, <span class="prompt-var">LinkedIn post</span>, caption, and hashtags from one project brief...</div>
                 </div>
               </div>
             </div>
@@ -225,333 +170,164 @@
     </div>
   </section>
 
-  <!-- =====================================================
-       FEATURES SECTION
-       ===================================================== -->
+  <section class="outputs-section" id="outputs">
+    <div class="section-container">
+      <h2 class="section-title reveal">Content outputs for where builders publish.</h2>
+      <p class="section-desc reveal">Start from one project brief and generate focused assets for the channels you already use.</p>
+      <div class="outputs-grid">
+        <article class="output-card reveal">
+          <div class="output-card-icon"><i class="fa-brands fa-instagram"></i></div>
+          <h3>Instagram Carousel</h3>
+          <p>Structured visual prompt deck for portfolio showcases and product walkthroughs.</p>
+          <span>Cover → Overview → Features → UI Showcase → Closing</span>
+        </article>
+        <article class="output-card reveal reveal-delay-1">
+          <div class="output-card-icon"><i class="fa-brands fa-linkedin"></i></div>
+          <h3>LinkedIn Post</h3>
+          <p>Professional post copy shaped around your project context, build story, and outcomes.</p>
+          <span>Problem, process, result, and call-to-action.</span>
+        </article>
+        <article class="output-card reveal reveal-delay-2">
+          <div class="output-card-icon"><i class="fa-solid fa-align-left"></i></div>
+          <h3>Instagram Caption</h3>
+          <p>Short, clear captions that explain what you built and why it matters.</p>
+          <span>Ready to pair with project visuals.</span>
+        </article>
+        <article class="output-card reveal reveal-delay-3">
+          <div class="output-card-icon"><i class="fa-solid fa-hashtag"></i></div>
+          <h3>Hashtags</h3>
+          <p>Relevant hashtag sets for reach, categorization, and portfolio discovery.</p>
+          <span>Built around the project niche and audience.</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="features-section" id="features">
     <div class="section-container">
-      <h2 class="section-title reveal">
-        Packed with creative superpowers
-      </h2>
-      <p class="section-desc reveal">
-        A premium workflow designed specifically to elevate your visual marketing game.
-      </p>
-
+      <h2 class="section-title reveal">A focused workflow for portfolio content.</h2>
+      <p class="section-desc reveal">Everything centers on helping you package one project into content people can understand and share.</p>
       <div class="features-grid">
-        <!-- Feature 1 -->
         <div class="feature-card reveal">
-          <div class="feature-icon">
-            <i class="fa-solid fa-layer-group"></i>
-          </div>
-          <h3 class="feature-title">5-Slide Architecture</h3>
-          <p class="feature-desc">
-            We structure your layouts flawlessly: Cover, Project Overview, Feature Modules, Detailed UI Showcases, and highly persuasive Closing Outros.
-          </p>
+          <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h3 class="feature-title">One Brief, Multiple Outputs</h3>
+          <p class="feature-desc">Use the same project context to create content for Instagram, LinkedIn, captions, and hashtags.</p>
         </div>
-        <!-- Feature 2 -->
         <div class="feature-icon-card-row">
           <div class="feature-card reveal reveal-delay-1">
-            <div class="feature-icon">
-              <i class="fa-solid fa-wand-magic-sparkles"></i>
-            </div>
-            <h3 class="feature-title">AI Auto-Fill Magic</h3>
-            <p class="feature-desc">
-              Don't want to type? Drop a markdown project brief or upload a PDF document. Visura extracts and fills your entire slide deck instantly.
-            </p>
+            <div class="feature-icon"><i class="fa-solid fa-file-import"></i></div>
+            <h3 class="feature-title">AI Project Extraction</h3>
+            <p class="feature-desc">Upload Markdown or PDF documentation so Visura can extract important project details faster.</p>
           </div>
         </div>
-        <!-- Feature 3 -->
         <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon">
-            <i class="fa-solid fa-code"></i>
-          </div>
-          <h3 class="feature-title">Live Prompt Editor</h3>
-          <p class="feature-desc">
-            Type values and observe the syntax update live inside our cinematic highlighter console. Fully interactive, optimized for quick copying.
-          </p>
+          <div class="feature-icon"><i class="fa-solid fa-copy"></i></div>
+          <h3 class="feature-title">Live Editing & Copying</h3>
+          <p class="feature-desc">Review generated output, adjust content, and copy assets into your publishing workflow.</p>
         </div>
-        <!-- Feature 4 -->
         <div class="feature-card reveal reveal-delay-3">
-          <div class="feature-icon">
-            <i class="fa-solid fa-folder-open"></i>
-          </div>
-          <h3 class="feature-title">Advanced Prompt Manager</h3>
-          <p class="feature-desc">
-            Customize slide styles, edit raw blueprints, duplicate styles, and save custom batches. Perfect for matching brand guidelines.
-          </p>
+          <div class="feature-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <h3 class="feature-title">Local History & Settings</h3>
+          <p class="feature-desc">Keep useful generated content, creator details, and prompt settings available in your browser.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- =====================================================
-       CAROUSEL PREVIEW SECTION
-       ===================================================== -->
-  <section class="carousel-preview-section" id="carousel-preview">
-    <div class="section-container">
-      <h2 class="section-title reveal">
-        The Ultimate 5-Slide Anatomy
-      </h2>
-      <p class="section-desc reveal">
-        Click the arrows below to swipe through the standard story-led layout templates generated by Visura.
-      </p>
-
-      <!-- Custom Interactive Carousel Slider -->
-      <div class="carousel-slider-container reveal">
-        <button class="carousel-nav-btn prev-btn" id="carousel-prev-btn" aria-label="Previous Slide">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        
-        <div class="carousel-slides-wrapper">
-          <div class="carousel-slides-track" id="carousel-slides-track">
-            
-            <!-- Slide 1: Cover -->
-            <div class="carousel-slide active" data-slide-index="0">
-              <div class="preview-slide-card">
-                <div class="slide-header">
-                  <span class="slide-badge"><i class="fa-solid fa-image"></i> Slide 1 — Cover</span>
-                </div>
-                <div class="slide-preview-body">
-                  <img src="/img/visura-slide-01.webp" alt="Slide 1 — Cover" class="carousel-image" loading="lazy" />
-                </div>
-                <div class="slide-meta">
-                  <span class="slide-meta-label">Purpose:</span>
-                  <span class="slide-meta-value">Hook users instantly with a high-end luxury title and layout.</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slide 2: Overview -->
-            <div class="carousel-slide" data-slide-index="1">
-              <div class="preview-slide-card">
-                <div class="slide-header">
-                  <span class="slide-badge"><i class="fa-solid fa-briefcase"></i> Slide 2 — Overview</span>
-                </div>
-                <div class="slide-preview-body">
-                  <img src="/img/visura-slide-02.webp" alt="Slide 2 — Overview" class="carousel-image" loading="lazy" />
-                </div>
-                <div class="slide-meta">
-                  <span class="slide-meta-label">Purpose:</span>
-                  <span class="slide-meta-value">Set context with a detailed project description and key features.</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slide 3: Features Grid -->
-            <div class="carousel-slide" data-slide-index="2">
-              <div class="preview-slide-card">
-                <div class="slide-header">
-                  <span class="slide-badge"><i class="fa-solid fa-cubes"></i> Slide 3 — Features</span>
-                </div>
-                <div class="slide-preview-body">
-                  <img src="/img/visura-slide-03.webp" alt="Slide 3 — Features" class="carousel-image" loading="lazy" />
-                </div>
-                <div class="slide-meta">
-                  <span class="slide-meta-label">Purpose:</span>
-                  <span class="slide-meta-value">Showcase standard configurations in a clean grid modules layout.</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slide 4: UI Showcase -->
-            <div class="carousel-slide" data-slide-index="3">
-              <div class="preview-slide-card">
-                <div class="slide-header">
-                  <span class="slide-badge"><i class="fa-solid fa-desktop"></i> Slide 4 — UI Showcase</span>
-                </div>
-                <div class="slide-preview-body">
-                  <img src="/img/visura-slide-04.webp" alt="Slide 4 — UI Showcase" class="carousel-image" loading="lazy" />
-                </div>
-                <div class="slide-meta">
-                  <span class="slide-meta-label">Purpose:</span>
-                  <span class="slide-meta-value">Display actual product screenshots or visual mockups.</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slide 5: Outro -->
-            <div class="carousel-slide" data-slide-index="4">
-              <div class="preview-slide-card">
-                <div class="slide-header">
-                  <span class="slide-badge"><i class="fa-solid fa-circle-check"></i> Slide 5 — Outro</span>
-                </div>
-                <div class="slide-preview-body">
-                  <img src="/img/visura-slide-05.webp" alt="Slide 5 — Outro" class="carousel-image" loading="lazy" />
-                </div>
-                <div class="slide-meta">
-                  <span class="slide-meta-label">Purpose:</span>
-                  <span class="slide-meta-value">End with a strong call-to-action, credits, and contact cards.</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <button class="carousel-nav-btn next-btn" id="carousel-next-btn" aria-label="Next Slide">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </div>
-
-      <!-- Carousel Indicators (Dots) -->
-      <div class="carousel-indicators reveal" id="carousel-indicators">
-        <span class="indicator-dot active" data-slide-index="0"></span>
-        <span class="indicator-dot" data-slide-index="1"></span>
-        <span class="indicator-dot" data-slide-index="2"></span>
-        <span class="indicator-dot" data-slide-index="3"></span>
-        <span class="indicator-dot" data-slide-index="4"></span>
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================
-       HOW IT WORKS SECTION
-       ===================================================== -->
   <section class="how-it-works-section" id="how-it-works">
     <div class="section-container">
-      <h2 class="section-title reveal">
-        Three simple steps to absolute perfection
-      </h2>
-      <p class="section-desc reveal">
-        A seamless visual pipeline designed for modern high-velocity product teams.
-      </p>
-
+      <h2 class="section-title reveal">Three simple steps from brief to content.</h2>
+      <p class="section-desc reveal">A practical workflow for turning shipped work into publishable assets.</p>
       <div class="timeline-container">
         <div class="timeline-line"></div>
-        
-        <!-- Step 1 -->
         <div class="timeline-step reveal">
           <div class="timeline-number">1</div>
           <div class="timeline-content">
-            <h3 class="timeline-step-title">Fill Form or AI Auto-Fill</h3>
-            <p class="timeline-step-desc">
-              Manually input your product details into our minimalist editor, or drop a PDF/Markdown file for instant automated extraction.
-            </p>
+            <h3 class="timeline-step-title">Add Your Project Details</h3>
+            <p class="timeline-step-desc">Paste project information manually or upload Markdown/PDF documentation for AI-assisted extraction.</p>
           </div>
         </div>
-        
-        <!-- Step 2 -->
         <div class="timeline-step reveal">
           <div class="timeline-number">2</div>
           <div class="timeline-content">
-            <h3 class="timeline-step-title">Review & Customize Prompts</h3>
-            <p class="timeline-step-desc">
-              Watch your cinematic prompt syntax update live in real-time. Manage visual templates smoothly through the Prompt Manager.
-            </p>
+            <h3 class="timeline-step-title">Review and Choose an Output</h3>
+            <p class="timeline-step-desc">Check the structured project details, then generate the content format you need.</p>
           </div>
         </div>
-        
-        <!-- Step 3 -->
         <div class="timeline-step reveal">
           <div class="timeline-number">3</div>
           <div class="timeline-content">
-            <h3 class="timeline-step-title">Copy & Generate Visuals</h3>
-            <p class="timeline-step-desc">
-              Copy your ready-to-use slide prompts and paste them directly into your favorite visual generators (Midjourney, DALL-E) for high-fidelity results.
-            </p>
+            <h3 class="timeline-step-title">Copy and Publish</h3>
+            <p class="timeline-step-desc">Use the generated output on Instagram, LinkedIn, or your portfolio workflow.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- =====================================================
-       FAQ SECTION
-       ===================================================== -->
+  <section class="use-cases-section" id="use-cases">
+    <div class="section-container">
+      <h2 class="section-title reveal">Built for people who ship projects.</h2>
+      <p class="section-desc reveal">Visura helps turn finished work into clear proof of skill.</p>
+      <div class="use-cases-grid">
+        <div class="use-case-card reveal"><h3>Developers</h3><p>Showcase shipped apps, tools, and technical experiments.</p></div>
+        <div class="use-case-card reveal reveal-delay-1"><h3>Designers</h3><p>Present product thinking, interfaces, and portfolio case work.</p></div>
+        <div class="use-case-card reveal reveal-delay-2"><h3>Students</h3><p>Package school, competition, and personal projects for personal branding.</p></div>
+        <div class="use-case-card reveal reveal-delay-3"><h3>Indie Builders</h3><p>Share product progress, launches, and build-in-public updates.</p></div>
+        <div class="use-case-card reveal reveal-delay-4"><h3>Freelancers</h3><p>Turn client work into trust-building portfolio content.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section class="faq-section" id="faq">
     <div class="section-container">
-      <h2 class="section-title reveal">
-        Common Questions Answered
-      </h2>
-      <p class="section-desc reveal">
-        Everything you need to know about Visura's premium utility and architecture.
-      </p>
-
+      <h2 class="section-title reveal">Common Questions</h2>
+      <p class="section-desc reveal">What to know before turning your project brief into content.</p>
       <div class="faq-accordion-container">
-        
-        <!-- FAQ 1 -->
         <div class="faq-item reveal">
-          <button class="faq-question-btn" aria-expanded="false">
-            <span>Do I need an OpenAI or Gemini API key?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer-panel" hidden>
-            <p class="faq-answer">
-              <strong>Not for the basic generator.</strong> You can manually type and structure your slides instantly. An external API key (Gemini) is only required if you want to unlock the <strong>AI Auto-Fill</strong> feature to analyze brief documents automatically.
-            </p>
-          </div>
+          <button class="faq-question-btn" aria-expanded="false"><span>Is Visura free?</span><i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+          <div class="faq-answer-panel" hidden><p class="faq-answer"><strong>Yes.</strong> Visura is currently 100% free to use.</p></div>
         </div>
-
-        <!-- FAQ 2 -->
         <div class="faq-item reveal reveal-delay-1">
-          <button class="faq-question-btn" aria-expanded="false">
-            <span>How does the AI Auto-Fill work?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer-panel" hidden>
-            <p class="faq-answer">
-              Simply drag and drop your project summary in Markdown (`.md`) or PDF format into the Auto-Fill panel. Our Express server processes the document via the Gemini API, extracts key variables, and populates the generator slide fields instantly.
-            </p>
-          </div>
+          <button class="faq-question-btn" aria-expanded="false"><span>Do I need an API key?</span><i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+          <div class="faq-answer-panel" hidden><p class="faq-answer"><strong>Not for basic manual workflows.</strong> AI-assisted extraction and generation need a configured BYOK or server environment key, depending on the feature flow.</p></div>
         </div>
-
-        <!-- FAQ 3 -->
         <div class="faq-item reveal reveal-delay-2">
-          <button class="faq-question-btn" aria-expanded="false">
-            <span>Is there any cost to use Visura?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer-panel" hidden>
-            <p class="faq-answer">
-              <strong>100% Free.</strong> Visura was built as an open-source utility tool to help creative developers and digital designers save time structuring premium portfolio posts.
-            </p>
-          </div>
+          <button class="faq-question-btn" aria-expanded="false"><span>What files can AI extraction read?</span><i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+          <div class="faq-answer-panel" hidden><p class="faq-answer">Visura supports Markdown and PDF project documents up to the existing upload limits used by the app.</p></div>
         </div>
-
-        <!-- FAQ 4 -->
         <div class="faq-item reveal reveal-delay-3">
-          <button class="faq-question-btn" aria-expanded="false">
-            <span>Where are my custom templates and prompt history stored?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer-panel" hidden>
-            <p class="faq-answer">
-              All your custom batches and prompt history are securely stored in your <strong>browser's Local Storage</strong>. No sensitive text or template data is ever uploaded or saved on our servers.
-            </p>
-          </div>
+          <button class="faq-question-btn" aria-expanded="false"><span>What content can Visura generate today?</span><i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+          <div class="faq-answer-panel" hidden><p class="faq-answer">Today Visura supports Instagram carousel prompts, LinkedIn posts, Instagram captions, hashtags, and AI project information extraction.</p></div>
         </div>
-
+        <div class="faq-item reveal reveal-delay-4">
+          <button class="faq-question-btn" aria-expanded="false"><span>Where are my history and settings stored?</span><i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+          <div class="faq-answer-panel" hidden><p class="faq-answer">History, templates, and settings are stored locally in your browser where the current app uses Local Storage.</p></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- =====================================================
-       CTA FOOTER SECTION
-       ===================================================== -->
   <section class="landing-cta-footer reveal">
     <div class="section-container">
-      <h2 class="cta-footer-title">Elevate your portfolio presentations today.</h2>
-      <p class="cta-footer-desc">Craft gorgeous narrative threads. Impress clients. Build your visual legacy.</p>
-      <a href="/app" class="btn btn-primary btn-lg cta-glow">
-        Try Demo Now <i class="fa-solid fa-arrow-right btn-icon-right"></i>
-      </a>
+      <h2 class="cta-footer-title">Ready to share what you built?</h2>
+      <p class="cta-footer-desc">Turn one project brief into professional content for your portfolio and social platforms.</p>
+      <a href="/app" class="btn btn-primary btn-lg cta-glow">Start Creating <i class="fa-solid fa-arrow-right btn-icon-right"></i></a>
     </div>
   </section>
 
-  <!-- =====================================================
-       FOOTER
-       ===================================================== -->
   <footer class="landing-footer">
     <div class="section-container footer-container">
       <div class="footer-brand-section">
         <span class="brand-text">Visura</span>
-        <p class="footer-brand-desc">Modern Minimalist Prompt Engineering System for Creative Pioneers.</p>
+        <p class="footer-brand-desc">Portfolio Content Studio for developers, designers, and builders.</p>
       </div>
       <div class="footer-links-section">
         <div class="footer-links-col">
           <h4>Utility</h4>
-          <a href="/app">Prompt Generator</a>
-          <a href="/history">Prompt History</a>
+          <a href="/app">Instagram Carousel</a>
+          <a href="/linkedin">LinkedIn Generator</a>
+          <a href="/history">History</a>
           <a href="/prompts">Prompt Manager</a>
         </div>
       </div>
@@ -561,26 +337,16 @@
         <span class="copyright">© 2026 Visura Studio. All rights reserved.</span>
         <span class="creator-credit">Crafted by <strong>FAYdev</strong></span>
         <span class="creator-social">
-          <a href="https://github.com/FAYnim" target="_blank" rel="noopener" aria-label="GitHub">
-            <i class="fa-brands fa-github"></i>
-          </a>
-          <a href="https://faydev.my.id" target="_blank" rel="noopener" aria-label="Portfolio">
-            <i class="fa-solid fa-globe"></i>
-          </a>
-          <a href="https://instagram.com/fay.developer" target="_blank" rel="noopener" aria-label="Instagram">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
+          <a href="https://github.com/FAYnim" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://faydev.my.id" target="_blank" rel="noopener" aria-label="Portfolio"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://instagram.com/fay.developer" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         </span>
       </div>
     </div>
   </footer>
 
-  <!-- =====================================================
-       SCRIPTS FOR INTERACTIVITY
-       ===================================================== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Mobile Nav Toggle
       const mobileNavToggle = document.getElementById('mobile-nav-toggle');
       const mobileNavSidebar = document.getElementById('mobile-nav-sidebar');
       const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
@@ -604,14 +370,11 @@
       mobileNavOverlay.addEventListener('click', closeMobileNav);
       mobileNavLinks.forEach(link => link.addEventListener('click', closeMobileNav));
 
-      // 2. Interactive FAQ Accordion
       const faqQuestions = document.querySelectorAll('.faq-question-btn');
       faqQuestions.forEach(btn => {
         btn.addEventListener('click', () => {
           const expanded = btn.getAttribute('aria-expanded') === 'true';
           const panel = btn.nextElementSibling;
-          
-          // Collapse all others
           faqQuestions.forEach(otherBtn => {
             if (otherBtn !== btn) {
               otherBtn.setAttribute('aria-expanded', 'false');
@@ -619,8 +382,6 @@
               otherBtn.nextElementSibling.setAttribute('hidden', '');
             }
           });
-
-          // Toggle current
           btn.setAttribute('aria-expanded', !expanded);
           if (!expanded) {
             panel.removeAttribute('hidden');
@@ -632,102 +393,27 @@
         });
       });
 
-      // 3. Custom Interactive Carousel Preview
-      const track = document.getElementById('carousel-slides-track');
-      const slides = Array.from(document.querySelectorAll('.carousel-slide'));
-      const dots = Array.from(document.querySelectorAll('.indicator-dot'));
-      const prevBtn = document.getElementById('carousel-prev-btn');
-      const nextBtn = document.getElementById('carousel-next-btn');
-      let currentSlideIndex = 0;
-
-      const updateCarousel = (index) => {
-        if (index < 0) index = slides.length - 1;
-        if (index >= slides.length) index = 0;
-        
-        currentSlideIndex = index;
-
-        // Smooth slide transition
-        const amountToMove = -currentSlideIndex * 100;
-        track.style.transform = `translateX(${amountToMove}%)`;
-
-        // Update active slide class
-        slides.forEach((slide, i) => {
-          if (i === currentSlideIndex) {
-            slide.classList.add('active');
-          } else {
-            slide.classList.remove('active');
-          }
-        });
-
-        // Update indicators
-        dots.forEach((dot, i) => {
-          if (i === currentSlideIndex) {
-            dot.classList.add('active');
-          } else {
-            dot.classList.remove('active');
-          }
-        });
-      };
-
-      prevBtn.addEventListener('click', () => {
-        updateCarousel(currentSlideIndex - 1);
-      });
-
-      nextBtn.addEventListener('click', () => {
-        updateCarousel(currentSlideIndex + 1);
-      });
-
-      dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-          const index = parseInt(dot.getAttribute('data-slide-index'));
-          updateCarousel(index);
-        });
-      });
-
-      // Handle swipe / touch gestures for mobile carousel
-      let touchStartX = 0;
-      let touchEndX = 0;
-
-      track.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-
-      track.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (diff > 50) {
-          // Swipe left -> Next slide
-          updateCarousel(currentSlideIndex + 1);
-        } else if (diff < -50) {
-          // Swipe right -> Prev slide
-          updateCarousel(currentSlideIndex - 1);
-        }
-      }, { passive: true });
-
-      // 4. Live Mockup UI Simulator (Motion Design Showcase)
       const mockupBadge = document.getElementById('mockup-input-badge');
       const mockupHeadline = document.getElementById('mockup-input-headline');
       const mockupPrompt = document.getElementById('mockup-output-prompt');
       const mockupFrame = document.querySelector('.mockup-frame');
-
       const mockupExamples = [
         {
-          badge: "AI ANALYTICS",
-          headline: "Deep insights.<br>Engineered.",
-          prompt: 'A cinematic dark studio scene, a glass interface reading <span class="prompt-var">"AI ANALYTICS"</span> and <span class="prompt-var">"Deep insights. Engineered."</span>, dramatic moody green lighting, volumetric smoke, high contrast, clean minimalist layout...'
+          badge: "PROJECT BRIEF",
+          headline: "One input.<br>Four outputs.",
+          prompt: 'Generate a launch-ready content set: <span class="prompt-var">Instagram carousel</span>, <span class="prompt-var">LinkedIn post</span>, caption, and hashtags from one project brief...'
         },
         {
-          badge: "CYBER SECURITY",
-          headline: "Threats.<br>Neutralized.",
-          prompt: 'A high-tech digital security vault room, a glowing holographic shield reading <span class="prompt-var">"CYBER SECURITY"</span> and <span class="prompt-var">"Threats. Neutralized."</span>, cyber-blue laser beams, sleek glass panels, silver reflections, cinematic depth of field...'
+          badge: "LINKEDIN POST",
+          headline: "Builder story.<br>Ready to publish.",
+          prompt: 'Turn the project context into a concise professional post covering <span class="prompt-var">problem</span>, process, result, and call-to-action...'
         },
         {
-          badge: "ECO SYSTEM",
-          headline: "Oceans.<br>Restored.",
-          prompt: 'An elegant underwater glass dome sanctuary, a clean minimalist hud displaying <span class="prompt-var">"ECO SYSTEM"</span> and <span class="prompt-var">"Oceans. Restored."</span>, cinematic teal blue water, glowing marine biology, sunlight rays refraction, photorealistic details...'
+          badge: "PORTFOLIO CONTENT",
+          headline: "Showcase work.<br>With structure.",
+          prompt: 'Create platform-ready portfolio content that explains what was built, who it helps, and why it matters...'
         }
       ];
-
       let exampleIndex = 0;
 
       const typeEffect = (element, htmlText, delay = 50) => {
@@ -735,9 +421,7 @@
           element.innerHTML = "";
           let i = 0;
           const isHTML = htmlText.includes('<');
-          
           if (!isHTML) {
-            // Standard typing character by character
             const timer = setInterval(() => {
               if (i < htmlText.length) {
                 element.textContent += htmlText.charAt(i);
@@ -748,7 +432,6 @@
               }
             }, delay);
           } else {
-            // HTML content fade transition
             element.style.opacity = 0;
             element.innerHTML = htmlText;
             let op = 0;
@@ -768,46 +451,30 @@
       const runMockupLoop = async () => {
         while (true) {
           const current = mockupExamples[exampleIndex];
-          
-          // loading simulator state
           mockupFrame.classList.add('mockup-generating');
-          
           await new Promise(r => setTimeout(r, 600));
-          
-          // Type Badge
           await typeEffect(mockupBadge, current.badge, 40);
           await new Promise(r => setTimeout(r, 400));
-          
-          // Type Headline
           await typeEffect(mockupHeadline, current.headline, 60);
           await new Promise(r => setTimeout(r, 500));
-          
-          // Sparkle generation flash
           mockupFrame.classList.remove('mockup-generating');
           mockupFrame.classList.add('mockup-flash');
           await new Promise(r => setTimeout(r, 150));
           mockupFrame.classList.remove('mockup-flash');
-          
-          // Smooth fade in prompt
           mockupPrompt.style.opacity = 0;
           mockupPrompt.innerHTML = current.prompt;
           mockupPrompt.style.transition = 'opacity 0.6s ease';
-          mockupPrompt.offsetHeight; // reflow
+          mockupPrompt.offsetHeight;
           mockupPrompt.style.opacity = 1;
-          
-          // Hold
           await new Promise(r => setTimeout(r, 4500));
-          
-          // Next
           exampleIndex = (exampleIndex + 1) % mockupExamples.length;
         }
       };
 
-      if (mockupBadge && mockupHeadline && mockupPrompt) {
+      if (mockupBadge && mockupHeadline && mockupPrompt && mockupFrame) {
         runMockupLoop();
       }
 
-      // 5. Scroll Reveal Motion
       const revealElements = document.querySelectorAll('.reveal');
       const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -820,7 +487,6 @@
         threshold: 0.1,
         rootMargin: '0px 0px -40px 0px'
       });
-
       revealElements.forEach(el => revealObserver.observe(el));
     });
   </script>
