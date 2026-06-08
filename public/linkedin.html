@@ -29,21 +29,30 @@
     <aside class="app-sidebar" aria-label="Main navigation">
       <div class="sidebar-top">
         <nav class="sidebar-menu" role="navigation">
-          <a class="sidebar-btn" href="/app" id="tab-generator">
-            <span class="btn-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt Generator</span>
-          </a>
-          <a class="sidebar-btn" href="/history" id="tab-history">
-            <span class="btn-text"><i class="fa-solid fa-clock-rotate-left"></i> History</span>
-          </a>
-          <a class="sidebar-btn" href="/prompts" id="tab-prompts">
-            <span class="btn-text"><i class="fa-solid fa-layer-group"></i> Prompt Manager</span>
-          </a>
-          <a class="sidebar-btn active" href="/linkedin" id="tab-linkedin" aria-current="page">
-            <span class="btn-text"><i class="fa-brands fa-linkedin"></i> LinkedIn Generator</span>
-          </a>
-          <a class="sidebar-btn" href="/byok" id="tab-byok">
-            <span class="btn-text"><i class="fa-solid fa-key"></i> API Keys</span>
-          </a>
+          <div class="sidebar-menu-group">
+            <span class="sidebar-menu-label">Carousel</span>
+            <a class="sidebar-btn" href="/app" id="tab-generator">
+              <span class="btn-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt Generator</span>
+            </a>
+            <a class="sidebar-btn" href="/prompts" id="tab-prompts">
+              <span class="btn-text"><i class="fa-solid fa-layer-group"></i> Prompt Manager</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-group">
+            <span class="sidebar-menu-label">LinkedIn</span>
+            <a class="sidebar-btn active" href="/linkedin" id="tab-linkedin" aria-current="page">
+              <span class="btn-text"><i class="fa-brands fa-linkedin"></i> LinkedIn Generator</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-group">
+            <span class="sidebar-menu-label">Other</span>
+            <a class="sidebar-btn" href="/history" id="tab-history">
+              <span class="btn-text"><i class="fa-solid fa-clock-rotate-left"></i> History</span>
+            </a>
+            <a class="sidebar-btn" href="/byok" id="tab-byok">
+              <span class="btn-text"><i class="fa-solid fa-key"></i> API Keys</span>
+            </a>
+          </div>
         </nav>
       </div>
 
