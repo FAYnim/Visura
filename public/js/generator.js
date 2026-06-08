@@ -14,7 +14,7 @@ import {
   showToast
 } from './common.js';
 
-import { normalizePromptBatches } from './promptStore.js';
+import { STOCK_PROMPT_BATCHES, normalizePromptBatches } from './promptStore.js';
 
 import { STATE, SETTINGS_DEFAULTS, resetSlides } from './generatorState.js';
 import { compilePlainText } from './generatorTemplates.js';
@@ -110,15 +110,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load history
   STATE.history = loadHistory();
 
-  // Load prompt batches & active id
   const rawBatches = loadPromptBatches();
+  let userBatches = [];
+
   if (Array.isArray(rawBatches)) {
-    STATE.promptBatches = normalizePromptBatches(rawBatches);
+    userBatches = normalizePromptBatches(rawBatches);
     STATE.activePromptBatchId = null;
   } else if (rawBatches && typeof rawBatches === 'object') {
-    STATE.promptBatches = normalizePromptBatches(rawBatches.batches || []);
+    userBatches = normalizePromptBatches(rawBatches.batches || []);
     STATE.activePromptBatchId = rawBatches.activeId || null;
+  } else {
+    userBatches = [];
+    STATE.activePromptBatchId = null;
   }
+
+  STATE.promptBatches = [...STOCK_PROMPT_BATCHES, ...userBatches];
 
   // Init sidebar
   initSidebar();
