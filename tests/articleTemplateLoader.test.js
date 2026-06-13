@@ -67,7 +67,7 @@ const templates = listArticleTemplates();
 assert.equal(templates.length, 4);
 assert.deepEqual(
   templates.map(template => template.id).sort(),
-  ['build-process', 'founder-story', 'problem-solution', 'technical-breakdown']
+  ['case-study', 'product-launching', 'project-deep-dive', 'technical-breakdown']
 );
 assert.ok(templates.every(template => template.name && template.description));
 assert.ok(templates.every(template => !template.body));
