@@ -26,6 +26,7 @@ Great projects often go unnoticed because builders face three persistent challen
 - **Carousel Preview Showcase** on the landing page with five visual example slides.
 - **AI Auto-Fill** — automatically populate carousel fields from a text brief or Markdown/PDF documentation file using Gemini or Groq.
 - **LinkedIn Post Generator** — generate one LinkedIn-ready post from pasted project info or Markdown/PDF documentation using selectable post styles and language.
+- **Article Generator** — generate a structured long-form article from a project brief or Markdown/PDF documentation with selectable language and length presets.
 - **Instagram Caption Generator** — generate structured captions from a brief or uploaded documentation directly inside the prompt generator flow.
 - **Live Preview** with syntax highlighting comparing placeholders and filled values.
 - **One-Click Copy & Save** to clipboard/history with sleek toast feedback.
@@ -41,6 +42,7 @@ Great projects often go unnoticed because builders face three persistent challen
 - **Marketing Landing Page:** `http://localhost:3000/`
 - **Prompt Generator:** `http://localhost:3000/app`
 - **LinkedIn Post Generator:** `http://localhost:3000/linkedin`
+- **Article Generator:** `http://localhost:3000/article`
 - **History:** `http://localhost:3000/history`
 - **Settings:** `http://localhost:3000/settings`
 - **Prompt Manager:** `http://localhost:3000/prompts`
@@ -130,6 +132,13 @@ For the **LinkedIn Post Generator** at `/linkedin`:
 3. Click **Generate LinkedIn Post** and review the result.
 4. Click **Copy** to save the post to your clipboard.
 
+For the **Article Generator** at `/article`:
+
+1. Paste a project brief, and/or upload Markdown/PDF documentation (≤ 10 MB).
+2. Select a language, length preset, and AI model.
+3. Click **Generate Article** and review the structured output.
+4. Click **Copy** to save the article to your clipboard.
+
 > [!TIP]
 > Use **History** as a local content library for iterating on different carousel, caption, and LinkedIn post styles.
 
@@ -177,6 +186,7 @@ For the **LinkedIn Post Generator** at `/linkedin`:
     ├── index.html               # Marketing landing page and carousel preview showcase
     ├── app.html                 # Core carousel prompt and caption generator page
     ├── linkedin.html            # LinkedIn Post Generator page
+    ├── article.html             # Article Generator page
     ├── prompts.html             # Batch Prompt Manager and Template Editor
     ├── history.html             # Copy History Viewer
     ├── settings.html            # Global Creator Settings
@@ -200,6 +210,8 @@ For the **LinkedIn Post Generator** at `/linkedin`:
     │   ├── history.js           # History management and search engine
     │   ├── linkedin.js          # LinkedIn Post Generator UI flows
     │   ├── linkedinActions.js   # LinkedIn clipboard and history helpers
+    │   ├── article.js           # Article Generator UI flows
+    │   ├── articleActions.js    # Article clipboard and history helpers
     │   ├── promptStore.js       # Default presets and placeholder validations
     │   ├── prompts.js           # Batch prompt manager UI
     │   ├── settings.js          # Creator profile form management logic
