@@ -1,5 +1,7 @@
 import { getDecryptedByokKey } from './byok.js';
+import { initSidebar, loadSettings, updateProfileWidget } from './common.js';
 import { copyArticleMarkdown, hasGeneratedArticle } from './articleActions.js';
+import { SETTINGS_DEFAULTS } from './settingsDefaults.js';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_FILE_EXTENSIONS = ['.md', '.markdown', '.pdf'];
@@ -220,17 +222,13 @@ async function copyArticle() {
 els.docFile.addEventListener('change', () => {
   const file = els.docFile.files[0];
   els.uploadLabel.textContent = file ? file.name : 'Upload MD/PDF';
+  els.uploadZone.classList.toggle('has-file', Boolean(file));
 });
 
-els.uploadZone.addEventListener('click', () => els.docFile.click());
-els.uploadZone.addEventListener('keydown', event => {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault();
-    els.docFile.click();
-  }
-});
 els.generateBtn.addEventListener('click', generateArticle);
 els.copyBtn.addEventListener('click', copyArticle);
 
+initSidebar();
+updateProfileWidget(loadSettings(SETTINGS_DEFAULTS));
 setGeneratedState(null);
 await Promise.all([loadModels(), loadStyles()]);
