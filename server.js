@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import autoFillRoutes from './server/routes/autoFill.js';
 import linkedinRoutes from './server/routes/linkedin.js';
+import articleRoutes from './server/routes/article.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // ── API routes ────────────────────────────────────────────
 app.use('/api', autoFillRoutes);
 app.use('/api', linkedinRoutes);
+app.use('/api', articleRoutes);
 const PORT = process.env.PORT || 3000;
 
 // Serve static assets from /public
@@ -51,6 +53,10 @@ app.get('/byok', (req, res) => {
 
 app.get('/linkedin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'linkedin.html'));
+});
+
+app.get('/article', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'article.html'));
 });
 
 app.listen(PORT, () => {
