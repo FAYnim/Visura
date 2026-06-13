@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Article Generator - Visura</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="app-shell linkedin-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <img src="/img/logo/android-chrome-192x192.png" alt="Visura" />
+        <span>Visura</span>
+      </a>
+      <nav class="sidebar-nav">
+        <a href="/app">Prompt Generator</a>
+        <a href="/linkedin">LinkedIn</a>
+        <a href="/article" class="active">Article</a>
+        <a href="/history">History</a>
+        <a href="/settings">Settings</a>
+        <a href="/byok">API Keys</a>
+      </nav>
+    </aside>
+
+    <section class="content-panel linkedin-panel">
+      <header class="linkedin-hero">
+        <div>
+          <p class="eyebrow">Project Storytelling</p>
+          <h1>Article Generator</h1>
+          <p>Turn briefs, Markdown docs, or PDFs into portfolio-ready project articles.</p>
+        </div>
+      </header>
+
+      <div class="linkedin-grid">
+        <section class="glass-card linkedin-inputs">
+          <label class="field-label" for="doc-file">Source Document</label>
+          <div id="upload-zone" class="upload-zone" role="button" tabindex="0">
+            <input id="doc-file" type="file" accept=".md,.markdown,.pdf" hidden />
+            <span id="upload-label">Upload MD/PDF</span>
+          </div>
+
+          <label class="field-label" for="brief">Project Brief</label>
+          <textarea id="brief" rows="10" placeholder="Paste project context, problem, solution, build notes, outcomes, or docs summary..."></textarea>
+
+          <div class="form-row">
+            <div>
+              <label class="field-label" for="language">Language</label>
+              <select id="language">
+                <option value="Indonesia">Indonesia</option>
+                <option value="English">English</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label" for="length">Length</label>
+              <select id="length">
+                <option value="short">Short · 600–900 words</option>
+                <option value="medium" selected>Medium · 1000–1500 words</option>
+                <option value="long">Long · 1800–2500 words</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="field-label" for="model">AI Model</label>
+          <select id="model"></select>
+
+          <div class="style-header">
+            <label class="field-label">Article Style</label>
+            <span id="style-status">Loading styles...</span>
+          </div>
+          <div id="style-grid" class="linkedin-style-grid"></div>
+
+          <button id="generate-btn" class="primary-btn" type="button">Generate Article</button>
+        </section>
+
+        <section class="glass-card linkedin-output-card">
+          <div class="output-header">
+            <div>
+              <p class="eyebrow">Generated Article</p>
+              <h2 id="article-title">Ready when you are</h2>
+              <p id="article-excerpt">Add source material, choose a style, then generate.</p>
+            </div>
+            <button id="copy-btn" class="secondary-btn" type="button" disabled>Copy Markdown</button>
+          </div>
+
+          <div class="article-output-tabs" aria-label="Article output">
+            <section>
+              <h3>Markdown</h3>
+              <pre id="markdown-output" class="linkedin-output">Generated Markdown will appear here.</pre>
+            </section>
+            <section>
+              <h3>Preview</h3>
+              <article id="preview-output" class="article-preview">Rendered preview will appear here.</article>
+            </section>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script type="module" src="/js/article.js"></script>
+</body>
+</html>
