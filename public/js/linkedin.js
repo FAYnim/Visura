@@ -42,7 +42,7 @@ function setGeneratedState(enabled) {
 function inferProvider(model) {
   if (model.provider) return model.provider;
   if (model.id.startsWith('gemini')) return 'gemini';
-  if (model.id.startsWith('llama')) return 'groq';
+  if (model.id.startsWith('gpt-oss')) return 'groq';
   return '';
 }
 

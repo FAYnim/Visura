@@ -64,7 +64,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
 
   const FALLBACK_MODELS = [
     { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash', provider: 'gemini' },
-    { id: 'llama-3.3-70b',    label: 'LLaMA 3.3 70B',    provider: 'groq'   },
+    { id: 'gpt-oss-120b',     label: 'GPT OSS 120B',     provider: 'groq'   },
   ];
 
   /* ---- BYOK detection for currently selected model ---- */
@@ -72,7 +72,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     const selectedOption = modelSelect.options[modelSelect.selectedIndex];
     const model    = modelSelect.value || '';
     const provider = selectedOption?.dataset?.provider ||
-      (model.startsWith('gemini') ? 'gemini' : model.startsWith('llama') ? 'groq' : null);
+      (model.startsWith('gemini') ? 'gemini' : model.startsWith('gpt-oss') ? 'groq' : null);
     return provider ? hasByokKey(provider) : false;
   }
 
@@ -127,7 +127,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
       if (models && models.length > 0) {
         modelSelect.innerHTML = models.map(m => {
           const provider = m.provider ||
-            (m.id.startsWith('gemini') ? 'gemini' : m.id.startsWith('llama') ? 'groq' : '');
+            (m.id.startsWith('gemini') ? 'gemini' : m.id.startsWith('gpt-oss') ? 'groq' : '');
           return `<option value="${m.id}" data-provider="${provider}">${m.label}</option>`;
         }).join('');
       } else {
@@ -289,7 +289,7 @@ export function initAutoFill({ state, renderPreview, showToast, escapeHtml }) {
     /* ---- BYOK detection ---- */
     const selectedOption = modelSelect.options[modelSelect.selectedIndex];
     const provider = selectedOption?.dataset?.provider ||
-      (model.startsWith('gemini') ? 'gemini' : model.startsWith('llama') ? 'groq' : null);
+      (model.startsWith('gemini') ? 'gemini' : model.startsWith('gpt-oss') ? 'groq' : null);
     const usingByok = provider ? hasByokKey(provider) : false;
 
     /* ---- Quota check (developer key only) ---- */

@@ -76,7 +76,7 @@ async function testGroqByokOverridesEnvKey() {
 
   const byokKey = 'gsk_ByokTestGroqKey1234567890';
   /* Should NOT throw because byokKey is provided */
-  const model = getModelOrThrow('llama-3.3-70b', byokKey);
+  const model = getModelOrThrow('gpt-oss-120b', byokKey);
   assert.equal(model.provider, 'groq', 'Provider is groq');
 
   console.log('✓ getModelOrThrow: Groq BYOK key bypasses missing ENV key');
