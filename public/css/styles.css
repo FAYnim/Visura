@@ -3646,6 +3646,7 @@ a:focus {
 }
 
 .article-output-meta {
+  width: 100%;
   flex: 1;
   display: grid;
   gap: 12px;
