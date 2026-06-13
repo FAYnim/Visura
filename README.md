@@ -31,6 +31,7 @@ Great projects often go unnoticed because builders face three persistent challen
 - **One-Click Copy & Save** to clipboard/history with sleek toast feedback.
 - **Prompt History** saved locally with quick search capabilities.
 - **Prompt Manager** for batch prompt presets and template editing.
+- **5 Stock Prompt Batches** — read-only system presets (Glass Poster, Product Monument, Architecture Presentation, Hero Interface, Device Showcase Laptop) selectable, activatable, and duplicatable as editable copies.
 - **BYOK API Key Management** with client-side AES-GCM encryption.
 - **Global Settings** for creator profile defaults synced across the app.
 - **Modern Dark UI** matching premium SaaS aesthetics.
@@ -100,7 +101,7 @@ Next, open `http://localhost:3000` in your web browser.
 
 ### Running Tests
 
-This application includes automated test suites covering AI output schema validation, model selection, upload validation, BYOK behavior, profile widgets, caption generation, LinkedIn template loading, prompt building, generation services, route handling, and copy/history actions. Execute via:
+This application includes automated test suites covering AI output schema validation, model selection, upload validation, BYOK behavior, profile widgets, caption generation, LinkedIn template loading, prompt building, generation services, route handling, copy/history actions, and stock prompt batch presets. Execute via:
 
 ```bash
 npm test
@@ -169,8 +170,9 @@ For the **LinkedIn Post Generator** at `/linkedin`:
 │   ├── linkedinService.test.js
 │   ├── linkedinTemplateLoader.test.js
 │   ├── linkedinUploadValidation.test.js
-│   ├── modelsRoute.test.js
-│   └── profileWidgetLoading.test.js
+    │   ├── modelsRoute.test.js
+    │   ├── profileWidgetLoading.test.js
+    │   └── promptStockBatches.test.js
 └── public/
     ├── index.html               # Marketing landing page and carousel preview showcase
     ├── app.html                 # Core carousel prompt and caption generator page
@@ -215,6 +217,7 @@ For the **LinkedIn Post Generator** at `/linkedin`:
 ## Customization
 
 - **Default Prompt Presets:** Customize inside `public/js/promptStore.js` under `DEFAULT_PROMPTS`.
+- **Stock Prompt Batches:** Read-only system presets defined in `public/js/promptStore.js` under `STOCK_PROMPT_BATCHES` (Glass Poster, Product Monument, Architecture Presentation, Hero Interface, Device Showcase Laptop).
 - **Template Compiler:** Refer to `public/js/generatorTemplates.js` to modify placeholder extraction behavior.
 - **Theme & Colors:** Customize variables inside `public/css/styles.css` and landing-specific styles inside `public/css/landing.css`.
 - **Default Profile:** Update preset profile values inside `public/js/settingsDefaults.js`.
