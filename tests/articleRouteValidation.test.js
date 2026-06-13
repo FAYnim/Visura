@@ -20,7 +20,7 @@ assert.equal(isArticleLengthSupported('giant'), false);
 assert.equal(
   validateArticleGenerateRequest({
     brief: 'Built a portfolio article generator for founders.',
-    styleId: 'problem-solution',
+    styleId: 'product-launching',
     language: 'English',
     length: 'medium',
     modelId: 'gemini-2.5-flash'
@@ -32,7 +32,7 @@ assert.equal(
 assert.equal(
   validateArticleGenerateRequest({
     brief: 'Built a portfolio article generator for founders.',
-    styleId: 'problem-solution',
+    styleId: 'product-launching',
     language: 'English',
     length: 'medium',
     modelId: 'unsupported-model'
@@ -54,7 +54,7 @@ assert.equal(
 assert.equal(
   validateArticleGenerateRequest({
     brief: 'Built a portfolio article generator for founders.',
-    styleId: 'problem-solution',
+    styleId: 'product-launching',
     language: 'Spanish',
     length: 'medium',
     modelId: 'gemini-2.5-flash'
@@ -65,7 +65,7 @@ assert.equal(
 assert.equal(
   validateArticleGenerateRequest({
     brief: 'Built a portfolio article generator for founders.',
-    styleId: 'problem-solution',
+    styleId: 'product-launching',
     language: 'English',
     length: 'giant',
     modelId: 'gemini-2.5-flash'
@@ -77,7 +77,7 @@ assert.equal(
   validateArticleGenerateRequest({
     brief: '',
     docText: '',
-    styleId: 'problem-solution',
+    styleId: 'product-launching',
     language: 'English',
     length: 'medium',
     modelId: 'gemini-2.5-flash'

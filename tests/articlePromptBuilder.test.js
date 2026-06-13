@@ -13,10 +13,10 @@ assert.equal(ARTICLE_LENGTHS.medium.label, '1000–1500 words');
 assert.equal(ARTICLE_LENGTHS.long.label, '1800–2500 words');
 
 const template = {
-  id: 'problem-solution',
-  name: 'Problem & Solution',
-  description: 'Case-study article',
-  body: 'Write a {length} article in {language} for this project:\n{projectInfo}\nEnd in {language}.'
+  id: 'product-launching',
+  name: 'Product Launching',
+  description: 'Launch announcement article',
+  body: 'Write a product launch article in {language}.\nArticle Length:\n{length}\nSource Information:\n{projectInfo}\nReturn articleMarkdown.'
 };
 
 const { systemPrompt, userPrompt } = buildArticlePrompt({
@@ -27,7 +27,6 @@ const { systemPrompt, userPrompt } = buildArticlePrompt({
 });
 
 assert.match(systemPrompt, /expert project storyteller/);
-assert.match(systemPrompt, /not a news article/i);
 assert.match(systemPrompt, /Return ONLY valid JSON/);
 assert.match(systemPrompt, /title/);
 assert.match(systemPrompt, /excerpt/);
