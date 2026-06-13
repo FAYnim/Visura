@@ -1184,6 +1184,30 @@ a:focus {
   flex-direction: column;
   gap: 8px;
   width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a transparent;
+}
+
+.sidebar-top::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-top::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-top::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.sidebar-top::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
 }
 
 /* ---- Sidebar Bottom Wrapper ---- */
@@ -1192,6 +1216,7 @@ a:focus {
   flex-direction: column;
   gap: 12px;
   width: 100%;
+  flex-shrink: 0;
 }
 
 /* ---- Sidebar Header (Bottom-positioned Collapse Button) ---- */
@@ -1323,6 +1348,30 @@ a:focus {
 .sidebar-top {
   width: 100%;
   padding: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a transparent;
+}
+
+.sidebar-top::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-top::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-top::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.sidebar-top::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
 }
 
 .sidebar-menu {
@@ -1386,6 +1435,7 @@ a:focus {
   padding: 24px;
   border-top: 1px solid #1f1f1f;
   background: #161616;
+  flex-shrink: 0;
 }
 
 .sidebar-profile-section {
