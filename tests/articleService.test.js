@@ -25,7 +25,7 @@ let capturedCall;
 const result = await generateArticleFromSources({
   brief: 'Visura turns briefs into polished project articles.',
   docText: 'Target users are Indonesian founders and product builders.',
-  styleId: 'problem-solution',
+  styleId: 'product-launching',
   language: 'English',
   length: 'medium',
   modelId: 'gemini-2.5-flash',
@@ -45,9 +45,9 @@ assert.equal(result.excerpt, 'A practical look at Visura.');
 assert.equal(result.articleMarkdown, '# Turning Project Work Into Stories\n\nVisura helps builders publish better.');
 assert.match(result.articleHtml, /<h1>Turning Project Work Into Stories<\/h1>/);
 assert.deepEqual(result.style, {
-  id: 'problem-solution',
-  name: 'Problem & Solution',
-  description: 'Turn project material into a clear case-study article about the problem, solution, and impact.'
+  id: 'product-launching',
+  name: 'Product Launching',
+  description: 'Write an official launch article that introduces a project, explains its value, and invites readers to explore it.'
 });
 assert.equal(result.language, 'English');
 assert.equal(result.length, 'medium');
@@ -64,7 +64,7 @@ await assert.rejects(
   () => generateArticleFromSources({
     brief: '',
     docText: '',
-    styleId: 'problem-solution',
+    styleId: 'product-launching',
     language: 'English',
     length: 'short',
     modelId: 'gemini-2.5-flash',
@@ -83,7 +83,7 @@ try {
     () => generateArticleFromSources({
       brief: 'Valid brief',
       docText: '',
-      styleId: 'problem-solution',
+      styleId: 'product-launching',
       language: 'English',
       length: 'short',
       modelId: 'gemini-2.5-flash',
