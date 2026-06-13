@@ -18,8 +18,8 @@ const els = {
   styleStatus: document.getElementById('style-status'),
   generateBtn: document.getElementById('generate-btn'),
   copyBtn: document.getElementById('copy-btn'),
-  articleTitle: document.getElementById('article-title'),
-  articleExcerpt: document.getElementById('article-excerpt'),
+  articleTitleOutput: document.getElementById('article-title-output'),
+  articleExcerptOutput: document.getElementById('article-excerpt-output'),
   markdownOutput: document.getElementById('markdown-output'),
   previewOutput: document.getElementById('preview-output'),
   toast: document.getElementById('toast')
@@ -118,8 +118,8 @@ function selectedProvider() {
 }
 
 function setStatus(message) {
-  els.articleTitle.textContent = message;
-  els.articleExcerpt.textContent = '';
+  els.articleTitleOutput.value = message;
+  els.articleExcerptOutput.value = '';
   els.markdownOutput.textContent = message;
   els.previewOutput.textContent = message;
 }
@@ -196,8 +196,8 @@ async function generateArticle() {
       articleHtml: data.articleHtml || ''
     };
 
-    els.articleTitle.textContent = article.title;
-    els.articleExcerpt.textContent = article.excerpt;
+    els.articleTitleOutput.value = article.title;
+    els.articleExcerptOutput.value = article.excerpt;
     els.markdownOutput.textContent = article.articleMarkdown || 'No article returned.';
     els.previewOutput.innerHTML = article.articleHtml || 'No preview returned.';
     setGeneratedState(article);

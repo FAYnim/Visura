@@ -76,7 +76,6 @@
             <article class="linkedin-card linkedin-input-card">
               <div class="linkedin-card-head">
                 <p class="linkedin-section-label">Source</p>
-                <h2>Project Source</h2>
               </div>
               <label class="linkedin-upload-zone" for="doc-file" id="upload-zone">
                 <input id="doc-file" type="file" accept=".md,.markdown,.pdf" hidden />
@@ -126,19 +125,37 @@
             </article>
           </section>
 
-          <section class="linkedin-card linkedin-output-card" aria-label="Generated article">
-            <div class="linkedin-output-head">
-              <div>
-                <p class="linkedin-section-label">Output</p>
-                <h2 id="article-title">Ready when you are</h2>
-                <p id="article-excerpt">Add source material, choose a style, then generate.</p>
+          <section class="article-output-card" aria-label="Generated article">
+            <div class="article-output-head">
+              <div class="article-output-meta">
+                <p class="linkedin-section-label">Article Output</p>
+                <label class="article-output-field" for="article-title-output">
+                  <span>Title</span>
+                  <input id="article-title-output" type="text" value="Ready when you are" readonly />
+                </label>
+                <label class="article-output-field" for="article-excerpt-output">
+                  <span>Excerpt</span>
+                  <textarea id="article-excerpt-output" rows="3" readonly>Add source material, choose a style, then generate.</textarea>
+                </label>
               </div>
-              <div class="linkedin-output-actions">
+              <div class="article-output-actions">
                 <button class="btn btn-secondary" id="copy-btn" type="button" disabled>Copy Markdown</button>
               </div>
             </div>
-            <pre class="linkedin-output" id="markdown-output">Generated Markdown will appear here.</pre>
-            <article class="linkedin-output article-preview" id="preview-output">Rendered preview will appear here.</article>
+            <div class="article-output-grid">
+              <div class="article-output-pane">
+                <div class="article-output-pane-head">
+                  <span>Markdown</span>
+                </div>
+                <pre class="article-markdown-output" id="markdown-output">Generated Markdown will appear here.</pre>
+              </div>
+              <div class="article-output-pane article-preview-pane">
+                <div class="article-output-pane-head">
+                  <span>Preview</span>
+                </div>
+                <article class="article-rendered-preview" id="preview-output">Rendered preview will appear here.</article>
+              </div>
+            </div>
           </section>
         </main>
       </div>
