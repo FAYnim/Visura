@@ -1184,6 +1184,30 @@ a:focus {
   flex-direction: column;
   gap: 8px;
   width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a transparent;
+}
+
+.sidebar-top::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-top::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-top::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.sidebar-top::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
 }
 
 /* ---- Sidebar Bottom Wrapper ---- */
@@ -1192,6 +1216,7 @@ a:focus {
   flex-direction: column;
   gap: 12px;
   width: 100%;
+  flex-shrink: 0;
 }
 
 /* ---- Sidebar Header (Bottom-positioned Collapse Button) ---- */
@@ -1323,6 +1348,30 @@ a:focus {
 .sidebar-top {
   width: 100%;
   padding: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a transparent;
+}
+
+.sidebar-top::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-top::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-top::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.sidebar-top::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
 }
 
 .sidebar-menu {
@@ -1386,6 +1435,7 @@ a:focus {
   padding: 24px;
   border-top: 1px solid #1f1f1f;
   background: #161616;
+  flex-shrink: 0;
 }
 
 .sidebar-profile-section {
@@ -3425,7 +3475,8 @@ a:focus {
 }
 
 .linkedin-field textarea,
-.linkedin-field select {
+.linkedin-field select,
+.linkedin-field input {
   width: 100%;
   background: #1e1e1e;
   border: 1px solid #2d2d2d;
@@ -3445,12 +3496,14 @@ a:focus {
 }
 
 .linkedin-field textarea:focus,
-.linkedin-field select:focus {
+.linkedin-field select:focus,
+.linkedin-field input:focus {
   border-color: #7c3aed;
   background: #202020;
 }
 
-.linkedin-field textarea::placeholder {
+.linkedin-field textarea::placeholder,
+.linkedin-field input::placeholder {
   color: #6b7280;
 }
 
@@ -3575,8 +3628,148 @@ a:focus {
   padding: 20px;
 }
 
+.article-output-card {
+  min-height: 420px;
+  background: linear-gradient(135deg, rgba(24, 24, 27, 0.96), rgba(12, 12, 12, 0.98));
+  border: 1px solid #2d2d2d;
+  border-radius: 24px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+  padding: 24px;
+}
+
+.article-output-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.article-output-meta {
+  width: 100%;
+  flex: 1;
+  display: grid;
+  gap: 12px;
+}
+
+.article-output-field {
+  display: grid;
+  gap: 7px;
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.article-output-field input,
+.article-output-field textarea {
+  width: 100%;
+  background: #111111;
+  border: 1px solid #2d2d2d;
+  border-radius: 12px;
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.55;
+  outline: none;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.article-output-field input:read-only,
+.article-output-field textarea:read-only {
+  cursor: default;
+}
+
+.article-output-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.article-output-actions .btn:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.article-output-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.article-output-pane {
+  min-height: 420px;
+  overflow: hidden;
+  background: rgba(10, 10, 10, 0.82);
+  border: 1px solid #262626;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-output-pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 0 16px;
+  border-bottom: 1px solid #262626;
+  background: rgba(255, 255, 255, 0.035);
+  color: #d1d5db;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.article-markdown-output,
+.article-rendered-preview {
+  margin: 0;
+  flex: 1;
+  min-height: 360px;
+  max-height: 680px;
+  overflow: auto;
+  color: #e5e7eb;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.75;
+  padding: 20px;
+}
+
+.article-markdown-output {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #0f0f0f;
+}
+
+.article-rendered-preview {
+  background: #f7f2e8;
+  color: #1f1a14;
+}
+
+.article-rendered-preview h1,
+.article-rendered-preview h2,
+.article-rendered-preview h3 {
+  color: #17120d;
+  letter-spacing: -0.035em;
+}
+
+.article-rendered-preview a {
+  color: #7c2d12;
+}
+
+.article-rendered-preview blockquote {
+  margin-left: 0;
+  border-left: 4px solid #b45309;
+  padding-left: 16px;
+  color: #4b3525;
+}
+
 @media (max-width: 980px) {
-  .linkedin-top-grid {
+  .linkedin-top-grid,
+  .article-output-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -3601,7 +3794,8 @@ a:focus {
   }
 
   .linkedin-card-head,
-  .linkedin-output-head {
+  .linkedin-output-head,
+  .article-output-head {
     flex-direction: column;
   }
 
@@ -3614,12 +3808,25 @@ a:focus {
     min-height: 220px;
   }
 
-  .linkedin-output-actions {
+  .linkedin-output-actions,
+  .article-output-actions {
     width: 100%;
     justify-content: stretch;
   }
 
-  .linkedin-output-actions .btn {
+  .linkedin-output-actions .btn,
+  .article-output-actions .btn {
     flex: 1;
+  }
+
+  .article-output-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .article-markdown-output,
+  .article-rendered-preview {
+    min-height: 280px;
+    padding: 16px;
   }
 }

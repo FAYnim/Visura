@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Visura — LinkedIn Post Generator</title>
-  <meta name="description" content="Generate premium LinkedIn posts from briefs, Markdown, and PDF documents." />
-  <meta name="theme-color" content="#050505" />
+  <title>Article Generator - Visura</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/img/logo/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/img/logo/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/img/logo/favicon-16x16.png" />
@@ -13,6 +11,9 @@
   <link rel="manifest" href="/img/logo/site.webmanifest" />
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="app-header" role="banner">
@@ -40,13 +41,13 @@
           </div>
           <div class="sidebar-menu-group">
             <span class="sidebar-menu-label">LinkedIn</span>
-            <a class="sidebar-btn active" href="/linkedin" id="tab-linkedin" aria-current="page">
+            <a class="sidebar-btn" href="/linkedin" id="tab-linkedin">
               <span class="btn-text"><i class="fa-brands fa-linkedin"></i> LinkedIn Generator</span>
             </a>
           </div>
           <div class="sidebar-menu-group">
             <span class="sidebar-menu-label">Article</span>
-            <a class="sidebar-btn" href="/article" id="tab-article">
+            <a class="sidebar-btn active" href="/article" id="tab-article" aria-current="page">
               <span class="btn-text"><i class="fa-solid fa-newspaper"></i> Article Generator</span>
             </a>
           </div>
@@ -77,73 +78,98 @@
     </aside>
 
     <div class="app-content">
-      <div id="view-linkedin" class="app-view active">
+      <div id="view-article" class="app-view active">
         <main class="linkedin-page linkedin-main">
-          <section class="linkedin-top-grid" aria-label="LinkedIn generator controls">
+          <section class="linkedin-top-grid" aria-label="Article generator controls">
             <article class="linkedin-card linkedin-input-card">
               <div class="linkedin-card-head">
                 <p class="linkedin-section-label">Source</p>
-
               </div>
               <label class="linkedin-upload-zone" for="doc-file" id="upload-zone">
-                <input id="doc-file" type="file" accept=".md,.markdown,.pdf,text/markdown,text/plain,application/pdf" />
+                <input id="doc-file" type="file" accept=".md,.markdown,.pdf" hidden />
                 <span class="linkedin-upload-title" id="upload-label">Upload MD/PDF</span>
                 <span class="linkedin-upload-hint">Optional document source, max 10 MB</span>
               </label>
               <label class="linkedin-field" for="brief">
-                <span>Brief</span>
-                <textarea id="brief" rows="12" placeholder="Describe project context, product features, audience, result, launch story, or key points..."></textarea>
+                <span>Project Brief</span>
+                <textarea id="brief" rows="10" placeholder="Paste project context, problem, solution, build notes, outcomes, or docs summary..."></textarea>
               </label>
             </article>
 
             <article class="linkedin-card linkedin-control-card">
               <div class="linkedin-card-head">
-                <p class="linkedin-section-label">Post Settings</p>
-
+                <p class="linkedin-section-label">Article Settings</p>
               </div>
               <div class="linkedin-form-row">
                 <label class="linkedin-field" for="language">
                   <span>Language</span>
                   <select id="language">
-                    <option value="English">English</option>
                     <option value="Indonesia">Indonesia</option>
+                    <option value="English">English</option>
                   </select>
                 </label>
-                <label class="linkedin-field" for="model">
-                  <span>Model</span>
-                  <select id="model">
-                    <option value="">Loading models...</option>
+                <label class="linkedin-field" for="length">
+                  <span>Length</span>
+                  <select id="length">
+                    <option value="short">Short · 600–900 words</option>
+                    <option value="medium" selected>Medium · 1000–1500 words</option>
+                    <option value="long">Long · 1800–2500 words</option>
                   </select>
                 </label>
               </div>
+              <label class="linkedin-field" for="model">
+                <span>AI Model</span>
+                <select id="model"></select>
+              </label>
               <div class="linkedin-style-head">
-                <span>Style</span>
-                <small id="style-status">Loading styles...</small>
+                <div>
+                  <p class="linkedin-section-label">Article Style</p>
+                  <span id="style-status">Loading styles...</span>
+                </div>
               </div>
               <div class="linkedin-style-grid" id="style-grid" aria-live="polite"></div>
-              <button class="btn btn-primary linkedin-generate-btn" id="generate-btn" type="button">Generate Post</button>
+              <button class="btn btn-primary linkedin-generate-btn" id="generate-btn" type="button">Generate Article</button>
             </article>
           </section>
 
-          <section class="linkedin-card linkedin-output-card" aria-label="Generated LinkedIn post">
-            <div class="linkedin-output-head">
-              <div>
-                <p class="linkedin-section-label">Output</p>
-                <h2>Generated Post</h2>
+          <section class="article-output-card" aria-label="Generated article">
+            <div class="article-output-head">
+              <div class="article-output-meta">
+                <p class="linkedin-section-label">Article Output</p>
+                <label class="article-output-field" for="article-title-output">
+                  <span>Title</span>
+                  <input id="article-title-output" type="text" value="Ready when you are" readonly />
+                </label>
+                <label class="article-output-field" for="article-excerpt-output">
+                  <span>Excerpt</span>
+                  <textarea id="article-excerpt-output" rows="3" readonly>Add source material, choose a style, then generate.</textarea>
+                </label>
               </div>
-              <div class="linkedin-output-actions">
-                <button class="btn btn-secondary" id="copy-btn" type="button" disabled>Copy</button>
+              <div class="article-output-actions">
+                <button class="btn btn-secondary" id="copy-btn" type="button" disabled>Copy Markdown</button>
               </div>
             </div>
-            <pre class="linkedin-output" id="output">Your LinkedIn post will appear here.</pre>
+            <div class="article-output-grid">
+              <div class="article-output-pane">
+                <div class="article-output-pane-head">
+                  <span>Markdown</span>
+                </div>
+                <pre class="article-markdown-output" id="markdown-output">Generated Markdown will appear here.</pre>
+              </div>
+              <div class="article-output-pane article-preview-pane">
+                <div class="article-output-pane-head">
+                  <span>Preview</span>
+                </div>
+                <article class="article-rendered-preview" id="preview-output">Rendered preview will appear here.</article>
+              </div>
+            </div>
           </section>
         </main>
       </div>
     </div>
   </div>
 
-  <div class="sidebar-overlay" id="sidebar-overlay"></div>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="/js/linkedin.js"></script>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/js/article.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "node tests/autoFillSchema.test.js && node tests/autoFillFallback.test.js && node tests/modelsRoute.test.js && node tests/captionPromptBuilder.test.js && node tests/captionUploadValidation.test.js && node tests/captionByokDecryptFailure.test.js && node tests/profileWidgetLoading.test.js && node tests/generatorClipboardActions.test.js && node tests/linkedinTemplateLoader.test.js && node tests/linkedinPromptBuilder.test.js && node tests/linkedinService.test.js && node tests/linkedinUploadValidation.test.js && node tests/linkedinRouteValidation.test.js && node tests/linkedinActions.test.js && node tests/promptStockBatches.test.js"
+    "test": "node tests/autoFillSchema.test.js && node tests/autoFillFallback.test.js && node tests/modelsRoute.test.js && node tests/captionPromptBuilder.test.js && node tests/captionUploadValidation.test.js && node tests/captionByokDecryptFailure.test.js && node tests/profileWidgetLoading.test.js && node tests/generatorClipboardActions.test.js && node tests/articleTemplateLoader.test.js && node tests/articlePromptBuilder.test.js && node tests/articleService.test.js && node tests/articleUploadValidation.test.js && node tests/articleRouteValidation.test.js && node tests/articleActions.test.js && node tests/linkedinTemplateLoader.test.js && node tests/linkedinPromptBuilder.test.js && node tests/linkedinService.test.js && node tests/linkedinUploadValidation.test.js && node tests/linkedinRouteValidation.test.js && node tests/linkedinActions.test.js && node tests/promptStockBatches.test.js"
   },
   "dependencies": {
     "@google/genai": "^2.7.0",
